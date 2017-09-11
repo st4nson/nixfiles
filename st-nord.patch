@@ -1,0 +1,79 @@
+diff --git a/config.def.h b/config.def.h
+index b41747f..fc0c68c 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -5,7 +5,7 @@
+  *
+  * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
+  */
+-static char font[] = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char font[] = "Knack Nerd Font:size=10:antialias=true:autohint=true";
+ static int borderpx = 2;
+ 
+ /*
+@@ -84,31 +84,28 @@ static unsigned int tabspaces = 8;
+ 
+ /* Terminal colors (16 first used in escape sequence) */
+ static const char *colorname[] = {
+-	/* 8 normal colors */
+-	"black",
+-	"red3",
+-	"green3",
+-	"yellow3",
+-	"blue2",
+-	"magenta3",
+-	"cyan3",
+-	"gray90",
+-
+-	/* 8 bright colors */
+-	"gray50",
+-	"red",
+-	"green",
+-	"yellow",
+-	"#5c5cff",
+-	"magenta",
+-	"cyan",
+-	"white",
++	/* Nord */
++	"#3B4252",  /*  0: black    */
++	"#BF616A",  /*  1: red      */
++	"#A3BE8C",  /*  2: green    */
++	"#EBCB8B",  /*  3: yellow   */
++	"#81A1C1",  /*  4: blue     */
++	"#B48EAD",  /*  5: magenta  */
++	"#88C0D0",  /*  6: cyan     */
++	"#E5E9F0",  /*  7: white    */
++	"#4C566A",  /*  8: brblack  */
++	"#BF616A",  /*  9: brred    */
++	"#A3BE8C",  /* 10: brgreen  */
++	"#EBCB8B",  /* 11: bryellow */
++	"#81A1C1",  /* 12: brblue   */
++	"#B48EAD",  /* 13: brmagenta*/
++	"#8FBCBB",  /* 14: brcyan   */
++	"#ECEFF4",  /* 15: brwhite  */
+ 
+ 	[255] = 0,
+-
+ 	/* more colors can be added after 255 to use with DefaultXX */
+-	"#cccccc",
+-	"#555555",
++	"#2E3440",
++	"#D8DEE9",
+ };
+ 
+ 
+@@ -116,10 +113,10 @@ static const char *colorname[] = {
+  * Default colors (colorname index)
+  * foreground, background, cursor, reverse cursor
+  */
+-static unsigned int defaultfg = 7;
+-static unsigned int defaultbg = 0;
+-static unsigned int defaultcs = 256;
+-static unsigned int defaultrcs = 257;
++static unsigned int defaultfg = 257;
++static unsigned int defaultbg = 256;
++static unsigned int defaultcs = 14;
++static unsigned int defaultrcs = 15;
+ 
+ /*
+  * Default shape of cursor
