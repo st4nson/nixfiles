@@ -58,13 +58,17 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    bind
+    file
     chromium
+    gnumake
     git
     git-crypt
     git-review
     openssl
     openvpn
-    (python27.withPackages(ps: with ps; [ jinja2 pyyaml ]))
+    python27
+    python36
     st
     tmux
     unzip
@@ -82,6 +86,7 @@
   };
 
   programs.zsh.enable = true;
+  programs.ssh.startAgent = true;
   programs.vim.defaultEditor = true;
 
   # Services to enable:
@@ -101,6 +106,7 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "intel" ];
+    vaapiDrivers = [ pkgs.vaapiIntel ];
     layout = "pl";
 
     displayManager = {

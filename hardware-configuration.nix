@@ -12,6 +12,8 @@
       "usb_storage"
       "usbhid"
       "sd_mod"
+      "fbcon"
+      "i915"
   ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
