@@ -22,9 +22,14 @@
       paths = [
         customVim
         (python27.withPackages(ps: with ps; [
+          cffi
+          cryptography
           jinja2
           pyyaml
-          cryptography
+        ]))
+        (python36.withPackages(ps: with ps; [
+          jinja2
+          pyyaml
         ]))
       ];
     };

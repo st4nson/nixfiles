@@ -59,18 +59,27 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     bind
-    file
     chromium
-    gnumake
+    file
     git
     git-crypt
+    git-lfs
     git-review
+    gnumake
+    jq
+    lshw
+    lsof
     openssl
     openvpn
+    pciutils
     python27
     python36
+    remmina
+    shutter
+    silver-searcher
     st
     tmux
+    tmuxinator
     unzip
     vagrant
     vim
@@ -144,5 +153,5 @@
   };
 
   # The NixOS release
-  system.stateVersion = "17.03";
+  system.stateVersion = "17.09";
 }
