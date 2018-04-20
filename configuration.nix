@@ -66,9 +66,11 @@
     git-lfs
     git-review
     gnumake
+    htop
     jq
     lshw
     lsof
+    mkpasswd
     openssl
     openvpn
     pciutils
@@ -78,9 +80,12 @@
     shutter
     silver-searcher
     st
+    telnet
     tmux
     tmuxinator
+    tree
     unzip
+    usbutils
     vagrant
     vim
     wget
@@ -115,7 +120,6 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "intel" ];
-    vaapiDrivers = [ pkgs.vaapiIntel ];
     layout = "pl";
 
     displayManager = {
@@ -135,6 +139,8 @@
     windowManager.awesome.enable = true;
   };
 
+  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+
   # VMs and Containers
   virtualisation = {
     docker.enable = true;
@@ -153,5 +159,5 @@
   };
 
   # The NixOS release
-  system.stateVersion = "17.09";
+  system.stateVersion = "18.03";
 }
