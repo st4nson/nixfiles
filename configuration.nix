@@ -140,6 +140,7 @@
   };
 
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
+  hardware.pulseaudio.enable = true;
 
   # VMs and Containers
   virtualisation = {
@@ -152,6 +153,7 @@
     isNormalUser = true;
     shell = pkgs.zsh;
     extraGroups  = [
+      "audio"
       "wheel"
       "docker"
       "vboxusers"
