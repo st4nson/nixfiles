@@ -4,8 +4,8 @@
   imports =
   [
     ./hardware-configuration.nix
-#   ./transparent-proxy.nix
-      ./../common-config.nix
+    ./../transparent-proxy.nix
+    ./../common-config.nix
   ];
 
   # Boot options
@@ -45,7 +45,7 @@
 
   # Networking setup
   networking = {
-    hostName = "st4nson-mobl";
+    hostName = "sszydlo-mobl";
     firewall.trustedInterfaces = [ "docker0" ];
     wireless.enable = true;
   };
