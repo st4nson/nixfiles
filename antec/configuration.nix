@@ -5,6 +5,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../common-config.nix
+      ./../transparent-proxy.nix
     ];
 
   # Boot options
@@ -42,6 +43,7 @@
 
   # Services to enable:
   services.openssh.enable = true;
+  services.ntp.enable = true;
 
   # Networking setup
   networking = {
@@ -59,12 +61,14 @@
 
   virtualisation = {
     virtualbox.host.enable = true;
+    libvirtd.enable = true;
   };
 
   # User account
   users.extraUsers.st4nson = {
     extraGroups  = [
       "vboxusers"
+      "libvirtd"
     ];
   };
 }
