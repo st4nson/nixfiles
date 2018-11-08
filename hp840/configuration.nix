@@ -31,10 +31,6 @@
     loader = {
       systemd-boot.enable = true;
       efi.canTouchEfiVariables = true;
-
-      grub = {
-        configurationLimit = 25;
-      };
     };
 
     cleanTmpDir = true;
@@ -48,6 +44,7 @@
     hostName = "sszydlo-mobl";
     firewall.trustedInterfaces = [ "docker0" ];
     wireless.enable = true;
+    enableIPv6 = false;
   };
 
   # Setup display and window maanger
@@ -64,6 +61,8 @@
   virtualisation = {
     virtualbox.host.enable = true;
   };
+
+  nixpkgs.config.virtualbox.enableExtensionPack = true;
 
   # User account
   users.extraUsers.st4nson = {

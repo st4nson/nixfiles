@@ -26,10 +26,12 @@
           cryptography
           jinja2
           pyyaml
+          requests
         ]))
         (python36.withPackages(ps: with ps; [
           jinja2
           pyyaml
+          requests
         ]))
       ];
     };
