@@ -57,7 +57,7 @@
 
   # Custom pkgs config
   nixpkgs.config = {
-    st.patches = [ ./st-nord.patch ];
+    st.patches = [ ./st-0.8.1-nord.patch ];
   };
 
   programs.zsh.enable = true;

@@ -1,17 +1,15 @@
-diff --git a/config.def.h b/config.def.h
-index b41747f..fc0c68c 100644
---- a/config.def.h
-+++ b/config.def.h
+--- a/config.def.h	2018-03-20 21:29:59.000000000 +0100
++++ b/config.def.h	2018-11-16 23:47:20.776969007 +0100
 @@ -5,7 +5,7 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
--static char font[] = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
-+static char font[] = "Knack Nerd Font:size=10:antialias=true:autohint=true";
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
++static char *font = "Hack Nerd Font:size=12:antialias=true:autohint=true";
  static int borderpx = 2;
  
  /*
-@@ -84,31 +84,28 @@ static unsigned int tabspaces = 8;
+@@ -84,31 +84,29 @@
  
  /* Terminal colors (16 first used in escape sequence) */
  static const char *colorname[] = {
@@ -53,7 +51,7 @@ index b41747f..fc0c68c 100644
 +	"#ECEFF4",  /* 15: brwhite  */
  
  	[255] = 0,
--
+ 
  	/* more colors can be added after 255 to use with DefaultXX */
 -	"#cccccc",
 -	"#555555",
@@ -62,18 +60,19 @@ index b41747f..fc0c68c 100644
  };
  
  
-@@ -116,10 +113,10 @@ static const char *colorname[] = {
+@@ -116,10 +114,11 @@
   * Default colors (colorname index)
   * foreground, background, cursor, reverse cursor
   */
--static unsigned int defaultfg = 7;
--static unsigned int defaultbg = 0;
+-unsigned int defaultfg = 7;
+-unsigned int defaultbg = 0;
 -static unsigned int defaultcs = 256;
 -static unsigned int defaultrcs = 257;
-+static unsigned int defaultfg = 257;
-+static unsigned int defaultbg = 256;
++unsigned int defaultfg = 257;
++unsigned int defaultbg = 256;
 +static unsigned int defaultcs = 14;
 +static unsigned int defaultrcs = 15;
++
  
  /*
   * Default shape of cursor
