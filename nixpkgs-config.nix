@@ -1,4 +1,6 @@
 {
+  allowUnfree = true;
+
   packageOverrides = pkgs: with pkgs; rec {
 
     customVim = pkgs.vim_configurable.override {

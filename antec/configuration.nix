@@ -50,6 +50,8 @@
     hostName = "st4nson-dev";
     dhcpcd.denyInterfaces = [ "enp3s0" ];
     firewall.trustedInterfaces = [ "docker0" ];
+
+    hosts = { };
   };
 
   # Setup display and window maanger
@@ -59,9 +61,37 @@
 
   hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
+  nixpkgs.config.allowUnfree = true;
+
+  users.users.st4nson.packages = [
+    pkgs.steam
+  ];
+
+  hardware.opengl.driSupport32Bit = true;
+  hardware.pulseaudio.support32Bit = true;
+
+  hardware.bluetooth.enable = true;
+  hardware.bluetooth.powerOnBoot = true;
+
+  hardware.bluetooth.extraConfig = ''
+  [General]
+  Disable=Socket
+  Disable=Headset
+  Enable=Media,Source,Sink,Gateway
+  AutoConnect=true
+  load-module module-switch-on-connect
+  ControllerMode = bredr
+'';
+
+  # VMs and Containers
   virtualisation = {
     virtualbox.host.enable = true;
     libvirtd.enable = true;
+    libvirtd.extraConfig= ''
+    user = "st4nson"
+    group = "users"
+    dynamic_ownership = 1
+    '';
   };
 
   # User account
