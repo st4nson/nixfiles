@@ -52,6 +52,7 @@
     tmux
     tmuxinator
     tree
+    unclutter
     unzip
     usbutils
     vim
