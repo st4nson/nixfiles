@@ -43,7 +43,7 @@
     pasystray
     pciutils
     python27
-    python36
+    python37
     silver-searcher
     sshpass
     st
