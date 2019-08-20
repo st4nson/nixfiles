@@ -23,20 +23,37 @@
       name = "st4nson-env";
       paths = [
 
+        ansible-lint
+        ansible_2_7
         cfssl
-        chromium
-        firefox
-        go
-        icedtea8_web
-        libreoffice
+        gopass
         openconnect
         redshift
+        st4nsonVim
+        taskwarrior
+
+        chromium
+        firefox
+        icedtea8_web
+        libreoffice
         remmina
         shutter
         slack
-        st4nsonVim
 
+        go
+        shellcheck
+
+        docker-compose
+        docker-ls
+        docker-machine
+
+        kubectx
+        qemu
+        virtmanager
+
+        python27Packages.flake8
         python27Packages.pylint
+        python37Packages.flake8
         python37Packages.pylint
 
         (python27.withPackages(ps: with ps; [

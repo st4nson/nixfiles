@@ -20,6 +20,7 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     acpi
+    arp-scan
     bind
     blueman
     file
@@ -27,7 +28,9 @@
     git-crypt
     git-lfs
     git-review
+    glxinfo
     gnumake
+    gnupg
     htop
     iftop
     ipcalc
@@ -35,13 +38,16 @@
     lshw
     lsof
     mkpasswd
+    nmap
     openssl
     pasystray
     pciutils
     python27
     python36
     silver-searcher
+    sshpass
     st
+    tcpdump
     telnet
     tmux
     tmuxinator
