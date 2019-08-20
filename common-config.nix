@@ -19,8 +19,9 @@
 
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
+    acpi
     bind
-    chromium
+    blueman
     file
     git
     git-crypt
@@ -28,17 +29,17 @@
     git-review
     gnumake
     htop
+    iftop
+    ipcalc
     jq
     lshw
     lsof
     mkpasswd
     openssl
-    openvpn
+    pasystray
     pciutils
     python27
     python36
-    remmina
-    shutter
     silver-searcher
     st
     telnet
@@ -47,11 +48,11 @@
     tree
     unzip
     usbutils
-    vagrant
     vim
     wget
     xclip
     xscreensaver
+    zip
     zsh
   ];
 

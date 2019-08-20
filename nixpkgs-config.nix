@@ -3,7 +3,7 @@
 
   packageOverrides = pkgs: with pkgs; rec {
 
-    customVim = pkgs.vim_configurable.override {
+    st4nsonVim = pkgs.vim_configurable.override {
       features = "huge"; # one of  tiny, small, normal, big or huge
       gui = "gtk";
       cfg = {
@@ -20,9 +20,25 @@
     };
 
     myPackages = pkgs.buildEnv {
-      name = "myEnv";
+      name = "st4nson-env";
       paths = [
-        customVim
+
+        cfssl
+        chromium
+        firefox
+        go
+        icedtea8_web
+        libreoffice
+        openconnect
+        redshift
+        remmina
+        shutter
+        slack
+        st4nsonVim
+
+        python27Packages.pylint
+        python37Packages.pylint
+
         (python27.withPackages(ps: with ps; [
           cffi
           cryptography
@@ -30,7 +46,8 @@
           pyyaml
           requests
         ]))
-        (python36.withPackages(ps: with ps; [
+
+        (python37.withPackages(ps: with ps; [
           jinja2
           pyyaml
           requests
