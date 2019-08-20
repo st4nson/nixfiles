@@ -110,5 +110,5 @@
   };
 
   # The NixOS release
-  system.stateVersion = "18.09";
+  system.stateVersion = "19.03";
 }
