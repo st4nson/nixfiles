@@ -87,6 +87,7 @@
   # VMs and Containers
   virtualisation = {
     virtualbox.host.enable = true;
+    virtualbox.host.enableExtensionPack = true;
     libvirtd.enable = true;
     libvirtd.extraConfig= ''
     user = "st4nson"

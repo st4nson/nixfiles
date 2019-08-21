@@ -60,6 +60,7 @@
           cffi
           cryptography
           jinja2
+          pyopenssl
           pyyaml
           requests
         ]))
@@ -67,6 +68,7 @@
         (python37.withPackages(ps: with ps; [
           jinja2
           pyyaml
+          pyopenssl
           requests
         ]))
       ];
