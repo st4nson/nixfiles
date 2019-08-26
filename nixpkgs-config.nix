@@ -19,6 +19,10 @@
       };
     };
 
+    pidgin-with-plugins = pkgs.pidgin-with-plugins.override {
+      plugins = [ pkgs.pidgin-sipe ];
+    };
+
     myPackages = pkgs.buildEnv {
       name = "st4nson-env";
       paths = [
@@ -39,6 +43,7 @@
         remmina
         shutter
         slack
+        pidgin-with-plugins
 
         go
         shellcheck
