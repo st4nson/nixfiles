@@ -6,6 +6,7 @@
     ./hardware-configuration.nix
     ./../transparent-proxy.nix
     ./../common-config.nix
+    ./../custom-certs.nix
   ];
 
   # Boot options
