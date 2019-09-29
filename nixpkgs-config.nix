@@ -45,7 +45,6 @@
         remmina
         shutter
         slack
-        pidgin-with-plugins
 
         ctags
         go_1_12
