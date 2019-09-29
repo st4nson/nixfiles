@@ -19,6 +19,10 @@
       };
     };
 
+    pidgin-with-plugins = pkgs.pidgin-with-plugins.override {
+      plugins = [ pkgs.pidgin-sipe ];
+    };
+
     myPackages = pkgs.buildEnv {
       name = "st4nson-env";
       paths = [
@@ -35,12 +39,15 @@
         chromium
         firefox
         icedtea8_web
+        keepassxc
         libreoffice
+        pidgin-with-plugins
         remmina
         shutter
         slack
 
-        go
+        ctags
+        go_1_12
         shellcheck
 
         docker-compose
@@ -52,24 +59,35 @@
         virtmanager
 
         python27Packages.flake8
+        python27Packages.pep8
         python27Packages.pylint
         python37Packages.flake8
+        python37Packages.pep8
         python37Packages.pylint
 
         (python27.withPackages(ps: with ps; [
           cffi
           cryptography
+          isort
+          jedi
           jinja2
           pyopenssl
+          pytest
           pyyaml
           requests
+          tox
         ]))
 
         (python37.withPackages(ps: with ps; [
+          isort
+          jedi
           jinja2
-          pyyaml
+          pylint
           pyopenssl
+          pytest
+          pyyaml
           requests
+          tox
         ]))
       ];
     };
