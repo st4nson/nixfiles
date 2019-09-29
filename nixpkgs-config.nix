@@ -48,7 +48,9 @@
 
         ctags
         go_1_12
+        nodejs
         shellcheck
+        yarn
 
         docker-compose
         docker-ls
