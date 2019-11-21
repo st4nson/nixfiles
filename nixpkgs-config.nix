@@ -36,7 +36,7 @@
         st4nsonVim
         taskwarrior
 
-        chromium
+        #chromium
         firefox
         icedtea8_web
         keepassxc
@@ -60,36 +60,42 @@
         qemu
         virtmanager
 
-        python27Packages.flake8
-        python27Packages.pep8
-        python27Packages.pylint
-        python37Packages.flake8
-        python37Packages.pep8
-        python37Packages.pylint
+        #python27Packages.flake8
+        #python27Packages.pep8
+        #python27Packages.pylint
+        #python37Packages.flake8
+        #python37Packages.pep8
+        #python37Packages.pylint
 
-        (python27.withPackages(ps: with ps; [
-          cffi
-          cryptography
-          isort
-          jedi
-          jinja2
-          pyopenssl
-          pytest
-          pyyaml
-          requests
-          tox
-        ]))
+        #python38Packages.pylint
+
+        #(python27.withPackages(ps: with ps; [
+          #cffi
+          #cryptography
+          ##isort
+          #jedi
+          #jinja2
+          #pyopenssl
+          #pytest
+          #pyyaml
+          #requests
+          #tox
+        #]))
 
         (python37.withPackages(ps: with ps; [
           isort
           jedi
           jinja2
           pylint
+          pep8
+          flake8
           pyopenssl
           pytest
+          pycodestyle
           pyyaml
           requests
           tox
+          xmltodict
         ]))
       ];
     };
