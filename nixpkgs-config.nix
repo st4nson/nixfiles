@@ -36,7 +36,7 @@
         st4nsonVim
         taskwarrior
 
-        #chromium
+        chromium
         firefox
         icedtea8_web
         keepassxc

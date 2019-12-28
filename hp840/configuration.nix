@@ -57,6 +57,15 @@
     videoDrivers = [ "intel" ];
   };
 
+  services.redshift = {
+    enable = true;
+    brightness.night = "0.80";
+  };
+
+  location.provider = "manual";
+  location.latitude = 54.37;
+  location.longitude = 18.63;
+
   # Bluetooth
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
