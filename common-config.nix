@@ -65,7 +65,10 @@
 
   # Custom pkgs config
   nixpkgs.config = {
-    st.patches = [ ./st-nord.patch ];
+    st.patches = [
+      ./st-nord.patch
+      ./st-boxdraw.patch
+    ];
   };
 
   programs.zsh.enable = true;
