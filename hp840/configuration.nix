@@ -52,10 +52,12 @@
     enableIPv6 = false;
   };
 
-  # Setup display and window maanger
+  # Setup hardware (video & audio)
   services.xserver = {
     videoDrivers = [ "intel" ];
   };
+
+  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
 
   services.redshift = {
     enable = true;
@@ -67,6 +69,7 @@
   location.longitude = 18.63;
 
   # Bluetooth
+  services.blueman.enable = true;
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
@@ -76,18 +79,16 @@
   Disable=Headset
   Enable=Media,Source,Sink,Gateway
   AutoConnect=true
-  load-module module-switch-on-connect
+  #load-module module-switch-on-connect
   ControllerMode = bredr
 '';
 
   # Enable touchpad support.
   services.xserver.libinput.enable = true;
 
-  hardware.opengl.extraPackages = [ pkgs.vaapiIntel ];
-
-  nixpkgs.config.allowUnfree = true;
-
   # VMs and Containers
+  nixpkgs.config.allowUnfree = true; # needed for 'enableExtensionPack'
+
   virtualisation = {
     virtualbox.host.enable = true;
     virtualbox.host.enableExtensionPack = true;
