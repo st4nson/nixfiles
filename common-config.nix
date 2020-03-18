@@ -20,9 +20,11 @@
   # List packages installed in system profile.
   environment.systemPackages = with pkgs; [
     acpi
+    arandr
     arp-scan
     bind
     blueman
+    exa
     file
     git
     git-crypt
@@ -44,6 +46,7 @@
     pciutils
     python27
     python37
+    ranger
     silver-searcher
     sshpass
     st
@@ -60,7 +63,6 @@
     xclip
     xscreensaver
     zip
-    zsh
   ];
 
   # Custom pkgs config
@@ -71,7 +73,6 @@
     ];
   };
 
-  programs.zsh.enable = true;
   programs.ssh.startAgent = true;
   programs.vim.defaultEditor = true;
 

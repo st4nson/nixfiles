@@ -47,7 +47,7 @@
         slack
 
         ctags
-        go_1_12
+        go_1_13
         nodejs
         shellcheck
         yarn
@@ -59,28 +59,6 @@
         kubectx
         qemu
         virtmanager
-
-        #python27Packages.flake8
-        #python27Packages.pep8
-        #python27Packages.pylint
-        #python37Packages.flake8
-        #python37Packages.pep8
-        #python37Packages.pylint
-
-        #python38Packages.pylint
-
-        #(python27.withPackages(ps: with ps; [
-          #cffi
-          #cryptography
-          ##isort
-          #jedi
-          #jinja2
-          #pyopenssl
-          #pytest
-          #pyyaml
-          #requests
-          #tox
-        #]))
 
         (python37.withPackages(ps: with ps; [
           isort

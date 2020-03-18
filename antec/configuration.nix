@@ -7,6 +7,7 @@
       ./../common-config.nix
       ./../transparent-proxy.nix
       ./../custom-certs.nix
+      ./../zsh.nix
     ];
 
   # Boot options
