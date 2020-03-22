@@ -108,7 +108,7 @@
 
     initExtra = ''
       ## Custom zsh functions
-      #source ~/.zsh_functions
+      source ~/.zsh_functions
 
       ## Autocompletion for k8s stuff
       source <(kubectl completion zsh)
@@ -117,6 +117,8 @@
       RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
       '';
     };
+
+  home.file.".zsh_functions".source = ./files/zsh_functions;
 
   programs.fzf = {
     enable = true;

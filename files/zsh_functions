@@ -1,0 +1,26 @@
+# fuzzy kubectl exec
+kx () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local cmd=${@:-"bash"}
+
+	echo kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+	kubectl exec -it --namespace $pod[1] $pod[2] $cmd
+}
+
+# fuzzy kubectl logs
+kl () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local attr=${@:-""}
+
+	echo kubectl logs -f $attr --namespace $pod[1] $pod[2]
+	kubectl logs -f $attr --namespace $pod[1] $pod[2]
+}
+
+# fuzzy kubectl delete pod
+kd () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local attr=${@:-""}
+
+	echo kubectl delete pod --namespace $pod[1] $pod[2]
+	kubectl delete pod --namespace $pod[1] $pod[2]
+}
