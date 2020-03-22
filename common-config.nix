@@ -25,6 +25,7 @@
     bind
     blueman
     exa
+    fd
     file
     git
     git-crypt
@@ -63,6 +64,7 @@
     xclip
     xscreensaver
     zip
+    zsh
   ];
 
   # Custom pkgs config

@@ -5,9 +5,8 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./../common-config.nix
-      ./../transparent-proxy.nix
       ./../custom-certs.nix
-      ./../zsh.nix
+      ./../transparent-proxy.nix
     ];
 
   # Boot options
