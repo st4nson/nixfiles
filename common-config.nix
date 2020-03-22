@@ -18,6 +18,7 @@
   time.timeZone = "Europe/Warsaw";
 
   # List packages installed in system profile.
+  environment.pathsToLink = [ "/share/zsh" ];
   environment.systemPackages = with pkgs; [
     acpi
     arandr
