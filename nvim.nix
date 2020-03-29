@@ -31,6 +31,10 @@
     set nocompatible              " be iMproved, required
     filetype off                  " required
 
+    " Setup plugins not yet available in 'Nix Store'
+    set runtimepath^=~/.local/share/nvim/site/vim-bufkill/start
+    set runtimepath^=~/.local/share/nvim/site/vim-numbertoggle/start
+
     "" Theme setup
     "set term=xterm
     set t_Co=256
@@ -175,6 +179,11 @@
     hi VimwikiHeader5 guifg=#00FFFF ctermfg=14
     hi VimwikiHeader6 guifg=#FFFF00 ctermfg=11
     '';
-
   };
+
+  home.file.".local/share/nvim/site/vim-bufkill/start".recursive = true;
+  home.file.".local/share/nvim/site/vim-bufkill/start".source = ./files/vim-plugins/vim-bufkill;
+  home.file.".local/share/nvim/site/vim-numbertoggle/start".recursive = true;
+  home.file.".local/share/nvim/site/vim-numbertoggle/start".source = ./files/vim-plugins/vim-numbertoggle;
+
 }

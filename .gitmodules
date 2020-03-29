@@ -1,0 +1,6 @@
+[submodule "files/vim-plugins/vim-bufkill"]
+	path = files/vim-plugins/vim-bufkill
+	url = https://github.com/qpkorr/vim-bufkill.git
+[submodule "files/vim-plugins/vim-numbertoggle"]
+	path = files/vim-plugins/vim-numbertoggle
+	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
