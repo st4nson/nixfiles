@@ -41,6 +41,8 @@
     set runtimepath^=~/.local/share/nvim/site/vim-numbertoggle/start
     set runtimepath^=~/.local/share/nvim/site/vim-dispatch-neovim/start
 
+    filetype plugin indent on    " required
+
     "" Theme setup
     "set term=xterm
     set t_Co=256
