@@ -14,17 +14,20 @@
 
       nerdtree
       nerdcommenter
-      #vim-numbertoggle
-      #vim-buffkill
       vim-easymotion
       vim-surround
       fzf-vim
 
       coc-nvim
 
-      vimwiki
+      ansible-vim
+      vim-go
       vim-nix
       vim-terraform
+      tagbar
+
+      vimwiki
+      goyo
     ];
 
     extraConfig = ''

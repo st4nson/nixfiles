@@ -3,48 +3,55 @@
 {
   programs.zsh = {
     enable = true;
-    histSize = 8192;
-    ohMyZsh.enable = true;
-    ohMyZsh.theme = "muse";
-    ohMyZsh.plugins = [
-      "git"
-      "kube-ps1"
-      "vi-mode"
-      "wd"
-    ];
+    autocd = true;
+    dotDir = ".config/zsh";
+    enableCompletion = true;
+
+    oh-my-zsh = {
+      enable = true;
+      theme = "muse";
+      plugins = [
+        "git"
+        "kube-ps1"
+        "terraform"
+        "vi-mode"
+        "wd"
+      ];
+    };
 
     shellAliases = {
-      ip="ip -c";
+      sl = "exa";
+      ls = "exa";
+      l = "exa -l";
+      la = "exa -la";
+      ip = "ip --color=auto";
       tmux="tmux -2";
     };
 
-    interactiveShellInit = ''
-      COMPLETION_WAITING_DOTS="true"
+    sessionVariables = {
+      COMPLETION_WAITING_DOTS = "true";
+      FZF_TMUX = 1;
+      GOPATH = "$HOME/golang";
+      KEYTIMEOUT = 1;
+      MODE_INDICATOR = " %{$fg_bold[blue]%}%{$reset_color%}";
+      PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin";
+    };
 
-      ## Golang
-      export GOPATH=$HOME/golang
-      export PATH=$PATH:/usr/local/go/bin
-      export PATH=$PATH:$GOPATH/bin
-
-      # Vi-mode indicator
-      MODE_INDICATOR=" %{$fg_bold[blue]%}%{$reset_color%}"
-
-      # 10ms for key timeout
-      KEYTIMEOUT=1
-
-      # FZF
-      export FZF_TMUX=1
-      export FZF_DEFAULT_OPTS="--border"
-      [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
+    initExtra = ''
       ## Custom zsh functions
       source ~/.zsh_functions
 
-      # Autocompletion for k8s stuff
+      ## Autocompletion for k8s stuff
       source <(kubectl completion zsh)
       source <(helm completion zsh)
 
+      # Nord 'dircolors'
+      eval $(dircolors ~/.dir_colors)
+
       RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
-    '';
-  };
+      '';
+    };
+
+  home.file.".zsh_functions".source = ./files/zsh_functions;
+  home.file.".dir_colors".source = ./files/dir_colors;
 }
