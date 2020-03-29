@@ -4,3 +4,6 @@
 [submodule "files/vim-plugins/vim-numbertoggle"]
 	path = files/vim-plugins/vim-numbertoggle
 	url = https://github.com/jeffkreeftmeijer/vim-numbertoggle.git
+[submodule "files/vim-plugins/vim-dispatch-neovim"]
+	path = files/vim-plugins/vim-dispatch-neovim
+	url = https://github.com/radenling/vim-dispatch-neovim.git

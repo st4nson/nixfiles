@@ -28,6 +28,8 @@
 
       vimwiki
       goyo
+      vim-slime
+      vim-dispatch
     ];
 
     extraConfig = ''
@@ -37,6 +39,7 @@
     " Setup plugins not yet available in 'Nix Store'
     set runtimepath^=~/.local/share/nvim/site/vim-bufkill/start
     set runtimepath^=~/.local/share/nvim/site/vim-numbertoggle/start
+    set runtimepath^=~/.local/share/nvim/site/vim-dispatch-neovim/start
 
     "" Theme setup
     "set term=xterm
@@ -163,6 +166,9 @@
     " Resume latest coc list
     nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+    "" Tagbar
+    nmap <silent> <F8> :TagbarToggle<CR>
+
     "" fzf
     nmap <silent> <C-p> :FZF<CR>
     nmap <silent> <leader>' :Buffers<CR>
@@ -181,6 +187,77 @@
     hi VimwikiHeader4 guifg=#FF00FF ctermfg=13
     hi VimwikiHeader5 guifg=#00FFFF ctermfg=14
     hi VimwikiHeader6 guifg=#FFFF00 ctermfg=11
+
+    "" terraform-vim
+    let g:terraform_fmt_on_save=1
+
+    "" vim-slime
+    let g:slime_target = "tmux"
+    let g:slime_paste_file = "$HOME/.slime_paste"
+    let g:slime_dont_ask_default = 1
+    let g:slime_default_config = {"socket_name": "default", "target_pane": ":.1"}
+
+    "" Golang specific
+    " run :GoBuild or :GoTestCompile based on the go file (vim-go-tutorial)
+    function! s:build_go_files()
+        let l:file = expand('%')
+        if l:file =~# '^\f\+_test\.go$'
+            call go#cmd#Test(0, 1)
+        elseif l:file =~# '^\f\+\.go$'
+            call go#cmd#Build(0)
+        endif
+    endfunction
+
+    autocmd FileType go nmap <leader>b  :<C-u>call <SID>build_go_files()<CR>
+    autocmd FileType go nmap <leader>r  <Plug>(go-run)
+    autocmd FileType go nmap <leader>t  <Plug>(go-test)
+    autocmd FileType go nmap <Leader>c  <Plug>(go-coverage-toggle)
+
+    "autocmd FileType go nmap <leader>d <Plug>(go-doc)
+
+    let g:go_list_type = "quickfix"
+    let g:go_fmt_command = "goimports"
+
+    let g:go_def_mapping_enabled = 0
+    let g:go_highlight_types = 1
+    let g:go_highlight_fields = 1
+    let g:go_highlight_functions = 1
+    let g:go_highlight_methods = 1
+    let g:go_highlight_operators = 1
+    let g:go_highlight_function_parameters = 1
+    let g:go_highlight_variable_declarations = 1
+    let g:go_highlight_variable_assignments = 1
+    let g:go_highlight_function_calls = 1
+    let g:go_highlight_extra_types = 1
+
+    " Tagbar config
+    let g:tagbar_type_go = {
+        \ 'ctagstype' : 'go',
+        \ 'kinds'     : [
+            \ 'p:package',
+            \ 'i:imports:1',
+            \ 'c:constants',
+            \ 'v:variables',
+            \ 't:types',
+            \ 'n:interfaces',
+            \ 'w:fields',
+            \ 'e:embedded',
+            \ 'm:methods',
+            \ 'r:constructor',
+            \ 'f:functions'
+        \ ],
+        \ 'sro' : '.',
+        \ 'kind2scope' : {
+            \ 't' : 'ctype',
+            \ 'n' : 'ntype'
+        \ },
+        \ 'scope2kind' : {
+            \ 'ctype' : 't',
+            \ 'ntype' : 'n'
+        \ },
+        \ 'ctagsbin'  : 'gotags',
+        \ 'ctagsargs' : '-sort -silent'
+    \ }
     '';
   };
 
@@ -188,5 +265,7 @@
   home.file.".local/share/nvim/site/vim-bufkill/start".source = ./files/vim-plugins/vim-bufkill;
   home.file.".local/share/nvim/site/vim-numbertoggle/start".recursive = true;
   home.file.".local/share/nvim/site/vim-numbertoggle/start".source = ./files/vim-plugins/vim-numbertoggle;
+  home.file.".local/share/nvim/site/vim-dispatch-neovim/start".recursive = true;
+  home.file.".local/share/nvim/site/vim-dispatch-neovim/start".source = ./files/vim-plugins/vim-dispatch-neovim;
 
 }
