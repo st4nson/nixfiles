@@ -168,8 +168,18 @@
     " Resume latest coc list
     nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
+    "" buffers navigation
+    nmap <silent> <leader>[ :bprevious<CR>
+    nmap <silent> <leader>] :bnext<CR>
+    nmap <silent> <leader>; :BD<CR>
+
     "" Tagbar
     nmap <silent> <F8> :TagbarToggle<CR>
+
+    "" NERDTree
+    let g:NERDTreeChDirMode = 2 " switch CWD
+    nmap <silent> <F7> :NERDTreeToggle<CR>
+    nmap <silent> <leader><F7> :NERDTreeFind<CR>
 
     "" fzf
     nmap <silent> <C-p> :FZF<CR>

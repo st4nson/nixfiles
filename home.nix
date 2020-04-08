@@ -33,11 +33,11 @@
     shutter
     slack
 
-    ctags
     go_1_13
     nodejs
     shellcheck
     yarn
+    universal-ctags
 
     kubectx
     qemu
