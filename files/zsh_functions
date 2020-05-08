@@ -17,10 +17,27 @@ kl () {
 }
 
 # fuzzy kubectl delete pod
-kd () {
+kdel () {
 	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
 	local attr=${@:-""}
 
 	echo kubectl delete pod --namespace $pod[1] $pod[2]
 	kubectl delete pod --namespace $pod[1] $pod[2]
+}
+
+# fuzzy kubectl describe pod
+kd () {
+	local pod=($(kubectl get pods --all-namespaces -owide | fzf | awk '{print $1, $2}'))
+	local attr=${@:-""}
+
+	echo kubectl describe pod --namespace $pod[1] $pod[2]
+	kubectl describe pod --namespace $pod[1] $pod[2]
+}
+
+fbr() {
+  local branches branch
+  branches=$(git branch --all | grep -v HEAD) &&
+  branch=$(echo "$branches" |
+           fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
+  git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
