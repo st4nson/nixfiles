@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 
-nix-channel --add https://github.com/rycee/home-manager/archive/release-19.09.tar.gz home-manager
+set -e
+
+HOME_VER=20.03
+
+nix-channel --add https://github.com/rycee/home-manager/archive/release-$HOME_VER.tar.gz home-manager
 nix-channel --update
+
+reset
+
+mkdir -p ~/.config/nixpkgs
+ln -fs "$(pwd)"/home.nix ~/.config/nixpkgs/home.nix
 
 nix-shell '<home-manager>' -A install
 
-mkdir ~/.config/nixpkgs
-ln -s ./home.nix ~/.config/nixpkgs/home.nix
-
-echo "Init complete - start new shell and run 'home-manager switch'"
+echo "Init complete."

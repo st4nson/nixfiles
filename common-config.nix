@@ -94,14 +94,8 @@
     displayManager = {
       # Start xscreensaver on startup
       sessionCommands = "xscreensaver -no-splash &";
-      # Setup Slim
-      slim = {
-        enable = true;
-        theme = pkgs.fetchurl {
-          url = "https://github.com/edwtjo/nixos-black-theme/archive/v1.0.tar.gz";
-          sha256 = "13bm7k3p6k7yq47nba08bn48cfv536k4ipnwwp1q1l2ydlp85r9d";
-        };
-      };
+      # Setup LightDM
+      lightdm.enable = true;
     };
 
     # AwesomeWM
@@ -125,5 +119,5 @@
   };
 
   # The NixOS release
-  system.stateVersion = "19.03";
+  system.stateVersion = "20.03";
 }
