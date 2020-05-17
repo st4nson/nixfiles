@@ -11,18 +11,39 @@
   programs.home-manager.enable = true;
 
   home.packages = with pkgs; [
+
     ansible-lint
-    ansible_2_7
+    ansible
+
     cfssl
+    exa
+    fd
+    gnupg
     gopass
-    openconnect
-    redshift
-    taskwarrior
+    htop
+    iftop
+    ipcalc
+    jq
+    lshw
+    lsof
+    mkpasswd
+    ranger
+    silver-searcher
+    sshpass
+    tmux
+    tmuxinator
+    ranger
+    restic
+    unzip
+    wget
+    zip
 
-    docker-compose
-    docker-ls
-    docker-machine
+    git
+    git-crypt
+    git-lfs
+    git-review
 
+    # GUI
     chromium
     firefox
     icedtea8_web
@@ -33,18 +54,21 @@
     shutter
     slack
 
-    go
-    nodejs
-    shellcheck
-    yarn
-    universal-ctags
-
+    # Containers & VMs
+    docker-compose
+    docker-ls
+    docker-machine
     kubectx
     qemu
     virtmanager
 
-    ranger
-    restic
+    # Programming
+    gnumake
+    go
+    nodejs
+    shellcheck
+    universal-ctags
+    yarn
     terraform-lsp
 
     # Python
@@ -92,9 +116,9 @@
 
   programs.git = {
     enable = true;
-    userName = "Stanisław Szydło"
+    userName = "Stanisław Szydło";
     userEmail = "st4nson@gmail.com"
-  }
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
