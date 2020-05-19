@@ -7,3 +7,15 @@
 [submodule "files/vim-plugins/vim-dispatch-neovim"]
 	path = files/vim-plugins/vim-dispatch-neovim
 	url = https://github.com/radenling/vim-dispatch-neovim.git
+[submodule "files/awesome/awesome-copycats"]
+	path = files/awesome/awesome-copycats
+	url = https://github.com/lcpz/awesome-copycats.git
+[submodule "files/awesome/lain"]
+	path = files/awesome/lain
+	url = https://github.com/lcpz/lain
+[submodule "files/awesome/freedesktop"]
+	path = files/awesome/freedesktop
+	url = https://github.com/lcpz/awesome-freedesktop.git
+[submodule "files/awesome/pomodoro"]
+	path = files/awesome/pomodoro
+	url = https://github.com/francois2metz/pomodoro-awesome.git
