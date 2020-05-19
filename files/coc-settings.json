@@ -1,0 +1,27 @@
+{
+	"languageserver": {
+		"golang": {
+			"command": "gopls",
+			"rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+			"filetypes": ["go"]
+		},
+		"terraform": {
+			"command": "terraform-lsp",
+			"filetypes": ["terraform"],
+			"initializationOptions": {}
+		}
+	},
+	"suggest.autoTrigger": "always",
+	"python.pythonPath": "~/.nix-profile/bin/python3",
+	"python.linting.pylintPath": "~/.nix-profile/bin/pylint",
+	"python.linting.pep8Path": "~/.nix-profile/bin/pycodestyle",
+	"python.linting.pep8Enabled": true,
+	"python.jediEnabled": true,
+	"yaml.completion": true,
+	"yaml.validate": true,
+	"yaml.hover": true,
+	"yaml.schemas": {
+		"http://json.schemastore.org/gitlab-ci": ".gitlab-ci.y*ml",
+		"http://json.schemastore.org/ansible-stable-2.7": "./playbooks/*.y*ml"
+	}
+}

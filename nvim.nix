@@ -22,6 +22,9 @@
       fzf-vim
 
       coc-nvim
+      coc-json
+      coc-yaml
+      coc-python
 
       ansible-vim
       vim-go
@@ -275,6 +278,8 @@
     \ }
     '';
   };
+
+  home.file.".config/nvim/coc-settings.json".source = ./files/coc-settings.json;
 
   home.file.".local/share/nvim/site/vim-bufkill/start".recursive = true;
   home.file.".local/share/nvim/site/vim-bufkill/start".source = ./files/vim-plugins/vim-bufkill;

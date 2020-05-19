@@ -13,6 +13,7 @@
       plugins = [
         "git"
         "kube-ps1"
+        "taskwarrior"
         "terraform"
         "vi-mode"
         "wd"
@@ -49,6 +50,7 @@
       eval $(dircolors ~/.dir_colors)
 
       RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
+      task list
       '';
     };
 

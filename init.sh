@@ -2,6 +2,9 @@
 
 set -e
 
+git submodule init
+git submodule update
+
 HOME_VER=20.03
 
 nix-channel --add https://github.com/rycee/home-manager/archive/release-$HOME_VER.tar.gz home-manager
