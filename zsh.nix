@@ -23,8 +23,8 @@
     shellAliases = {
       sl = "exa";
       ls = "exa";
-      l = "exa -l";
       la = "exa -la";
+      lt = "exa -lasnew";
       ip = "ip --color=auto";
       tmux="tmux -2";
     };
