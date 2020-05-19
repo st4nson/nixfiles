@@ -136,6 +136,7 @@
     customPaneNavigationAndResize = true;
 
     extraConfig = ''
+      set-option -ga terminal-overrides ",st-256color:Tc"
       set -g mouse on           # mouse support
 
       # stop confusion while spliting windows
@@ -165,6 +166,7 @@
     tmuxinator.enable = true;
   };
 
+  # AwesomeWM configuration
   xsession = {
     enable = true;
     windowManager.awesome.enable = true;
@@ -184,6 +186,7 @@
 
   home.file.".config/awesome/themes/st4nson".recursive = true;
   home.file.".config/awesome/themes/st4nson".source = ./files/awesome/themes/st4nson;
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards

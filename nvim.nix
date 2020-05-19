@@ -50,13 +50,15 @@
     filetype plugin indent on    " required
 
     "" Theme setup
-    "set term=xterm
-    set t_Co=256
+    if (has("termguicolors"))
+      set termguicolors
+    endif
     set background=dark
 
-    let g:nord_italic = 1
     let g:nord_bold = 1
+    let g:nord_italic = 1
     let g:nord_italic_comments = 1
+    let g:nord_uniform_diff_background = 1
     colorscheme nord
 
     "" Airline plugin
