@@ -35,7 +35,7 @@
       GOPATH = "$HOME/golang";
       KEYTIMEOUT = 1;
       MODE_INDICATOR = " %{$fg_bold[blue]%}%{$reset_color%}";
-      PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin";
+      PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/bin";
     };
 
     initExtra = ''

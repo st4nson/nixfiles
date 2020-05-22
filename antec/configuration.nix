@@ -18,14 +18,14 @@
         "hid_microsoft"
       ];
 
-      luks.devices = [
-        {
+      luks.devices = {
+        luksroot = {
           name = "luksroot";
           device = "/dev/sda2";
           preLVM = true;
           allowDiscards = true;
-        }
-      ];
+        };
+      };
     };
 
     # Use the systemd-boot EFI boot loader.
@@ -69,15 +69,14 @@
   hardware.bluetooth.enable = true;
   hardware.bluetooth.powerOnBoot = true;
 
-  hardware.bluetooth.extraConfig = ''
-  [General]
-  Disable=Socket
-  Disable=Headset
-  Enable=Media,Source,Sink,Gateway
-  AutoConnect=true
-  #load-module module-switch-on-connect
-  ControllerMode = bredr
-'';
+  hardware.bluetooth.config = {
+    General = {
+      Disable = "Socket,Headset";
+      Enable = "Media,Source,Sink,Gateway";
+      AutoConnect = true;
+      ControllerMode = "bredr";
+    };
+  };
 
   # VMs and Containers
   nixpkgs.config.allowUnfree = true; # needed for 'enableExtensionPack'
