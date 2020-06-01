@@ -207,6 +207,8 @@
     hi VimwikiHeader4 guifg=#FF00FF ctermfg=13
     hi VimwikiHeader5 guifg=#00FFFF ctermfg=14
     hi VimwikiHeader6 guifg=#FFFF00 ctermfg=11
+    let g:vimwiki_table_mappings=0
+
 
     "" terraform-vim
     let g:terraform_fmt_on_save=1
