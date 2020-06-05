@@ -65,12 +65,11 @@
 
     # Programming
     gnumake
-    go
     nodejs
     shellcheck
+    terraform-lsp
     universal-ctags
     yarn
-    terraform-lsp
 
     # Python
     pipenv
@@ -164,6 +163,13 @@
     ];
 
     tmuxinator.enable = true;
+  };
+
+  programs.go = {
+    enable = true;
+
+    goBin = "golang/bin";
+    goPath = "golang";
   };
 
   # AwesomeWM configuration

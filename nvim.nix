@@ -197,6 +197,7 @@
     imap <c-x><c-l> <plug>(fzf-complete-line)
 
     "" Vimwiki
+    let g:vimwiki_table_mappings=0
     let g:vimwiki_list = [{'path': '~/.vimwiki/',
                          \ 'syntax': 'markdown',
                          \ 'ext': '.md'}]

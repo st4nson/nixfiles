@@ -32,7 +32,7 @@
     sessionVariables = {
       COMPLETION_WAITING_DOTS = "true";
       FZF_TMUX = 1;
-      GOPATH = "$HOME/golang";
+      GOROOT = "$(go env GOROOT)";
       KEYTIMEOUT = 1;
       MODE_INDICATOR = " %{$fg_bold[blue]%}%{$reset_color%}";
       PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/bin";
