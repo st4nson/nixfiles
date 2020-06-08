@@ -8,7 +8,12 @@
 		"terraform": {
 			"command": "terraform-lsp",
 			"filetypes": ["terraform"],
-			"initializationOptions": {}
+			"initializationOptions": {
+				"usePlaceholders": true,
+				"deepCompletion": true
+				// "completeUnimported" : true
+				// "staticcheck": true
+			}
 		}
 	},
 	"suggest.autoTrigger": "always",
@@ -23,5 +28,9 @@
 	"yaml.schemas": {
 		"http://json.schemastore.org/gitlab-ci": ".gitlab-ci.y*ml",
 		"http://json.schemastore.org/ansible-stable-2.7": "./playbooks/*.y*ml"
-	}
+	},
+	"snippets.ultisnips.directories": [
+		"UltiSnips",
+		"gosnippets/UltiSnips"
+	]
 }

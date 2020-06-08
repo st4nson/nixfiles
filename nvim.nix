@@ -21,15 +21,17 @@
       vim-surround
       fzf-vim
 
+      #coc-json
       coc-nvim
-      coc-json
-      coc-yaml
-      coc-python
+      #coc-python
+      #coc-snippets
+      #coc-yaml
 
       ansible-vim
       vim-go
       vim-nix
       vim-terraform
+      vim-snippets
       tagbar
 
       vimwiki
@@ -141,6 +143,38 @@
     " Use <C-Space> (<Nul> in Vim) to trigger completion.
     inoremap <silent><expr> <C-Space> coc#refresh()
     " inoremap <silent><expr> <Nul> coc#refresh()
+
+    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+    " position. Coc only does snippet and additional edit on confirm.
+    " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+    if exists('*complete_info')
+      inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+    else
+      inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+    endif
+
+    " Use K to show documentation in preview window.
+    nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+    function! s:show_documentation()
+      if (index(['vim','help'], &filetype) >= 0)
+        execute 'h '.expand('<cword>')
+      else
+        call CocAction('doHover')
+      endif
+    endfunction
+
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    " Use <C-l> for trigger snippet expand.
+    imap <C-l> <Plug>(coc-snippets-expand)
+
+    " Use <C-j> for select text for visual placeholder of snippet.
+    vmap <C-j> <Plug>(coc-snippets-select)
+
+    " Use <C-j> for both expand and jump (make expand higher priority.)
+    imap <C-j> <Plug>(coc-snippets-expand-jump)
 
     " Close preview window when completion is done
     autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
