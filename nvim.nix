@@ -21,8 +21,12 @@
       vim-surround
       fzf-vim
 
-      #coc-json
       coc-nvim
+
+      ## Nix way of installing not working yet.
+      #coc-diagnostic
+      #coc-highligh
+      #coc-json
       #coc-python
       #coc-snippets
       #coc-yaml
@@ -191,6 +195,9 @@
 
     " Remap for rename current word
     nmap <leader>rn <Plug>(coc-rename)
+
+    " Remap for format current buffer
+    nmap <leader>f <Plug>(coc-format)
 
     " Using CocList
     " Show all diagnostics

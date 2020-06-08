@@ -65,8 +65,11 @@
 
     # Programming
     gnumake
+    nixpkgs-fmt
     nodejs
+    rnix-lsp
     shellcheck
+    shfmt
     terraform-lsp
     universal-ctags
     yarn
