@@ -35,7 +35,7 @@
       GOROOT = "$(go env GOROOT)";
       KEYTIMEOUT = 1;
       MODE_INDICATOR = " %{$fg_bold[blue]%}%{$reset_color%}";
-      PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/bin";
+      PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/bin:$HOME/.krew/bin";
     };
 
     initExtra = ''

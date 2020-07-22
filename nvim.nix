@@ -13,6 +13,7 @@
 
       vim-airline
       vim-airline-themes
+      vim-devicons
       nord-vim
 
       nerdtree
@@ -32,11 +33,11 @@
       #coc-yaml
 
       ansible-vim
+      tagbar
       vim-go
       vim-nix
-      vim-terraform
       vim-snippets
-      tagbar
+      vim-terraform
 
       vimwiki
       goyo
@@ -281,6 +282,11 @@
 
     let g:go_list_type = "quickfix"
     let g:go_fmt_command = "goimports"
+
+    "let g:go_def_mode='gopls'
+    "let g:go_info_mode='gopls'
+    let g:go_code_completion_enabled = 0
+    let g:go_gopls_enabled = 0
 
     let g:go_def_mapping_enabled = 0
     let g:go_highlight_types = 1
