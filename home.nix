@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, ... }:
+
+let
+  inherit (lib) optionals optionalAttrs optionalString;
+  inherit (pkgs.stdenv) isLinux;
+in
 
 {
   imports =
@@ -24,9 +29,7 @@
     iftop
     ipcalc
     jq
-    lshw
     lsof
-    mkpasswd
     ranger
     silver-searcher
     sshpass
@@ -44,24 +47,12 @@
     git-lfs
     git-review
 
-    # GUI
-    chromium
-    firefox
-    icedtea8_web
-    keepassxc
-    libreoffice
-    pidgin-with-plugins
-    remmina
-    shutter
-    slack
-
     # Containers & VMs
     docker-compose
     docker-ls
     docker-machine
     kubectx
     qemu
-    virtmanager
 
     # Programming
     gnumake
@@ -101,6 +92,21 @@
     #python3Packages.pytest
     #python3Packages.python-language-server
 
+  ] ++ optionals isLinux [
+    lshw
+    mkpasswd
+    virtmanager
+
+    # GUI
+    chromium
+    firefox
+    icedtea8_web
+    keepassxc
+    libreoffice
+    pidgin-with-plugins
+    remmina
+    shutter
+    slack
   ];
 
   programs.direnv = {

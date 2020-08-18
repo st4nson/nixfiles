@@ -1,5 +1,11 @@
-{ config, pkgs, ... }:
+{ pkgs, lib, ... }:
 
+let
+  inherit (lib) optionalString;
+  inherit (pkgs.stdenv) isDarwin isLinux;
+
+  userNameDarwin = "sszydlo";
+in
 {
   programs.zsh = {
     enable = true;
@@ -46,10 +52,16 @@
       source <(kubectl completion zsh)
       source <(helm completion zsh)
 
+      ${optionalString isLinux ''
       # Nord 'dircolors'
       eval $(dircolors ~/.dir_colors)
+      ''}
 
       RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
+      ${optionalString isDarwin ''
+      . /Users/${userNameDarwin}/.nix-profile/etc/profile.d/nix.sh
+      ''}
+
       task list
       '';
     };
