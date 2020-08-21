@@ -28,6 +28,12 @@
       # Sync panes
       bind e setw synchronize-panes on
       bind E setw synchronize-panes off
+
+      # Colors
+      set -g status-bg black
+      set -g status-fg white
+      set -g pane-active-border-style bg=default,fg=#5cafb0
+      set -g pane-border-style fg=#5cafb0
     '';
 
     plugins = with pkgs; [
