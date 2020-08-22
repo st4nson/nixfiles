@@ -52,10 +52,10 @@
     };
 
     extraConfig = ''
-        # rules
-        yabai -m rule --add app='System Preferences' manage=off
-        yabai -m rule --add app="^Cisco AnyConnect Secure Mobility Client$" manage=off
-      '';
+      # rules
+      yabai -m rule --add app='System Preferences' manage=off
+      yabai -m rule --add app="^Cisco AnyConnect Secure Mobility Client$" manage=off
+    '';
   };
 
   services.spacebar = {
@@ -82,6 +82,18 @@
       dnd_icon           = "";
       clock_format       = ''"%d/%m/%y %R"'';
     };
+  };
+
+  services.skhd = {
+    enable = true;
+    package = pkgs.skhd;
+    skhdConfig = ''
+      # open terminal
+      cmd - return : /Applications/iTerm.app/Contents/MacOS/iTerm2 --single-instance -d ~
+      cmd - q : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --single-instance -d
+      # close focused window
+      alt - w : chunkc tiling::window --close
+    '';
   };
 
   # Use a custom configuration.nix location.
