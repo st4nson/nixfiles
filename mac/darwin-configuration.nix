@@ -2,8 +2,15 @@
 
 {
   # List packages installed in system profile. To search by name, run:
-  environment.systemPackages =
-    [ pkgs.vim ];
+  environment.systemPackages = with pkgs; [
+    alacritty
+    vim
+  ];
+
+  fonts.enableFontDir = true;
+  fonts.fonts = with pkgs; [
+    nerdfonts
+  ];
 
   environment.variables = {
     EDITOR = "vim";
@@ -101,8 +108,8 @@
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
-  # services.nix-daemon.enable = true;
-  # nix.package = pkgs.nix;
+  services.nix-daemon.enable = true;
+  nix.package = pkgs.nix;
 
   programs.zsh.enable = true;
 

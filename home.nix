@@ -130,9 +130,6 @@ in
     userEmail = "st4nson@gmail.com";
   };
 
-
-  };
-
   programs.go = {
     enable = true;
 
