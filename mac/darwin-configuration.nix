@@ -1,6 +1,12 @@
 { config, pkgs, ... }:
 
 {
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.dock.autohide = true;
+  system.defaults.dock.orientation = "bottom";
+  system.defaults.dock.show-recents = false;
+  system.defaults.dock.tilesize = 32;
+
   # List packages installed in system profile. To search by name, run:
   environment.systemPackages = with pkgs; [
     alacritty
@@ -19,7 +25,7 @@
   services.yabai = {
     enable = true;
     package = pkgs.yabai;
-    enableScriptingAddition = true;
+    enableScriptingAddition = false;
     config = {
       external_bar               = "all:28:0";
 
@@ -96,10 +102,17 @@
     package = pkgs.skhd;
     skhdConfig = ''
       # open terminal
-      cmd - return : /Applications/iTerm.app/Contents/MacOS/iTerm2 --single-instance -d ~
+      cmd - return : /Applications/NixManualApps/Alacritty.app/Contents/MacOS/alacritty
       cmd - q : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --single-instance -d
-      # close focused window
-      alt - w : chunkc tiling::window --close
+
+      # focus window
+      lalt - h : yabai -m window --focus west
+      lalt - j : yabai -m window --focus south
+      lalt - k : yabai -m window --focus north
+      lalt - l : yabai -m window --focus east
+
+      cmd - j : yabai -m window --focus prev
+      cmd - k : yabai -m window --focus next
     '';
   };
 

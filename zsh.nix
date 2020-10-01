@@ -17,6 +17,7 @@ in
       enable = true;
       theme = "muse";
       plugins = [
+        "aws"
         "git"
         "kube-ps1"
         "taskwarrior"
@@ -27,6 +28,7 @@ in
     };
 
     shellAliases = {
+      cat = "bat";
       sl = "exa";
       ls = "exa";
       la = "exa -la";
@@ -42,6 +44,7 @@ in
       KEYTIMEOUT = 1;
       MODE_INDICATOR = " %{$fg_bold[blue]%}%{$reset_color%}";
       PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/bin:$HOME/.krew/bin";
+      NIX_PATH = "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels:$NIX_PATH";
     };
 
     initExtra = ''
@@ -58,9 +61,11 @@ in
       ''}
 
       RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
-      ${optionalString isDarwin ''
-      . /Users/${userNameDarwin}/.nix-profile/etc/profile.d/nix.sh
-      ''}
+
+      ## Needed for single user Nix installation
+      #${optionalString isDarwin ''
+      #. /Users/${userNameDarwin}/.nix-profile/etc/profile.d/nix.sh
+      #''}
 
       task list
       '';

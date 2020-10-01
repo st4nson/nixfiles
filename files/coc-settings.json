@@ -1,4 +1,6 @@
 {
+	"signature.enable": true,
+	"signature.target": "float",
 	"languageserver": {
 		"golang": {
 			"command": "gopls",

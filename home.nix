@@ -21,6 +21,8 @@ in
     ansible-lint
     ansible
 
+    alacritty
+    awscli
     cfssl
     exa
     fd
@@ -30,15 +32,16 @@ in
     iftop
     ipcalc
     jq
+    keepassxc
     lsof
     ranger
+    ranger
+    restic
     silver-searcher
     sshpass
     taskwarrior
     tmux
     tmuxinator
-    ranger
-    restic
     unzip
     wget
     zip
@@ -57,6 +60,7 @@ in
 
     # Programming
     gnumake
+    gopls
     nixpkgs-fmt
     nodejs
     rnix-lsp
@@ -110,6 +114,13 @@ in
     slack
   ];
 
+  programs.bat = {
+    enable = true;
+    config = {
+      theme = "Nord";
+    };
+  };
+
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
@@ -136,6 +147,8 @@ in
     goBin = "golang/bin";
     goPath = "golang";
   };
+
+  home.file.".alacritty.yml".source = ./files/alacritty.yml;
 
   # AwesomeWM configuration
   xsession = {
