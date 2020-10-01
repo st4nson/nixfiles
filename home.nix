@@ -8,9 +8,12 @@ in
 {
   imports =
     [
+      ./home/alacritty.nix
       ./home/awesome.nix
+      ./home/bat.nix
       ./home/fzf.nix
       ./home/git.nix
+      ./home/go.nix
       ./home/nvim.nix
       ./home/tmux.nix
       ./home/zsh.nix
@@ -24,7 +27,6 @@ in
     ansible-lint
     ansible
 
-    alacritty
     awscli
     cfssl
     exa
@@ -58,7 +60,6 @@ in
 
     # Programming
     gnumake
-    gopls
     nixpkgs-fmt
     nodejs
     rnix-lsp
@@ -110,27 +111,6 @@ in
     shutter
     slack
   ];
-
-  programs.bat = {
-    enable = true;
-    config = {
-      theme = "Nord";
-    };
-  };
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-  };
-
-  programs.go = {
-    enable = true;
-
-    goBin = "golang/bin";
-    goPath = "golang";
-  };
-
-  home.file.".alacritty.yml".source = ./files/alacritty.yml;
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
