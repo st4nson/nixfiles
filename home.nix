@@ -40,13 +40,10 @@ in
     keepassxc
     lsof
     ranger
-    ranger
     restic
     silver-searcher
     sshpass
     taskwarrior
-    tmux
-    tmuxinator
     unzip
     wget
     zip

@@ -113,6 +113,13 @@
 
       cmd - j : yabai -m window --focus prev
       cmd - k : yabai -m window --focus next
+
+      # float / unfloat window and center on screen
+      lalt - t : yabai -m window --toggle float;\
+                 yabai -m window --grid 4:4:1:1:2:2
+
+      # toggle window zoom
+      lalt - d : yabai -m window --toggle zoom-parent
     '';
   };
 
