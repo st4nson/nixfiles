@@ -15,6 +15,7 @@ in
       ./home/git.nix
       ./home/go.nix
       ./home/nvim.nix
+      ./home/taskwarrior.nix
       ./home/tmux.nix
       ./home/zsh.nix
     ];
@@ -43,7 +44,6 @@ in
     restic
     silver-searcher
     sshpass
-    taskwarrior
     unzip
     wget
     zip
