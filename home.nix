@@ -9,6 +9,8 @@ in
   imports =
     [
       ./home/awesome.nix
+      ./home/fzf.nix
+      ./home/git.nix
       ./home/nvim.nix
       ./home/tmux.nix
       ./home/zsh.nix
@@ -46,11 +48,6 @@ in
     unzip
     wget
     zip
-
-    git
-    git-crypt
-    git-lfs
-    git-review
 
     # Containers & VMs
     docker-compose
@@ -124,21 +121,6 @@ in
   programs.direnv = {
     enable = true;
     enableZshIntegration = true;
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-
-    defaultOptions = [
-      "--border"
-    ];
-  };
-
-  programs.git = {
-    enable = true;
-    userName = "Stanisław Szydło";
-    userEmail = "st4nson@gmail.com";
   };
 
   programs.go = {
