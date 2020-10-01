@@ -8,9 +8,9 @@ in
 {
   imports =
     [
-      ./nvim.nix
-      ./tmux.nix
-      ./zsh.nix
+      ./home/nvim.nix
+      ./home/tmux.nix
+      ./home/zsh.nix
     ];
 
   # Let Home Manager install and manage itself.
@@ -70,23 +70,23 @@ in
     universal-ctags
     yarn
 
-    # Python
-    pipenv
-    (python3.withPackages(ps: with ps; [
-      isort
-      jedi
-      jinja2
-      pylint
-      pep8
-      flake8
-      pyopenssl
-      pytest
-      pycodestyle
-      pyyaml
-      requests
-      tox
-      xmltodict
-    ]))
+    # Python TODO
+    #pipenv
+    #(python3.withPackages(ps: with ps; [
+    #  isort
+    #  jedi
+    #  jinja2
+    #  pylint
+    #  pep8
+    #  flake8
+    #  pyopenssl
+    #  pytest
+    #  pycodestyle
+    #  pyyaml
+    #  requests
+    #  tox
+    #  xmltodict
+    #]))
     # TODO
     #python3Packages.black
     #python3Packages.nose
@@ -106,7 +106,6 @@ in
     chromium
     firefox
     icedtea8_web
-    keepassxc
     libreoffice
     pidgin-with-plugins
     remmina

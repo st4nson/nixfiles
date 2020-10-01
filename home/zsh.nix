@@ -4,7 +4,7 @@ let
   inherit (lib) optionalString;
   inherit (pkgs.stdenv) isDarwin isLinux;
 
-  userNameDarwin = "sszydlo";
+  userNameDarwin = "st4nson";
 in
 {
   programs.zsh = {
@@ -33,8 +33,8 @@ in
       ls = "exa";
       la = "exa -la";
       lt = "exa -lasnew";
-      ip = "ip --color=auto";
-      tmux="tmux -2";
+      #ip = "ip --color=auto";
+      #tmux="tmux -2";
     };
 
     sessionVariables = {
@@ -71,6 +71,6 @@ in
       '';
     };
 
-  home.file.".zsh_functions".source = ./files/zsh_functions;
-  home.file.".dir_colors".source = ./files/dir_colors;
+  home.file.".zsh_functions".source = ../files/zsh_functions;
+  home.file.".dir_colors".source = ../files/dir_colors;
 }

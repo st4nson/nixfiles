@@ -32,6 +32,7 @@
       #coc-snippets
       #coc-yaml
 
+      Jenkinsfile-vim-syntax
       ansible-vim
       tagbar
       vim-go
@@ -244,14 +245,7 @@
                          \ 'syntax': 'markdown',
                          \ 'ext': '.md'}]
 
-    hi VimwikiHeader1 guifg=#afafff ctermfg=147
-    hi VimwikiHeader2 guifg=#00FF00 ctermfg=10
-    hi VimwikiHeader3 guifg=#0000FF ctermfg=12
-    hi VimwikiHeader4 guifg=#FF00FF ctermfg=13
-    hi VimwikiHeader5 guifg=#00FFFF ctermfg=14
-    hi VimwikiHeader6 guifg=#FFFF00 ctermfg=11
     let g:vimwiki_table_mappings=0
-
 
     "" terraform-vim
     let g:terraform_fmt_on_save=1
@@ -331,13 +325,13 @@
     '';
   };
 
-  home.file.".config/nvim/coc-settings.json".source = ./files/coc-settings.json;
+  home.file.".config/nvim/coc-settings.json".source = ../files/coc-settings.json;
 
   home.file.".local/share/nvim/site/vim-bufkill/start".recursive = true;
-  home.file.".local/share/nvim/site/vim-bufkill/start".source = ./files/vim-plugins/vim-bufkill;
+  home.file.".local/share/nvim/site/vim-bufkill/start".source = ../files/vim-plugins/vim-bufkill;
   home.file.".local/share/nvim/site/vim-numbertoggle/start".recursive = true;
-  home.file.".local/share/nvim/site/vim-numbertoggle/start".source = ./files/vim-plugins/vim-numbertoggle;
+  home.file.".local/share/nvim/site/vim-numbertoggle/start".source = ../files/vim-plugins/vim-numbertoggle;
   home.file.".local/share/nvim/site/vim-dispatch-neovim/start".recursive = true;
-  home.file.".local/share/nvim/site/vim-dispatch-neovim/start".source = ./files/vim-plugins/vim-dispatch-neovim;
+  home.file.".local/share/nvim/site/vim-dispatch-neovim/start".source = ../files/vim-plugins/vim-dispatch-neovim;
 
 }

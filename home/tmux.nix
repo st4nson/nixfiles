@@ -4,7 +4,7 @@
   programs.tmux = {
     enable = true;
 
-    terminal = "st-256color";
+    terminal = "xterm-256color";
     keyMode = "vi";
     baseIndex = 0;
     escapeTime = 0;
@@ -16,7 +16,7 @@
     customPaneNavigationAndResize = true;
 
     extraConfig = ''
-      set-option -ga terminal-overrides ",st-256color:Tc"
+      set-option -ga terminal-overrides ",xterm-256color:Tc"
       set -g mouse on           # mouse support
 
       # stop confusion while spliting windows
