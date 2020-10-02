@@ -26,6 +26,7 @@
       vim-easymotion
       vim-floaterm
       vim-surround
+      vim-numbertoggle
 
       # coc.nvim
       coc-nvim
@@ -60,7 +61,6 @@
     filetype off                  " required
 
     " Setup plugins not yet available in 'Nix Store'
-    set runtimepath^=~/.local/share/nvim/site/vim-numbertoggle/start
     set runtimepath^=~/.local/share/nvim/site/vim-dispatch-neovim/start
 
     filetype plugin indent on    " required
@@ -346,8 +346,6 @@
 
   home.file.".config/nvim/coc-settings.json".source = ../files/coc-settings.json;
 
-  home.file.".local/share/nvim/site/vim-numbertoggle/start".recursive = true;
-  home.file.".local/share/nvim/site/vim-numbertoggle/start".source = ../files/vim-plugins/vim-numbertoggle;
   home.file.".local/share/nvim/site/vim-dispatch-neovim/start".recursive = true;
   home.file.".local/share/nvim/site/vim-dispatch-neovim/start".source = ../files/vim-plugins/vim-dispatch-neovim;
 
