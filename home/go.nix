@@ -2,8 +2,9 @@
 
 {
   home.packages = with pkgs; [
-    gopls
     golangci-lint
+    gopls
+    gotags
   ];
 
   programs.go = {

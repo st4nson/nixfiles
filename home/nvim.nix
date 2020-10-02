@@ -8,21 +8,28 @@
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      # git
       vim-fugitive
       vim-gitgutter
 
+      # themes
+      nord-vim
       vim-airline
       vim-airline-themes
       vim-devicons
-      nord-vim
 
-      nerdtree
-      nerdcommenter
-      vim-easymotion
-      vim-surround
+      # motion
       fzf-vim
+      nerdcommenter
+      nerdtree
+      vim-bufkill
+      vim-easymotion
+      vim-floaterm
+      vim-surround
 
+      # coc.nvim
       coc-nvim
+      coc-fzf
 
       ## Nix way of installing not working yet.
       #coc-diagnostic
@@ -32,6 +39,7 @@
       #coc-snippets
       #coc-yaml
 
+      # programming
       Jenkinsfile-vim-syntax
       ansible-vim
       tagbar
@@ -40,6 +48,7 @@
       vim-snippets
       vim-terraform
 
+      # misc.
       vimwiki
       goyo
       vim-slime
@@ -51,7 +60,6 @@
     filetype off                  " required
 
     " Setup plugins not yet available in 'Nix Store'
-    set runtimepath^=~/.local/share/nvim/site/vim-bufkill/start
     set runtimepath^=~/.local/share/nvim/site/vim-numbertoggle/start
     set runtimepath^=~/.local/share/nvim/site/vim-dispatch-neovim/start
 
@@ -239,6 +247,16 @@
     nmap <silent> <leader>= :History<CR>
     imap <c-x><c-l> <plug>(fzf-complete-line)
 
+    " run fzf in floating window
+    let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'highlight': 'Type', 'border': 'rounded' } }
+
+    "" vim-floaterm
+    " Close window on success
+    let g:floaterm_autoclose = 1
+
+    nnoremap <silent> <leader>e :FloatermToggle<CR>
+    tnoremap <silent> <leader>e <C-\><C-n>:FloatermToggle<CR>
+
     "" Vimwiki
     let g:vimwiki_table_mappings=0
     let g:vimwiki_list = [{'path': '~/.vimwiki/',
@@ -277,10 +295,11 @@
     let g:go_list_type = "quickfix"
     let g:go_fmt_command = "goimports"
 
-    "let g:go_def_mode='gopls'
-    "let g:go_info_mode='gopls'
+    let g:go_gopls_enabled = 1
+
+    " coc.nvim takes care of that
     let g:go_code_completion_enabled = 0
-    let g:go_gopls_enabled = 0
+    let g:go_doc_keywordprg_enabled = 0
 
     let g:go_def_mapping_enabled = 0
     let g:go_highlight_types = 1
@@ -327,8 +346,6 @@
 
   home.file.".config/nvim/coc-settings.json".source = ../files/coc-settings.json;
 
-  home.file.".local/share/nvim/site/vim-bufkill/start".recursive = true;
-  home.file.".local/share/nvim/site/vim-bufkill/start".source = ../files/vim-plugins/vim-bufkill;
   home.file.".local/share/nvim/site/vim-numbertoggle/start".recursive = true;
   home.file.".local/share/nvim/site/vim-numbertoggle/start".source = ../files/vim-plugins/vim-numbertoggle;
   home.file.".local/share/nvim/site/vim-dispatch-neovim/start".recursive = true;
