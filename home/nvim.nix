@@ -296,6 +296,8 @@
     let g:go_fmt_command = "goimports"
 
     let g:go_gopls_enabled = 1
+    " share 'gopls' instance
+    let g:go_gopls_options=['-remote=auto']
 
     " coc.nvim takes care of that
     let g:go_code_completion_enabled = 0
