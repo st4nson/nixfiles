@@ -11,6 +11,7 @@ in
       ./home/alacritty.nix
       ./home/awesome.nix
       ./home/bat.nix
+      ./home/direnv.nix
       ./home/fzf.nix
       ./home/git.nix
       ./home/go.nix
