@@ -50,10 +50,11 @@
       vim-terraform
 
       # misc.
-      vimwiki
+      direnv-vim
       goyo
-      vim-slime
       vim-dispatch
+      vim-slime
+      vimwiki
     ];
 
     extraConfig = ''
@@ -291,6 +292,9 @@
     autocmd FileType go nmap <Leader>c  <Plug>(go-coverage-toggle)
 
     "autocmd FileType go nmap <leader>d <Plug>(go-doc)
+
+    " bigger quickfix window
+    let g:go_list_height = 5
 
     let g:go_list_type = "quickfix"
     let g:go_fmt_command = "goimports"

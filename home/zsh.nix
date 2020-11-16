@@ -42,9 +42,13 @@ in
       FZF_TMUX = 1;
       GOROOT = "$(go env GOROOT)";
       KEYTIMEOUT = 1;
-      MODE_INDICATOR = " %{$fg_bold[blue]%}%{$reset_color%}";
       PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:$HOME/bin:$HOME/.krew/bin";
       NIX_PATH = "darwin-config=$HOME/.nixpkgs/darwin-configuration.nix:$HOME/.nix-defexpr/channels:$NIX_PATH";
+      KUBE_PS1_CLUSTER_FUNCTION = "cluster_short_name";
+      KUBE_PS1_SYMBOL_USE_IMG = "true";
+      KUBE_PS1_PREFIX = "";
+      KUBE_PS1_SUFFIX = "";
+      KUBE_PS1_SEPARATOR= "";
     };
 
     initExtra = ''
@@ -60,6 +64,7 @@ in
       eval $(dircolors ~/.dir_colors)
       ''}
 
+      MODE_INDICATOR=" %{$fg[blue]%}%{$reset_color%}";
       RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
 
       ## Needed for single user Nix installation
