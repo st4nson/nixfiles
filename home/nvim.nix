@@ -1,5 +1,33 @@
 { pkgs, ... }:
-
+let
+  nerdtree-git-plugin-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "nerdtree-git-plugin";
+    src = pkgs.fetchFromGitHub {
+      owner = "Xuyuanp";
+      repo = "nerdtree-git-plugin";
+      rev = "5fa0e3e1487b17f8a23fc2674ebde5f55ce6a816";
+      sha256 = "0nwb3jla0rsg9vb52n24gjis9k4fwn38iqk13ixxd6w5pnn8ax9j";
+    };
+  };
+  vim-dispatch-neovim-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-dispatch-neovim-custom";
+    src = pkgs.fetchFromGitHub {
+      owner = "radenling";
+      repo = "vim-dispatch-neovim";
+      rev = "c8c4e21a95c25032a041002f9bf6e45a75a73021";
+      sha256 = "111n3f7lv9nkpj200xh0fwbi3scjqyivpw5fwdjdyiqzd6qabxml";
+    };
+  };
+  vim-delve-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "vim-delve";
+    src = pkgs.fetchFromGitHub {
+      owner = "sebdah";
+      repo = "vim-delve";
+      rev = "554b7997caba5d2b38bc4a092e3a468e4abb7f18";
+      sha256 = "11qsvw3qsrkwmdks6mhmygmwzi9ma8vhx77kid5s7p936i8xdmxr";
+    };
+  };
+in
 {
   programs.neovim = {
     enable = true;
@@ -22,6 +50,7 @@
       fzf-vim
       nerdcommenter
       nerdtree
+      nerdtree-git-plugin-custom
       vim-bufkill
       vim-easymotion
       vim-floaterm
@@ -35,15 +64,16 @@
       ## Nix way of installing not working yet.
       #coc-diagnostic
       #coc-highligh
-      #coc-json
+      coc-json
       #coc-python
-      #coc-snippets
-      #coc-yaml
+      coc-snippets
+      coc-yaml
 
       # programming
       Jenkinsfile-vim-syntax
       ansible-vim
       tagbar
+      vim-delve-custom
       vim-go
       vim-nix
       vim-snippets
@@ -52,7 +82,9 @@
       # misc.
       direnv-vim
       goyo
+      vim-better-whitespace
       vim-dispatch
+      vim-dispatch-neovim-custom
       vim-slime
       vimwiki
     ];
@@ -61,8 +93,8 @@
     set nocompatible              " be iMproved, required
     filetype off                  " required
 
-    " Setup plugins not yet available in 'Nix Store'
-    set runtimepath^=~/.local/share/nvim/site/vim-dispatch-neovim/start
+    " mouse support - guilty pleasure
+    set mouse=a
 
     filetype plugin indent on    " required
 
@@ -351,8 +383,4 @@
   };
 
   home.file.".config/nvim/coc-settings.json".source = ../files/coc-settings.json;
-
-  home.file.".local/share/nvim/site/vim-dispatch-neovim/start".recursive = true;
-  home.file.".local/share/nvim/site/vim-dispatch-neovim/start".source = ../files/vim-plugins/vim-dispatch-neovim;
-
 }

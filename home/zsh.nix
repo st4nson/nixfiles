@@ -49,6 +49,7 @@ in
       KUBE_PS1_PREFIX = "";
       KUBE_PS1_SUFFIX = "";
       KUBE_PS1_SEPARATOR= "";
+      KUSTOMIZE_PLUGIN_HOME="$HOME/.config/kustomize/plugin";
     };
 
     initExtra = ''

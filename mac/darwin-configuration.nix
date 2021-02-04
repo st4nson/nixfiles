@@ -6,6 +6,7 @@
   system.defaults.dock.orientation = "bottom";
   system.defaults.dock.show-recents = false;
   system.defaults.dock.tilesize = 32;
+  system.defaults.spaces.spans-displays = false;
 
   # List packages installed in system profile. To search by name, run:
   environment.systemPackages = with pkgs; [
