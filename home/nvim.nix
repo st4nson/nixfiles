@@ -1,12 +1,21 @@
 { pkgs, ... }:
 let
+  nerdtree-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "nerdtree";
+    src = pkgs.fetchFromGitHub {
+      owner = "preservim";
+      repo = "nerdtree";
+      rev = "1b19089917cc3e0a81d3294fead2424c419d545c";
+      sha256 = "0zm60spnz4nsn0g9zsdiapygr2nwnkrqcz0w2pr37sp9i91nxxvb";
+    };
+  };
   nerdtree-git-plugin-custom = pkgs.vimUtils.buildVimPlugin {
     name = "nerdtree-git-plugin";
     src = pkgs.fetchFromGitHub {
       owner = "Xuyuanp";
       repo = "nerdtree-git-plugin";
-      rev = "5fa0e3e1487b17f8a23fc2674ebde5f55ce6a816";
-      sha256 = "0nwb3jla0rsg9vb52n24gjis9k4fwn38iqk13ixxd6w5pnn8ax9j";
+      rev = "6b843d3742d01b98a229ed2e6d3782f6d3f21651";
+      sha256 = "10mc9ir2h9swbyqfvg4gl3qkyc95s478wfl449zypsjnfisq7526";
     };
   };
   vim-dispatch-neovim-custom = pkgs.vimUtils.buildVimPlugin {
@@ -49,7 +58,7 @@ in
       # motion
       fzf-vim
       nerdcommenter
-      nerdtree
+      nerdtree-custom
       nerdtree-git-plugin-custom
       vim-bufkill
       vim-easymotion
