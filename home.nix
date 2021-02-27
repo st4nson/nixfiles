@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 
 let
+  sources = import ./nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
   inherit (lib) optionals optionalAttrs optionalString;
   inherit (pkgs.stdenv) isLinux;
 in
