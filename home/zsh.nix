@@ -33,6 +33,7 @@ in
       ls = "exa";
       la = "exa -la";
       lt = "exa -lasnew";
+      mux = "tmuxinator";
       #ip = "ip --color=auto";
       #tmux="tmux -2";
     };

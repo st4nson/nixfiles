@@ -117,6 +117,7 @@ in
     let g:nord_italic = 1
     let g:nord_italic_comments = 1
     let g:nord_uniform_diff_background = 1
+    let g:nord_uniform_status_lines = 1
     colorscheme nord
 
     "" Airline plugin
@@ -165,6 +166,9 @@ in
     " highlight DiffAdd term=bold ctermfg=2 ctermbg=0
     " highlight DiffDelete term=bold ctermbg=0
     " highlight DiffChange term=bold ctermbg=0
+
+    " Inactive/Active window with tmux
+    hi Normal guibg=none
 
     "" Set persistent undo
     set undofile
