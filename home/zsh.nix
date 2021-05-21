@@ -34,6 +34,7 @@ in
       la = "exa -la";
       lt = "exa -lasnew";
       mux = "tmuxinator";
+      k = "kubectl";
       #ip = "ip --color=auto";
       #tmux="tmux -2";
     };

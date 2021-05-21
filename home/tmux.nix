@@ -25,6 +25,9 @@
       unbind %
       unbind '"'
 
+      # hot-reload config file
+      bind r source-file ~/.tmux.conf
+
       # Sync panes
       bind e setw synchronize-panes on
       bind E setw synchronize-panes off

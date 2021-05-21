@@ -1,5 +1,10 @@
 { config, pkgs, ... }:
 
+let
+  sources = import ./../nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
+in
+
 {
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   system.defaults.dock.autohide = true;
@@ -131,6 +136,9 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix.package = pkgs.nix;
+
+  # Manage build users
+  users.nix.configureBuildUsers = true;
 
   programs.zsh.enable = true;
 
