@@ -41,3 +41,23 @@ fbr() {
            fzf-tmux -d $(( 2 + $(wc -l <<< "$branches") )) +m) &&
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
+
+typeset -A aws_region
+
+aws_region[us-west-2]="w2"
+aws_region[us-east-1]="e1"
+aws_region[eu-west-1]="euw1"
+
+aws_custom_prompt() {
+	local prod_suffix="prod"
+	local profile=$(echo $AWS_PROFILE)
+	local prompt=$profile
+
+	if [[ $AWS_PROFILE =~ $prod_suffix ]]; then
+		prompt="🚨%{$fg[white]%}%{$bg[red]%}$aws_region[$AWS_REGION]-$prompt%{$reset_color%}🚨"
+	else
+		prompt="🌀$aws_region[$AWS_REGION]-$prompt🌀"
+	fi
+
+	echo $prompt
+}

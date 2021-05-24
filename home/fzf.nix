@@ -1,12 +1,9 @@
 { pkgs, lib, ... }:
 
-{
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
+let
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
+in
 
-    defaultOptions = [
-      "--border"
-    ];
-  };
+{
 }

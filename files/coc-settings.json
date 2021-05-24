@@ -12,14 +12,10 @@
 			}
 		},
 		"terraform": {
-			"command": "terraform-lsp",
-			"filetypes": ["terraform"],
-			"initializationOptions": {
-				"usePlaceholders": true,
-				"deepCompletion": true
-				// "completeUnimported" : true
-				// "staticcheck": true
-			}
+			"command": "terraform-ls",
+			"args": ["serve"],
+			"filetypes": ["terraform", "tf"],
+			"initializationOptions": {}
 		},
 		"nix": {
 			"command": "rnix-lsp",

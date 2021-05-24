@@ -1,5 +1,8 @@
 { pkgs, ... }:
 let
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
+
   nerdtree-custom = pkgs.vimUtils.buildVimPlugin {
     name = "nerdtree";
     src = pkgs.fetchFromGitHub {

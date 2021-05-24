@@ -1,8 +1,14 @@
 { pkgs, ... }:
 
+let
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
+in
+
 {
   programs.tmux = {
     enable = true;
+    package = pkgs.tmux;
 
     terminal = "xterm-256color";
     keyMode = "vi";

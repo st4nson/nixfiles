@@ -1,6 +1,8 @@
 { pkgs, lib, ... }:
 
 let
+  sources = import ../nix/sources.nix;
+  pkgs = import sources.nixpkgs {};
   inherit (lib) optionalString;
   inherit (pkgs.stdenv) isDarwin isLinux;
 
@@ -51,6 +53,7 @@ in
       KUBE_PS1_PREFIX = "";
       KUBE_PS1_SUFFIX = "";
       KUBE_PS1_SEPARATOR= "";
+      KUBE_PS1_NS_ENABLE="false";
       KUSTOMIZE_PLUGIN_HOME="$HOME/.config/kustomize/plugin";
     };
 
@@ -68,7 +71,7 @@ in
       ''}
 
       MODE_INDICATOR=" %{$fg[blue]%}%{$reset_color%}";
-      RPS1='$(kube_ps1)$(vi_mode_prompt_info)'
+      RPS1='$(kube_ps1)|$(aws_custom_prompt)$(vi_mode_prompt_info)'
 
       ## Needed for single user Nix installation
       #${optionalString isDarwin ''

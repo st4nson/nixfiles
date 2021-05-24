@@ -12,9 +12,6 @@ in
     [
       ./home/alacritty.nix
       ./home/awesome.nix
-      ./home/bat.nix
-      ./home/direnv.nix
-      ./home/fzf.nix
       ./home/git.nix
       ./home/go.nix
       ./home/nvim.nix
@@ -23,15 +20,39 @@ in
       ./home/zsh.nix
     ];
 
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+
+    bat = {
+      enable = true;
+      config = {
+        theme = "Nord";
+      };
+    };
+
+    direnv = {
+      enable = true;
+      enableZshIntegration = true;
+    };
+
+    fzf = {
+      enable = true;
+      enableZshIntegration = true;
+      #package = pkgs.fzf;
+
+      defaultOptions = [
+        "--border"
+      ];
+    };
+  };
 
   home.packages = with pkgs; [
 
-    ansible-lint
-    ansible
+    #ansible-lint
+    #ansible
 
     awscli
+    cachix
     cfssl
     exa
     fd
@@ -41,8 +62,8 @@ in
     iftop
     ipcalc
     jq
-    keepassxc
     lsof
+    #neovim-remote
     ranger
     restic
     silver-searcher
@@ -56,7 +77,7 @@ in
     docker-ls
     docker-machine
     kubectx
-    qemu
+    #qemu
 
     # Programming
     gnumake
@@ -105,6 +126,7 @@ in
     chromium
     firefox
     icedtea8_web
+    keepassxc
     libreoffice
     pidgin-with-plugins
     remmina
