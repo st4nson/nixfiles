@@ -38,7 +38,7 @@ in
     fzf = {
       enable = true;
       enableZshIntegration = true;
-      #package = pkgs.fzf;
+      package = pkgs.fzf;
 
       defaultOptions = [
         "--border"
@@ -51,7 +51,7 @@ in
     #ansible-lint
     #ansible
 
-    awscli
+    awscli2
     cachix
     cfssl
     exa
@@ -142,5 +142,5 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "20.03";
+  home.stateVersion = "21.05";
 }

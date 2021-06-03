@@ -73,8 +73,8 @@ in
       coc-nvim
       coc-fzf
 
-      ## Nix way of installing not working yet.
-      #coc-diagnostic
+      ## coc-plugins
+      coc-diagnostic
       #coc-highligh
       coc-json
       #coc-python
