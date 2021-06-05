@@ -20,6 +20,12 @@ in
       ./home/zsh.nix
     ];
 
+  nixpkgs.overlays = [
+    (import (builtins.fetchTarball {
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/master.tar.gz;
+    }))
+  ];
+
   programs = {
     home-manager.enable = true;
 
@@ -66,6 +72,7 @@ in
     #neovim-remote
     ranger
     restic
+    ripgrep
     silver-searcher
     sshpass
     unzip
