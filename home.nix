@@ -93,7 +93,7 @@ in
     rnix-lsp
     shellcheck
     shfmt
-    terraform-lsp
+    terraform-ls
     universal-ctags
     yarn
 
