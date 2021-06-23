@@ -39,73 +39,38 @@ let
       sha256 = "11qsvw3qsrkwmdks6mhmygmwzi9ma8vhx77kid5s7p936i8xdmxr";
     };
   };
-  colorbuddy-nvim-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "colorbuddy.nvim";
-    src = pkgs.fetchFromGitHub {
-      owner = "tjdevries";
-      repo = "colorbuddy.nvim";
-      rev = "87c80e3f4a590d0387d9b128d1f1fc456759408a";
-      sha256 = "19gfmyhmwpr8gi03w44zm056zrzaj74hplpl4psy9mylvb0ghf0k";
-    };
-    buildPhase = "ls";
-    #dontBuild = true;
-  };
-  nordbuddy-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "nordbuddy";
-    src = pkgs.fetchFromGitHub {
-      owner = "maaslalani";
-      repo = "nordbuddy";
-      rev = "bd59bd6378a02cc37362110266cc8a9c814fb84b";
-      sha256 = "1h9pqljr5ml2yrky9jx2kjp46wcj1nbfdf67q2jvjmpx6jqavy9w";
-    };
-    buildPhase = "ls";
-    #dontBuild = true;
-    #buildInputs = [
-      #(pkgs.neovim.override {
-        #configure = {
-          #packages.myPlugins = with pkgs.vimPlugins; {
-            #start = [ plenary-nvim ];
-            #opt = [];
-          #};
-        #};
-      #})
-      ##pkgs.neovim pkgs.vimPlugins.plenary-nvim
-    #];
-  };
 in
 {
   programs.neovim = {
     enable = true;
+    #package = pkgs.neovim;
 
     viAlias = true;
     vimAlias = true;
 
     plugins = with pkgs.vimPlugins; [
+      # neovim
+      nvim-treesitter
+      plenary-nvim
+      popup-nvim
+
+      telescope-nvim
+      trouble-nvim
+
+      # completion & lsp
+      nvim-compe
+      nvim-lspconfig
+      lsp-colors-nvim
+
       # git
       vim-fugitive
       vim-gitgutter
 
-      #nvim-peekup
-      popup-nvim
-      plenary-nvim
-      telescope-nvim
-      nvim-lspconfig
-      nvim-compe
-      lsp-colors-nvim
-      barbar-nvim
-      nvim-web-devicons
-      nvim-treesitter
-      trouble-nvim
-      colorbuddy-nvim-custom
-      nordbuddy-custom
-
-      #registers-nvim
-
       # themes
-      nord-vim
-      vim-airline
-      vim-airline-themes
-      vim-devicons
+      nvcode-color-schemes-vim
+      lualine-nvim
+      nvim-bufferline-lua
+      nvim-web-devicons
 
       # motion
       fzf-vim
@@ -120,13 +85,11 @@ in
 
       # programming
       Jenkinsfile-vim-syntax
-      ansible-vim
-      tagbar
       vim-delve-custom
       vim-go
       vim-nix
-      vim-snippets
       vim-terraform
+      vim-test
 
       # misc.
       direnv-vim
@@ -140,6 +103,4 @@ in
 
     extraConfig = (builtins.readFile ../files/vimrc);
   };
-
-  home.file.".config/nvim/coc-settings.json".source = ../files/coc-settings.json;
 }
