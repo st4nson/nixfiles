@@ -39,8 +39,6 @@ in
       bind E setw synchronize-panes off
 
       # Colors
-      set -g status-bg black
-      set -g status-fg white
       set -g pane-active-border-style bg=default,fg=#5cafb0
       set -g pane-border-style fg=#5cafb0
 
@@ -50,16 +48,11 @@ in
     '';
 
     plugins = with pkgs; [
-      tmuxPlugins.yank
       tmuxPlugins.copycat
+      tmuxPlugins.nord
       tmuxPlugins.prefix-highlight
-
-      # TODO
-      #tmuxPlugins.resurrect
-      #tmuxPlugins.continuum
-      #tmuxPlugins.kube-tmux
-      #tmuxPlugins.nord
-
+      tmuxPlugins.resurrect
+      tmuxPlugins.yank
     ];
 
     tmuxinator.enable = true;
