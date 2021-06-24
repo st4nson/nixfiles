@@ -90,6 +90,8 @@ in
       vim-nix
       vim-terraform
       vim-test
+      ultisnips
+      vim-snippets
 
       # misc.
       direnv-vim
