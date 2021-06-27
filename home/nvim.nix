@@ -61,6 +61,7 @@ in
       nvim-compe
       nvim-lspconfig
       lsp-colors-nvim
+      lspkind-nvim
 
       # git
       vim-fugitive
@@ -77,6 +78,7 @@ in
       nerdcommenter
       nerdtree-custom
       nerdtree-git-plugin-custom
+      nvim-tree-lua
       vim-bufkill
       vim-easymotion
       vim-floaterm

@@ -77,10 +77,20 @@ nmap <silent> <leader>; :BD<CR>
 "" Tagbar
 nmap <silent> <F8> :TagbarToggle<CR>
 
-"" NERDTree
-let g:NERDTreeChDirMode = 2 " switch CWD
-nmap <silent> <F7> :NERDTreeToggle<CR>
-nmap <silent> <leader><F7> :NERDTreeFind<CR>
+"" Nvim-Tree
+let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_show_icons = {
+    \ 'git': 1,
+    \ 'folders': 1,
+    \ 'files': 1,
+    \ 'folder_arrows': 0,
+    \ }
+nnoremap <F7> :NvimTreeToggle<CR>
+nnoremap <leader><F7> :NvimTreeFindFile<CR>
+
+" TODO improve Git hl
+" a list of groups can be found at `:help nvim_tree_highlight`
+"highlight NvimTreeFolderIcon guibg=blue
 
 "" telescope.nvim
 "nnoremap <C-p> <cmd>Telescope find_files<cr>
@@ -283,6 +293,9 @@ local nvim_lsp = require('lspconfig')
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
+
+  require('lspkind').init()
+
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
