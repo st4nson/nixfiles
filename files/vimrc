@@ -189,7 +189,12 @@ require'lualine'.setup{
 }
 
 -- bufferline
-require("bufferline").setup{}
+require("bufferline").setup{
+  options = {
+    -- separator_style = "padded_slant",
+    diagnostics = "nvim_lsp",
+  }
+}
 
 -- Telescope
 require('telescope').setup{
