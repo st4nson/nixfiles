@@ -39,6 +39,15 @@ let
       sha256 = "11qsvw3qsrkwmdks6mhmygmwzi9ma8vhx77kid5s7p936i8xdmxr";
     };
   };
+  nvim-lspfuzzy-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-lspfuzzy";
+    src = pkgs.fetchFromGitHub {
+      owner = "ojroques";
+      repo = "nvim-lspfuzzy";
+      rev = "2f172ab6a8993913f52ba6beb3eb809112f6107f";
+      sha256 = "16xmasy7zq4jrg8dj74ljlcz1azsklsma6rkywhivbc2ir6kqcxj";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -62,6 +71,7 @@ in
       nvim-lspconfig
       lsp-colors-nvim
       lspkind-nvim
+      nvim-lspfuzzy-custom
 
       # git
       vim-fugitive

@@ -214,6 +214,9 @@ require('telescope').setup{
   }
 }
 
+-- nvim-lspfuzzy
+require('lspfuzzy').setup{}
+
 -- Compe
 vim.o.completeopt = "menuone,noselect"
 
