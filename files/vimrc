@@ -293,11 +293,20 @@ vim.g.UltiSnipsJumpBackwardTrigger = "<C-k>"
 -- lsp-config
 local nvim_lsp = require('lspconfig')
 
+-- lsp_signature
+lsp_signature_cfg = {
+  handler_opts = {
+    border = "none"   -- double, single, shadow, none
+  },
+  extra_trigger_chars = {"(", ","}
+}
+
 -- Use an on_attach function to only map the following keys
 -- after the language server attaches to the current buffer
 local on_attach = function(client, bufnr)
 
   require('lspkind').init()
+  require('lsp_signature').on_attach(lsp_signature_cfg)
 
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end

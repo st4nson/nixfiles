@@ -48,6 +48,15 @@ let
       sha256 = "16xmasy7zq4jrg8dj74ljlcz1azsklsma6rkywhivbc2ir6kqcxj";
     };
   };
+  lsp-signature-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "lsp_signature.nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "ray-x";
+      repo = "lsp_signature.nvim";
+      rev = "ef20fad69270f4d3df356be3c01bd079739e72c4";
+      sha256 = "0whmqkz6k27hrsjmbw841bsdg8xkiv8gj01sw40cg99mcdyags70";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -71,6 +80,7 @@ in
       nvim-lspconfig
       lsp-colors-nvim
       lspkind-nvim
+      lsp-signature-custom
       nvim-lspfuzzy-custom
 
       # git
