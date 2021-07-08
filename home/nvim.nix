@@ -57,6 +57,15 @@ let
       sha256 = "0whmqkz6k27hrsjmbw841bsdg8xkiv8gj01sw40cg99mcdyags70";
     };
   };
+  octo-nvim-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "octo-nvim-custom";
+    src = pkgs.fetchFromGitHub {
+      owner = "pwntester";
+      repo = "octo.nvim";
+      rev = "216794e30ec75c9068aeeafaed5721d12d6b9db9";
+      sha256 = "08djq900ih7ycyayfs71n8wkab34dhphgafkjsvpwk1vv5q4mr8g";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -86,6 +95,7 @@ in
       # git
       vim-fugitive
       vim-gitgutter
+      octo-nvim-custom
 
       # themes
       nvcode-color-schemes-vim
@@ -102,8 +112,8 @@ in
       vim-bufkill
       vim-easymotion
       vim-floaterm
-      vim-surround
       vim-numbertoggle
+      vim-surround
 
       # programming
       Jenkinsfile-vim-syntax
@@ -118,6 +128,7 @@ in
       # misc.
       direnv-vim
       goyo
+      nvim-colorizer-lua
       vim-better-whitespace
       vim-dispatch
       vim-dispatch-neovim-custom

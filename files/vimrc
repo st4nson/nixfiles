@@ -106,17 +106,27 @@ nmap <silent> <leader>' :Buffers<CR>
 nmap <silent> <leader>q :Tags<CR>
 nmap <silent> <leader>= :History<CR>
 nmap <silent> <leader>se :Ag<CR>
+nmap <silent> <leader>gs :GFiles?<CR>
 "imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " run fzf in floating window
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8, 'highlight': 'Type', 'border': 'rounded' } }
 
 "" vim-floaterm
-" Close window on success
-let g:floaterm_autoclose = 1
+let g:floaterm_autoclose = 1 " close window on success
+let g:floaterm_autohide = 2  " always autohide
+
+let g:floaterm_width = 0.9
+let g:floaterm_height = 0.8
+let g:floaterm_borderchars = "─│─│╭╮╯╰"
+
+" Set floating window border line color to cyan, and background to orange
+hi FloatermBorder guibg=Normal guifg=#81A1C1
 
 nnoremap <silent> <leader>e :FloatermToggle<CR>
 tnoremap <silent> <leader>e <C-\><C-n>:FloatermToggle<CR>
+nnoremap <silent> <leader>ftn :FloatermNext<CR>
+tnoremap <silent> <leader>ftn <C-\><C-n>:FloatermNext<CR>
 
 "" Vimwiki
 let g:vimwiki_table_mappings=0
@@ -192,6 +202,12 @@ inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 """ Lua CONFIG
 lua << EOF
+
+require'colorizer'.setup()
+
+-- octo.nvim
+
+require('octo').setup()
 
 -- lualine
 require'lualine'.setup{
