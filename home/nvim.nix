@@ -66,6 +66,15 @@ let
       sha256 = "08djq900ih7ycyayfs71n8wkab34dhphgafkjsvpwk1vv5q4mr8g";
     };
   };
+  fzf-floaterm-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "fzf-floaterm";
+    src = pkgs.fetchFromGitHub {
+      owner = "voldikss";
+      repo = "fzf-floaterm";
+      rev = "66a30db85a7adf573af9b8a4f3f8c4ce0a2d665e";
+      sha256 = "0p9grgi8hybgg7341ffn4y812axx552ncrhlak5cka3k0zpil06g";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -105,6 +114,7 @@ in
 
       # motion
       fzf-vim
+      fzf-floaterm-custom
       nerdcommenter
       nerdtree-custom
       nerdtree-git-plugin-custom
