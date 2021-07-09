@@ -121,7 +121,7 @@ let g:floaterm_height = 0.8
 let g:floaterm_borderchars = "─│─│╭╮╯╰"
 
 " Set floating window border line color to cyan, and background to orange
-hi FloatermBorder guibg=Normal guifg=#81A1C1
+hi FloatermBorder guibg=Normal guifg=#81a1c1
 
 nnoremap <silent> <leader>e :FloatermToggle<CR>
 tnoremap <silent> <leader>e <C-\><C-n>:FloatermToggle<CR>
@@ -135,6 +135,13 @@ let g:vimwiki_list = [{'path': '~/.vimwiki/',
                      \ 'ext': '.md'}]
 
 let g:vimwiki_table_mappings=0
+
+hi VimwikiHeader1 guifg=#8fbcbb
+hi VimwikiHeader2 guifg=#a3be8c
+hi VimwikiHeader3 guifg=#5e81ac
+hi VimwikiHeader4 guifg=#ebcb8b
+hi VimwikiHeader5 guifg=#d08770
+hi VimwikiHeader6 guifg=#bf616a
 
 "" terraform-vim
 let g:terraform_fmt_on_save=1

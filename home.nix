@@ -22,7 +22,7 @@ in
 
   nixpkgs.overlays = [
     (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/2aff1c00dc619b5b8af3dee95461b41f3a6fd7f0.tar.gz;
+      url = https://github.com/nix-community/neovim-nightly-overlay/archive/b8619f5196d6257b147722b394d3dadb3f5eaa9a.tar.gz; # ~0.5.0
     }))
   ];
 
