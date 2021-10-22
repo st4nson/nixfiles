@@ -54,22 +54,26 @@ in
 
   home.packages = with pkgs; [
 
-    #ansible-lint
-    #ansible
+  home.packages = with pkgs; [
 
-    awscli2
+    asciidoctor
     cachix
     cfssl
     exa
     fd
     gnupg
     gopass
+    graphviz
     htop
+    http-prompt
     iftop
     ipcalc
     jq
+    lazygit
     lsof
+    neofetch
     #neovim-remote
+    nix-index
     ranger
     restic
     ripgrep
@@ -77,19 +81,33 @@ in
     sshpass
     unzip
     wget
+    yq-go
     zip
 
-    # Containers & VMs
+    # Ops - Cloud, Containers & VMs
+    #ansible-lint
+    #ansible
+    awscli2
+    dive
     docker-compose
     docker-ls
     docker-machine
+    k2tf
+    k9s
+    kind
+    krew
     kubectx
+    kubernetes-helm
+    terraform
+    terraform-docs
+    tflint
     #qemu
 
     # Programming
     gnumake
     nixpkgs-fmt
     nodejs
+    pre-commit
     rnix-lsp
     shellcheck
     shfmt
