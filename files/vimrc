@@ -79,6 +79,7 @@ nmap <silent> <F8> :TagbarToggle<CR>
 
 "" Nvim-Tree
 let g:nvim_tree_indent_markers = 1
+let g:nvim_tree_width_allow_resize = 1
 let g:nvim_tree_show_icons = {
     \ 'git': 1,
     \ 'folders': 1,
@@ -263,7 +264,7 @@ require'compe'.setup {
     buffer = true;
     calc = true;
     nvim_lsp = true;
-    nvim_lua = true;
+    nvim_lua = false;
     vsnip = false;
     ultisnips = true;
     nvim_treesitter = true;
@@ -375,6 +376,9 @@ local servers = {
   terraformls = {},
   gopls = {
     cmd = {'gopls','--remote=auto'},
+    cmd_env = {
+      GOFLAGS = "-tags=lint"
+    },
     capabilties = {
       textDocuemnt = {
         completion = {
@@ -386,7 +390,8 @@ local servers = {
     },
     init_options = {
       usePlaceholders = true,
-      completeUnimported = true
+      completeUnimported = true,
+      allowModfileModifications = true
     }
   }
 }

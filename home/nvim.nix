@@ -116,8 +116,6 @@ in
       fzf-vim
       fzf-floaterm-custom
       nerdcommenter
-      nerdtree-custom
-      nerdtree-git-plugin-custom
       nvim-tree-lua
       vim-bufkill
       vim-easymotion
