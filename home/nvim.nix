@@ -1,8 +1,5 @@
 { pkgs, ... }:
 let
-  sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
-
   nerdtree-custom = pkgs.vimUtils.buildVimPlugin {
     name = "nerdtree";
     src = pkgs.fetchFromGitHub {
@@ -79,7 +76,6 @@ in
 {
   programs.neovim = {
     enable = true;
-    #package = pkgs.neovim;
 
     viAlias = true;
     vimAlias = true;
@@ -98,18 +94,18 @@ in
       nvim-lspconfig
       lsp-colors-nvim
       lspkind-nvim
-      lsp-signature-custom
+      lsp_signature-nvim
       nvim-lspfuzzy-custom
 
       # git
       vim-fugitive
       vim-gitgutter
-      octo-nvim-custom
+      #octo-nvim-custom
 
       # themes
       nvcode-color-schemes-vim
       lualine-nvim
-      nvim-bufferline-lua
+      bufferline-nvim
       nvim-web-devicons
 
       # motion
@@ -144,6 +140,7 @@ in
       vimwiki
     ];
 
+    extraPackages = [ pkgs.git ];
     extraConfig = (builtins.readFile ../files/vimrc);
   };
 }

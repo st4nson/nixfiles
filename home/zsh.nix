@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 
 let
-  sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
   inherit (lib) optionalString;
   inherit (pkgs.stdenv) isDarwin isLinux;
 
@@ -39,6 +37,8 @@ in
       k = "kubectl";
       #ip = "ip --color=auto";
       #tmux="tmux -2";
+      st4nson-build = "pushd ~/git/nixfiles; nix build \".#darwinConfigurations.st4nson-MacBook.system\"; popd";
+      st4nson-switch = "pushd ~/git/nixfiles; ./result/sw/bin/darwin-rebuild switch --flake .#st4nson-MacBook; popd";
     };
 
     sessionVariables = {

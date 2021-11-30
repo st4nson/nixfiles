@@ -1,10 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  sources = import ./../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
-in
-
 {
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   system.defaults.dock.autohide = true;
@@ -135,7 +130,11 @@ in
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
-  nix.package = pkgs.nix;
+  nix.package = pkgs.nixFlakes;
+  nix.trustedUsers = [ "root" "SSzydo"];
+  nix.extraOptions = ''
+      experimental-features = nix-command flakes
+  '';
 
   # Manage build users
   users.nix.configureBuildUsers = true;

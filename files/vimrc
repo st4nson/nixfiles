@@ -136,6 +136,7 @@ let g:vimwiki_list = [{'path': '~/.vimwiki/',
                      \ 'ext': '.md'}]
 
 let g:vimwiki_table_mappings=0
+autocmd FileType vimwiki nnoremap <leader>t :VimwikiToggleListItem<CR>
 
 hi VimwikiHeader1 guifg=#8fbcbb
 hi VimwikiHeader2 guifg=#a3be8c
@@ -215,9 +216,10 @@ require'colorizer'.setup()
 
 -- octo.nvim
 
-require('octo').setup()
+-- require('octo').setup()
 
 -- lualine
+
 require'lualine'.setup{
   options = { theme  = 'nord' },
 }
@@ -242,7 +244,7 @@ require('telescope').setup{
 require('lspfuzzy').setup{}
 
 -- Compe
-vim.o.completeopt = "menuone,noselect"
+vim.o.completeopt = "menu,menuone,noselect"
 
 require'compe'.setup {
   enabled = true;

@@ -20,12 +20,6 @@ in
       ./home/zsh.nix
     ];
 
-  nixpkgs.overlays = [
-    (import (builtins.fetchTarball {
-      url = https://github.com/nix-community/neovim-nightly-overlay/archive/b8619f5196d6257b147722b394d3dadb3f5eaa9a.tar.gz; # ~0.5.0
-    }))
-  ];
-
   programs = {
     home-manager.enable = true;
 
@@ -70,6 +64,7 @@ in
     ipcalc
     jq
     lazygit
+    luajit
     lsof
     neofetch
     #neovim-remote
@@ -167,5 +162,5 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.05";
+  home.stateVersion = "21.11";
 }

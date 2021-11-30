@@ -1,10 +1,5 @@
 { pkgs, lib, ...}:
 
-let
-  sources = import ../nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
-in
-
 {
   home.packages = with pkgs; [
     delve
@@ -15,7 +10,7 @@ in
 
   programs.go = {
     enable = true;
-    package = pkgs.go;
+    package = pkgs.go_1_17;
 
     goBin = "golang/bin";
     goPath = "golang";
