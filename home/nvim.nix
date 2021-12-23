@@ -72,6 +72,16 @@ let
       sha256 = "0p9grgi8hybgg7341ffn4y812axx552ncrhlak5cka3k0zpil06g";
     };
   };
+  cmp-nvim-ultisnips-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "cmp-nvim-ultisnips";
+    buildPhase = "echo hello";
+    src = pkgs.fetchFromGitHub {
+      owner = "quangnguyen30192";
+      repo = "cmp-nvim-ultisnips";
+      rev = "79fd645096c406fb41b38ef4dd99525965b446b1";
+      sha256 = "7Hu7H5Q7XgqgMFkFLRkwqDen6535h83KnsCHsfd1yas=";
+    };
+  };
 in
 {
   programs.neovim = {
@@ -90,7 +100,17 @@ in
       trouble-nvim
 
       # completion & lsp
-      nvim-compe
+      nvim-cmp
+      cmp-buffer
+      cmp-cmdline
+      cmp-jenkinsfile-custom
+      cmp-nvim-lsp
+      cmp-nvim-lsp-document-symbol
+      cmp-nvim-lua
+      cmp-nvim-ultisnips-custom
+      cmp-path
+      cmp-treesitter
+
       nvim-lspconfig
       lsp-colors-nvim
       lspkind-nvim
