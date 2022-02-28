@@ -1,8 +1,6 @@
 { pkgs, lib, ... }:
 
 let
-  sources = import ./nix/sources.nix;
-  pkgs = import sources.nixpkgs {};
   inherit (lib) optionals optionalAttrs optionalString;
   inherit (pkgs.stdenv) isLinux;
 in
@@ -93,6 +91,7 @@ in
     krew
     kubectx
     kubernetes-helm
+    kustomize_3
     terraform
     terraform-docs
     tflint

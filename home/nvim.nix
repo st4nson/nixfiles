@@ -41,8 +41,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ojroques";
       repo = "nvim-lspfuzzy";
-      rev = "2f172ab6a8993913f52ba6beb3eb809112f6107f";
-      sha256 = "16xmasy7zq4jrg8dj74ljlcz1azsklsma6rkywhivbc2ir6kqcxj";
+      rev = "85050e34134ffed6f916f6b67aab099874382d82";
+      sha256 = "eHVmrJugZzsBI1nnvzre+HDsjbndSvugQ4Vj6c6gujA=";
     };
   };
   lsp-signature-custom = pkgs.vimUtils.buildVimPlugin {
@@ -70,6 +70,15 @@ let
       repo = "fzf-floaterm";
       rev = "66a30db85a7adf573af9b8a4f3f8c4ce0a2d665e";
       sha256 = "0p9grgi8hybgg7341ffn4y812axx552ncrhlak5cka3k0zpil06g";
+    };
+  };
+  cmp-jenkinsfile-custom = pkgs.vimUtils.buildVimPlugin {
+    name = "cmp-jenkinsfile";
+    src = pkgs.fetchFromGitHub {
+      owner = "joshzcold";
+      repo = "cmp-jenkinsfile";
+      rev = "f06750822f9b2eb282ba8321d47d0a833968f6dd";
+      sha256 = "gx75kAnkl8WVthKfWueCIjkwOTPqAZLXCK4J5En861I=";
     };
   };
   cmp-nvim-ultisnips-custom = pkgs.vimUtils.buildVimPlugin {
