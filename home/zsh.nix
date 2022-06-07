@@ -39,9 +39,11 @@ in
       #tmux="tmux -2";
       st4nson-build = "pushd ~/git/nixfiles; nix build \".#darwinConfigurations.st4nson-MacBook.system\"; popd";
       st4nson-switch = "pushd ~/git/nixfiles; ./result/sw/bin/darwin-rebuild switch --flake .#st4nson-MacBook; popd";
+      kube-complete = "source <(kubectl completion zsh)";
     };
 
     sessionVariables = {
+      ZSH_DISABLE_COMPFIX="true";
       COMPLETION_WAITING_DOTS = "true";
       FZF_TMUX = 1;
       GOROOT = "$(go env GOROOT)";
@@ -55,15 +57,24 @@ in
       KUBE_PS1_SEPARATOR= "";
       KUBE_PS1_NS_ENABLE="false";
       KUSTOMIZE_PLUGIN_HOME="$HOME/.config/kustomize/plugin";
+      PAGER="";
+
+      AWS_REGION="us-west-2";
+      AWS_PROFILE="nmk-test";
+      AWS_PAGER="";
     };
+
+    initExtraFirst = ''
+      #zmodload zsh/zprof
+    '';
 
     initExtra = ''
       ## Custom zsh functions
       source ~/.zsh_functions
 
-      ## Autocompletion for k8s stuff
-      source <(kubectl completion zsh)
-      source <(helm completion zsh)
+      ## Autocompletion for k8s stuff - FIXME startup time
+      #source <(kubectl completion zsh)
+      #source <(helm completion zsh)
 
       ${optionalString isLinux ''
       # Nord 'dircolors'
@@ -79,6 +90,7 @@ in
       #''}
 
       task list
+      #zprof
       '';
     };
 

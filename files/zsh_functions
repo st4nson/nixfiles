@@ -42,11 +42,25 @@ fbr() {
   git checkout $(echo "$branch" | sed "s/.* //" | sed "s#remotes/[^/]*/##")
 }
 
+typeset -A kubectx_mapping
+
+cluster_short_name() {
+  local cluster_name=$(echo "$1" | cut -d : -f6)
+
+  #if associative array declared
+  if [[ -v kubectx_mapping["$cluster_name"] ]]; then
+    echo $kubectx_mapping[$cluster_name]
+  else
+    echo $cluster_name
+  fi
+}
+
 typeset -A aws_region
 
 aws_region[us-west-2]="w2"
 aws_region[us-east-1]="e1"
 aws_region[eu-west-1]="euw1"
+aws_region[cn-nortwest-1]="cnw1"
 
 aws_custom_prompt() {
 	local prod_suffix="prod"
