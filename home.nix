@@ -1,7 +1,7 @@
-{ pkgs, lib, ... }:
+{ config, pkgs, ... }:
 
 let
-  inherit (lib) optionals optionalAttrs optionalString;
+  inherit (pkgs.lib) optionals optionalAttrs optionalString;
   inherit (pkgs.stdenv) isLinux;
 in
 
@@ -9,7 +9,7 @@ in
   imports =
     [
       ./home/alacritty.nix
-      ./home/awesome.nix
+      #./home/awesome.nix
       ./home/git.nix
       ./home/go.nix
       ./home/nvim.nix
@@ -17,6 +17,16 @@ in
       ./home/tmux.nix
       ./home/zsh.nix
     ];
+
+  nixpkgs.overlays = [
+    (self: super: {
+      golangci-lint = super.golangci-lint.override {
+        # Override https://github.com/NixOS/nixpkgs/pull/166801 which changed this
+        # to buildGo118Module because it does not build on Darwin.
+        buildGoModule = super.buildGoModule;
+      };
+    })
+  ];
 
   programs = {
     home-manager.enable = true;
@@ -101,7 +111,7 @@ in
     gnumake
     nixpkgs-fmt
     nodejs
-    pre-commit
+    #pre-commit  # TODO broken - dotnet ?
     rnix-lsp
     shellcheck
     shfmt
@@ -161,5 +171,5 @@ in
   # You can update Home Manager without changing this value. See
   # the Home Manager release notes for a list of state version
   # changes in each release.
-  home.stateVersion = "21.11";
+  home.stateVersion = "22.05";
 }

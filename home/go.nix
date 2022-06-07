@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    delve
+    #delve
     golangci-lint
     gopls
     gotags

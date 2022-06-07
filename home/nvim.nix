@@ -1,32 +1,5 @@
 { pkgs, ... }:
 let
-  nerdtree-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "nerdtree";
-    src = pkgs.fetchFromGitHub {
-      owner = "preservim";
-      repo = "nerdtree";
-      rev = "1b19089917cc3e0a81d3294fead2424c419d545c";
-      sha256 = "0zm60spnz4nsn0g9zsdiapygr2nwnkrqcz0w2pr37sp9i91nxxvb";
-    };
-  };
-  nerdtree-git-plugin-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "nerdtree-git-plugin";
-    src = pkgs.fetchFromGitHub {
-      owner = "Xuyuanp";
-      repo = "nerdtree-git-plugin";
-      rev = "6b843d3742d01b98a229ed2e6d3782f6d3f21651";
-      sha256 = "10mc9ir2h9swbyqfvg4gl3qkyc95s478wfl449zypsjnfisq7526";
-    };
-  };
-  vim-dispatch-neovim-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "vim-dispatch-neovim-custom";
-    src = pkgs.fetchFromGitHub {
-      owner = "radenling";
-      repo = "vim-dispatch-neovim";
-      rev = "c8c4e21a95c25032a041002f9bf6e45a75a73021";
-      sha256 = "111n3f7lv9nkpj200xh0fwbi3scjqyivpw5fwdjdyiqzd6qabxml";
-    };
-  };
   vim-delve-custom = pkgs.vimUtils.buildVimPlugin {
     name = "vim-delve";
     src = pkgs.fetchFromGitHub {
@@ -52,15 +25,6 @@ let
       repo = "lsp_signature.nvim";
       rev = "ef20fad69270f4d3df356be3c01bd079739e72c4";
       sha256 = "0whmqkz6k27hrsjmbw841bsdg8xkiv8gj01sw40cg99mcdyags70";
-    };
-  };
-  octo-nvim-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "octo-nvim-custom";
-    src = pkgs.fetchFromGitHub {
-      owner = "pwntester";
-      repo = "octo.nvim";
-      rev = "216794e30ec75c9068aeeafaed5721d12d6b9db9";
-      sha256 = "08djq900ih7ycyayfs71n8wkab34dhphgafkjsvpwk1vv5q4mr8g";
     };
   };
   fzf-floaterm-custom = pkgs.vimUtils.buildVimPlugin {
@@ -116,7 +80,7 @@ in
       cmp-nvim-lsp
       cmp-nvim-lsp-document-symbol
       cmp-nvim-lua
-      cmp-nvim-ultisnips-custom
+      cmp-nvim-ultisnips
       cmp-path
       cmp-treesitter
 
@@ -129,7 +93,6 @@ in
       # git
       vim-fugitive
       vim-gitgutter
-      #octo-nvim-custom
 
       # themes
       nvcode-color-schemes-vim
@@ -161,10 +124,11 @@ in
       # misc.
       direnv-vim
       goyo
+      markdown-preview-nvim
       nvim-colorizer-lua
       vim-better-whitespace
       vim-dispatch
-      vim-dispatch-neovim-custom
+      vim-dispatch-neovim
       vim-slime
       vimwiki
     ];
