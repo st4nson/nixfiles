@@ -78,14 +78,6 @@ nmap <silent> <leader>; :BD<CR>
 nmap <silent> <F8> :TagbarToggle<CR>
 
 "" Nvim-Tree
-let g:nvim_tree_indent_markers = 1
-let g:nvim_tree_width_allow_resize = 1
-let g:nvim_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 1,
-    \ 'folder_arrows': 0,
-    \ }
 nnoremap <F7> :NvimTreeToggle<CR>
 nnoremap <leader><F7> :NvimTreeFindFile<CR>
 
@@ -211,7 +203,13 @@ require'colorizer'.setup()
 
 -- require('octo').setup()
 
-require'nvim-tree'.setup()
+require'nvim-tree'.setup {
+  renderer = {
+    indent_markers = {
+      enable = true;
+    },
+  },
+}
 
 -- lualine
 
@@ -323,6 +321,7 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protoco
 
 
 -- lsp-config
+-- vim.lsp.set_log_level("debug")
 local nvim_lsp = require('lspconfig')
 
 
@@ -409,7 +408,7 @@ require'nvim-web-devicons'.setup {
 
 -- nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+ensure_installed = { "bash", "go" },
   highlight = {
     enable = true
   },
