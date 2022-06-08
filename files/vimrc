@@ -192,7 +192,12 @@ let g:go_def_mapping_enabled = 0
 "let g:go_highlight_extra_types = 1
 
 " vim-test
-let test#strategy = "floaterm"
+function! CustomFloatermStrategy(cmd)
+  execute 'FloatermNew --name=vim-test --autoclose=0 --height=0.4 --width=0.6 --wintype=float --position=topright '.a:cmd
+endfunction
+
+let g:test#custom_strategies = {'custom_floaterm': function('CustomFloatermStrategy')}
+let g:test#strategy = 'custom_floaterm'
 
 """ Lua CONFIG
 lua << EOF
