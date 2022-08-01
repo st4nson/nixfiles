@@ -17,7 +17,7 @@ let g:nord_uniform_diff_background = 1
 let g:nord_uniform_status_lines = 1
 
 syntax on
-colorscheme nord
+colorscheme nordfox
 
 if (has("termguicolors"))
   set termguicolors
@@ -219,7 +219,7 @@ require'nvim-tree'.setup {
 -- lualine
 
 require'lualine'.setup{
-  options = { theme  = 'nord' },
+  options = { theme  = 'nordfox' },
 }
 
 -- bufferline
@@ -253,24 +253,15 @@ cmp.setup({
     end,
   },
 
-  mapping = {
-    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
-    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
-    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
-    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    ['<C-e>'] = cmp.mapping({
-      i = cmp.mapping.abort(),
-      c = cmp.mapping.close(),
-    }),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-  },
+  mapping = cmp.mapping.preset.insert(),
 
   sources = {
     { name = 'nvim_lsp' },
     { name = 'path' },
     { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer', keyword_length = 3 },
-    { name = 'treesitter' }
+    { name = 'treesitter' },
+    { name = 'emoji' }
   },
 
   formatting = {
@@ -294,6 +285,7 @@ cmp.setup({
 })
 
 cmp.setup.cmdline('/', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources(
   {
     { name = 'nvim_lsp_document_symbol' }
@@ -304,6 +296,7 @@ cmp.setup.cmdline('/', {
 })
 
 cmp.setup.cmdline(':', {
+  mapping = cmp.mapping.preset.cmdline(),
   sources = cmp.config.sources(
   {
     { name = 'path' }

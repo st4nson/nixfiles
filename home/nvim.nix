@@ -14,8 +14,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ojroques";
       repo = "nvim-lspfuzzy";
-      rev = "85050e34134ffed6f916f6b67aab099874382d82";
-      sha256 = "eHVmrJugZzsBI1nnvzre+HDsjbndSvugQ4Vj6c6gujA=";
+      rev = "9ad50ac644a438799dc452dfeeed9437aa5aa8b6";
+      sha256 = "6m1ekW0LDDDj/XduNH7+JEFxw3QeeabVf251WOnEgzA=";
     };
   };
   lsp-signature-custom = pkgs.vimUtils.buildVimPlugin {
@@ -23,8 +23,8 @@ let
     src = pkgs.fetchFromGitHub {
       owner = "ray-x";
       repo = "lsp_signature.nvim";
-      rev = "ef20fad69270f4d3df356be3c01bd079739e72c4";
-      sha256 = "0whmqkz6k27hrsjmbw841bsdg8xkiv8gj01sw40cg99mcdyags70";
+      rev = "9ccee20602a10843e3ea3ebc2536dfdcc6cee9a3";
+      sha256 = "";
     };
   };
   fzf-floaterm-custom = pkgs.vimUtils.buildVimPlugin {
@@ -82,6 +82,7 @@ in
       cmp-nvim-lua
       cmp-nvim-ultisnips
       cmp-path
+      cmp-emoji
       cmp-treesitter
 
       nvim-lspconfig
@@ -99,6 +100,7 @@ in
       lualine-nvim
       bufferline-nvim
       nvim-web-devicons
+      nightfox-nvim
 
       # motion
       fzf-vim
@@ -126,6 +128,7 @@ in
       goyo
       markdown-preview-nvim
       nvim-colorizer-lua
+      presenting-vim
       vim-better-whitespace
       vim-dispatch
       vim-dispatch-neovim

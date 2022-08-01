@@ -37,8 +37,8 @@ in
       k = "kubectl";
       #ip = "ip --color=auto";
       #tmux="tmux -2";
-      st4nson-build = "pushd ~/git/nixfiles; nix build \".#darwinConfigurations.st4nson-MacBook.system\"; popd";
-      st4nson-switch = "pushd ~/git/nixfiles; ./result/sw/bin/darwin-rebuild switch --flake .#st4nson-MacBook; popd";
+      st4nson-build = "pushd ~/git/nixfiles/mac; darwin-rebuild build --flake \".#\"; popd";
+      st4nson-switch = "NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#SSzydo\" --impure";
       kube-complete = "source <(kubectl completion zsh)";
     };
 
@@ -57,7 +57,6 @@ in
       KUBE_PS1_SEPARATOR= "";
       KUBE_PS1_NS_ENABLE="false";
       KUSTOMIZE_PLUGIN_HOME="$HOME/.config/kustomize/plugin";
-      PAGER="";
 
       AWS_REGION="us-west-2";
       AWS_PROFILE="nmk-test";
