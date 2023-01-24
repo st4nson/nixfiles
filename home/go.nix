@@ -10,7 +10,7 @@
 
   programs.go = {
     enable = true;
-    package = pkgs.go_1_17;
+    package = pkgs.go_1_18;
 
     goBin = "golang/bin";
     goPath = "golang";

@@ -31,11 +31,6 @@ font:
   # Point size of the font
   size: 16
 
-  # OS X only: use thin stroke font rendering. Thin strokes are suitable
-  # for retina displays, but for non-retina you probably want this set to
-  # false.
-  use_thin_strokes: true
-
 # Colors (Nord)
 colors:
    # Default colors
@@ -56,7 +51,7 @@ colors:
     matches:
       foreground: CellBackground
       background: '#88c0d0'
-    bar:
+    footer_bar:
       background: '#434c5e'
       foreground: '#d8dee9'
   normal:
@@ -86,6 +81,38 @@ colors:
     magenta: '#8c738c'
     cyan: '#6d96a5'
     white: '#aeb3bb'
+
+# Nightfox Alacritty Colors
+# Style: nordfox
+# Upstream: https://github.com/edeneast/nightfox.nvim/raw/main/extra/nordfox/nightfox_alacritty.yml
+#colors:
+  ## Default colors
+  #primary:
+    #background: '#2e3440'
+    #foreground: '#cdcecf'
+  ## Normal colors
+  #normal:
+    #black:   '#3b4252'
+    #red:     '#bf616a'
+    #green:   '#a3be8c'
+    #yellow:  '#ebcb8b'
+    #blue:    '#81a1c1'
+    #magenta: '#b48ead'
+    #cyan:    '#88c0d0'
+    #white:   '#e5e9f0'
+  ## Bright colors
+  #bright:
+    #black:   '#465780'
+    #red:     '#d06f79'
+    #green:   '#b1d196'
+    #yellow:  '#f0d399'
+    #blue:    '#8cafd2'
+    #magenta: '#c895bf'
+    #cyan:    '#93ccdc'
+    #white:   '#e7ecf4'
+  #indexed_colors:
+    #- { index: 16, color: '#c9826b' }
+    #- { index: 17, color: '#bf88bc' }
 
 # Visual Bell
 bell:

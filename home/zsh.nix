@@ -37,8 +37,10 @@ in
       k = "kubectl";
       #ip = "ip --color=auto";
       #tmux="tmux -2";
-      st4nson-build = "pushd ~/git/nixfiles/mac; darwin-rebuild build --flake \".#\"; popd";
-      st4nson-switch = "NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#SSzydo\" --impure";
+      st4nson-mac-build = "pushd ~/git/nixfiles/mac; darwin-rebuild build --flake \".#\"; popd";
+      st4nson-mac-switch= "pushd ~/git/nixfiles/mac; darwin-rebuild switch --flake \".#\"; popd";
+      st4nson-build= "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager build --flake \".#SSzydo\" --impure; popd";
+      st4nson-switch = "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#SSzydo\" --impure; popd";
       kube-complete = "source <(kubectl completion zsh)";
     };
 

@@ -315,8 +315,7 @@ lsp_signature_cfg = {
 }
 
 -- Setup lspconfig.
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
-
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- lsp-config
 -- vim.lsp.set_log_level("debug")
@@ -365,6 +364,17 @@ end
 
 local lsp_default_config = {on_attach = on_attach, capabilties = capabilties}
 local servers = {
+  jsonls = {},
+  yamlls = {
+    settings = {
+      yaml = {
+        schemas = {
+          ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
+          ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.21.14-standalone-strict/all.json"] = "/*.k8s.yaml",
+        },
+      },
+    }
+  },
   terraformls = {},
   gopls = {
     filetypes = { 'go', 'gomod', 'gohtmltmpl', 'gotexttmpl' },
@@ -384,7 +394,6 @@ local servers = {
         staticcheck = true,
         matcher = 'fuzzy',
         diagnosticsDelay = '500ms',
-        experimentalWatchedFileDelay = '1000ms',
         symbolMatcher = 'fuzzy',
         gofumpt = false, -- true, -- turn on for new repos, gofmpt is good but also create code turmoils
         buildFlags = { '-tags', 'lint' },
@@ -406,7 +415,6 @@ require'nvim-web-devicons'.setup {
 
 -- nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-ensure_installed = { "bash", "go" },
   highlight = {
     enable = true
   },

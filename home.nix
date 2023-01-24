@@ -55,9 +55,6 @@ in
   };
 
   home.packages = with pkgs; [
-
-  home.packages = with pkgs; [
-
     asciidoctor
     cachix
     cfssl
@@ -111,13 +108,15 @@ in
     gnumake
     nixpkgs-fmt
     nodejs
-    #pre-commit  # TODO broken - dotnet ?
+    pre-commit
     rnix-lsp
     shellcheck
     shfmt
     terraform-ls
     universal-ctags
     yarn
+    nodePackages.vscode-langservers-extracted
+    nodePackages.yaml-language-server
 
     # Python TODO
     #pipenv
@@ -162,14 +161,4 @@ in
     shutter
     slack
   ];
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "22.05";
 }

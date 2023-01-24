@@ -65,7 +65,7 @@ in
 
     plugins = with pkgs.vimPlugins; [
       # neovim
-      nvim-treesitter
+      nvim-treesitter.withAllGrammars
       plenary-nvim
       popup-nvim
 
