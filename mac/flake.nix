@@ -9,8 +9,8 @@
 
   outputs = { self, darwin, nixpkgs }:
   {
-    darwinConfigurations."AP70MD6RE61E65" = darwin.lib.darwinSystem {
-      system = "x86_64-darwin";
+    darwinConfigurations."APLQH75K080966" = darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
       modules = [
         ./darwin-configuration.nix
       ];

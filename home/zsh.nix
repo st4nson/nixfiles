@@ -39,12 +39,13 @@ in
       #tmux="tmux -2";
       st4nson-mac-build = "pushd ~/git/nixfiles/mac; darwin-rebuild build --flake \".#\"; popd";
       st4nson-mac-switch= "pushd ~/git/nixfiles/mac; darwin-rebuild switch --flake \".#\"; popd";
-      st4nson-build= "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager build --flake \".#SSzydo\" --impure; popd";
-      st4nson-switch = "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#SSzydo\" --impure; popd";
+      st4nson-build= "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager build --flake \".#sszydo\" --impure; popd";
+      st4nson-switch = "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#sszydo\" --impure; popd";
       kube-complete = "source <(kubectl completion zsh)";
     };
 
     sessionVariables = {
+      EDITOR="vim";
       ZSH_DISABLE_COMPFIX="true";
       COMPLETION_WAITING_DOTS = "true";
       FZF_TMUX = 1;
@@ -90,7 +91,7 @@ in
       #. /Users/${userNameDarwin}/.nix-profile/etc/profile.d/nix.sh
       #''}
 
-      task list
+      #task list
       #zprof
       '';
     };

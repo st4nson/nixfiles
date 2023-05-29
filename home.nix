@@ -56,6 +56,7 @@ in
 
   home.packages = with pkgs; [
     asciidoctor
+    bind
     cachix
     cfssl
     exa
@@ -69,11 +70,12 @@ in
     ipcalc
     jq
     lazygit
-    luajit
     lsof
+    luajit
     neofetch
     #neovim-remote
     nix-index
+    openssl
     ranger
     restic
     ripgrep
@@ -99,12 +101,14 @@ in
     kubectx
     kubernetes-helm
     kustomize_3
+    skaffold
     terraform
     terraform-docs
     tflint
     #qemu
 
     # Programming
+    gcc
     gnumake
     nixpkgs-fmt
     nodejs
@@ -149,6 +153,7 @@ in
     lshw
     mkpasswd
     virtmanager
+    xsel
 
     # GUI
     chromium

@@ -5,7 +5,7 @@
   system.defaults.dock.autohide = true;
   system.defaults.dock.orientation = "bottom";
   system.defaults.dock.show-recents = false;
-  system.defaults.dock.tilesize = 32;
+  system.defaults.dock.tilesize = 64;
   system.defaults.spaces.spans-displays = false;
 
   # List packages installed in system profile. To search by name, run:
@@ -70,6 +70,7 @@
       yabai -m rule --add app='System Preferences' manage=off
       yabai -m rule --add app="^Cisco AnyConnect Secure Mobility Client$" manage=off
       yabai -m rule --add app='^eqMac$' manage=off
+      yabai -m rule --add app='^SketchUp$' manage=off
     '';
   };
 
@@ -132,13 +133,13 @@
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon.enable = true;
   nix.package = pkgs.nixFlakes;
-  nix.trustedUsers = [ "root" "SSzydo"];
+  nix.settings.trusted-users = [ "root" "sszydo"];
   nix.extraOptions = ''
       experimental-features = nix-command flakes
   '';
 
   # Manage build users
-  users.nix.configureBuildUsers = true;
+  nix.configureBuildUsers = true;
 
   programs.zsh.enable = true;
 

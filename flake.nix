@@ -10,8 +10,9 @@
 
   outputs = { nixpkgs, home-manager, ... }:
     let
-      system = "x86_64-darwin";
-      username = "SSzydo";
+      system = "aarch64-darwin";
+      username = "sszydo";
+      homedir = "Users";
     in {
       homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
@@ -20,7 +21,7 @@
         {
           home = {
             username = "${username}";
-            homeDirectory = "/Users/${username}";
+            homeDirectory = "/${homedir}/${username}";
             stateVersion = "22.11";
           };
         }

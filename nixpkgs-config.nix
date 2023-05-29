@@ -1,1 +1,4 @@
-{ allowUnfree = true; }  # needed by 'slack'
+{
+  allowUnfree = true;
+  experimental-features = nix-command flakes;
+}
