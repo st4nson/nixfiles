@@ -76,13 +76,13 @@ in
       nvim-cmp
       cmp-buffer
       cmp-cmdline
+      cmp-emoji
       cmp-jenkinsfile-custom
       cmp-nvim-lsp
       cmp-nvim-lsp-document-symbol
       cmp-nvim-lua
       cmp-nvim-ultisnips
       cmp-path
-      cmp-emoji
       cmp-treesitter
 
       nvim-lspconfig
@@ -137,6 +137,6 @@ in
     ];
 
     extraPackages = [ pkgs.git ];
-    extraConfig = (builtins.readFile ../files/vimrc);
+    extraLuaConfig = (builtins.readFile ../files/init.lua);
   };
 }
