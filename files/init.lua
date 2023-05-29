@@ -49,8 +49,9 @@ vim.opt.synmaxcol = 250   -- syntax hi. only for first 250 chars. Speed improvem
 vim.api.nvim_set_keymap("c", "w!!", "w !sudo tee % >/dev/null", { noremap = true, silent = true })
 
 -- Set persistent undo
+HOME = os.getenv("HOME")
 vim.opt.undofile = true
-vim.opt.undodir = "~/.vim/undodir"
+vim.opt.undodir = HOME .. "/.vim/undodir"
 
 -- Disable swap and backup files
 vim.opt.swapfile = false
