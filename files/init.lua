@@ -126,7 +126,7 @@ vim.g.terraform_fmt_on_save = 1
 
 -- vim-slime
 vim.g.slime_target = "tmux"
-vim.g.slime_paste_file = "$HOME/.slime_paste"
+vim.g.slime_paste_file = HOME .. "/.slime_paste"
 vim.g.slime_dont_ask_default = 1
 vim.g.slime_default_config = {
 	socket_name = "default",
