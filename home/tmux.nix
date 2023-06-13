@@ -38,8 +38,8 @@
       set -g pane-border-style fg=#5cafb0
 
       # Set inactive/active window style
-      set -g window-style 'bg=#373e4d'
-      set -g window-active-style 'fg=#d8dee9,bg=#2e3440'
+      set -g window-style 'bg=#1e1e2e'
+      set -g window-active-style 'fg=#cad3f5,bg=#24273a'
     '';
 
     plugins = with pkgs; [
