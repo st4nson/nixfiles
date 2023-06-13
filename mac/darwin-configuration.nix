@@ -92,9 +92,9 @@
       dnd_icon_color     = "0xffa8a8a8";
       clock_icon_color   = "0xffa8a8a8";
       space_icon_strip   = "I II III IV V VI VII VIII IX X";
-      power_icon_strip   = " ";
+      power_icon_strip   = "🔋 ⚡";
       space_icon         = "";
-      clock_icon         = "";
+      clock_icon         = "🕜";
       dnd_icon           = "";
       clock_format       = ''"%d/%m/%y %R"'';
     };
@@ -105,7 +105,7 @@
     package = pkgs.skhd;
     skhdConfig = ''
       # open terminal
-      cmd - return : /Applications/NixManualApps/Alacritty.app/Contents/MacOS/alacritty
+      cmd - return : /Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty
       cmd - q : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --single-instance -d
 
       # focus window

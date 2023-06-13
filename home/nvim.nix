@@ -93,14 +93,14 @@ in
 
       # git
       vim-fugitive
-      vim-gitgutter
+      gitsigns-nvim
 
       # themes
       nvcode-color-schemes-vim
       lualine-nvim
       bufferline-nvim
       nvim-web-devicons
-      nightfox-nvim
+      catppuccin-nvim
 
       # motion
       fzf-vim

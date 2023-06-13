@@ -44,7 +44,12 @@
 
     plugins = with pkgs; [
       tmuxPlugins.copycat
-      tmuxPlugins.nord
+      {
+        plugin = tmuxPlugins.catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavour 'macchiato' # or frappe, macchiato, mocha
+        '';
+      }
       tmuxPlugins.prefix-highlight
       tmuxPlugins.resurrect
       tmuxPlugins.yank

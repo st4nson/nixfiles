@@ -72,6 +72,7 @@ in
     lazygit
     lsof
     luajit
+    ncurses
     neofetch
     #neovim-remote
     nix-index
