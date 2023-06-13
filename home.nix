@@ -34,7 +34,7 @@ in
     bat = {
       enable = true;
       config = {
-        theme = "Nord";
+        theme = "Catppuccin-macchiato";
       };
     };
 
