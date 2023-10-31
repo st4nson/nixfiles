@@ -51,7 +51,12 @@ cluster_short_name() {
   if [[ -v kubectx_mapping["$cluster_name"] ]]; then
     echo $kubectx_mapping[$cluster_name]
   else
-    echo $cluster_name
+	if [[ $cluster_name =~ "prod" ]]; then
+		#echo $cluster_name"-PROD!"
+		echo "%{$fg[white]%}%{$bg[red]%}$cluster_name%{$reset_color%}🚨"
+	else
+		echo $cluster_name
+	fi
   fi
 }
 
@@ -60,6 +65,7 @@ typeset -A aws_region
 aws_region[us-west-2]="w2"
 aws_region[us-east-1]="e1"
 aws_region[eu-west-1]="euw1"
+aws_region[eu-central-1]="euc1"
 aws_region[cn-nortwest-1]="cnw1"
 
 aws_custom_prompt() {

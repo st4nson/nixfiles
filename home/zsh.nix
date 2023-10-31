@@ -45,6 +45,7 @@ in
     };
 
     sessionVariables = {
+      LANG="en_GB.UTF8";
       EDITOR="vim";
       ZSH_DISABLE_COMPFIX="true";
       COMPLETION_WAITING_DOTS = "true";
