@@ -29,10 +29,10 @@ in
 
     shellAliases = {
       cat = "bat";
-      sl = "exa";
-      ls = "exa";
-      la = "exa -la";
-      lt = "exa -lasnew";
+      sl = "eza";
+      ls = "eza";
+      la = "eza -la";
+      lt = "eza -lasnew";
       mux = "tmuxinator";
       k = "kubectl";
       #ip = "ip --color=auto";
@@ -42,6 +42,7 @@ in
       st4nson-build= "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager build --flake \".#sszydo\" --impure; popd";
       st4nson-switch = "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#sszydo\" --impure; popd";
       kube-complete = "source <(kubectl completion zsh)";
+      k9s = "k9s --crumbsless";
     };
 
     sessionVariables = {

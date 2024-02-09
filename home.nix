@@ -28,6 +28,10 @@ in
     })
   ];
 
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
+    "terraform"
+  ];
+
   programs = {
     home-manager.enable = true;
 
@@ -59,7 +63,7 @@ in
     bind
     cachix
     cfssl
-    exa
+    eza
     fd
     gnupg
     gopass
@@ -68,6 +72,7 @@ in
     http-prompt
     iftop
     ipcalc
+    jiq
     jq
     lazygit
     lsof
@@ -115,6 +120,7 @@ in
     nodejs
     pre-commit
     rnix-lsp
+    lua-language-server
     shellcheck
     shfmt
     terraform-ls

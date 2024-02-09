@@ -261,8 +261,8 @@ cmp.setup({
         buffer = "[Buf]",
         nvim_lsp = "[LSP]",
         path = "[Path]",
-        ultisnips = "[Ulti]",
         treesitter = "[Tree]",
+        ultisnips = "[Ulti]"
       },
     },
   },
@@ -308,7 +308,7 @@ local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 -- lsp-config
 -- vim.lsp.set_log_level("debug")
-local nvim_lsp = require('lspconfig')
+local nvim_lspconfig = require('lspconfig')
 
 
 -- Use an on_attach function to only map the following keys
@@ -393,7 +393,7 @@ local servers = {
 }
 
 for server, config in pairs(servers) do
-  nvim_lsp[server].setup(vim.tbl_deep_extend('force', lsp_default_config, config))
+  nvim_lspconfig[server].setup(vim.tbl_deep_extend('force', lsp_default_config, config))
 end
 
 -- devicons
@@ -411,6 +411,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   }
 }
+
 require("catppuccin").setup({
     flavour = "macchiato", -- latte, frappe, macchiato, mocha
     dim_inactive = {

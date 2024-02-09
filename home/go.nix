@@ -6,11 +6,12 @@
     golangci-lint
     gopls
     gotags
+    tinygo
   ];
 
   programs.go = {
     enable = true;
-    package = pkgs.go_1_20;
+    package = pkgs.go;
 
     goBin = "golang/bin";
     goPath = "golang";
