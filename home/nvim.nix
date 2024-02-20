@@ -1,14 +1,5 @@
 { pkgs, ... }:
 let
-  cmp-jenkinsfile-custom = pkgs.vimUtils.buildVimPlugin {
-    name = "cmp-jenkinsfile";
-    src = pkgs.fetchFromGitHub {
-      owner = "joshzcold";
-      repo = "cmp-jenkinsfile";
-      rev = "f06750822f9b2eb282ba8321d47d0a833968f6dd";
-      sha256 = "gx75kAnkl8WVthKfWueCIjkwOTPqAZLXCK4J5En861I=";
-    };
-  };
 in
 {
   programs.neovim = {
@@ -34,7 +25,6 @@ in
       cmp-buffer
       cmp-cmdline
       cmp-emoji
-      cmp-jenkinsfile-custom
       cmp-nvim-lsp
       cmp-nvim-lsp-document-symbol
       cmp-nvim-lsp-signature-help

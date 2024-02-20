@@ -61,7 +61,6 @@ in
   home.packages = with pkgs; [
     asciidoctor
     bind
-    cachix
     cfssl
     eza
     fd

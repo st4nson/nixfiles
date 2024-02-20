@@ -110,58 +110,6 @@ vim.g.slime_default_config = {
 	target_pane = ":.1",
 }
 
--- vim-go
-
--- run :GoBuild or :GoTestCompile based on the go file
---local function go_build()
-  --local fname = vim.fn.expand("%:p:h") .. "/" .. vim.fn.expand("%:p:r")
-  --local go_build = "go build " .. fname .. ".go"
-  --local go_test = "go test " .. fname .. "_test.go"
-  --if vim.fn.filereadable(go_build) == 1 then
-	--vim.cmd(":!go build " .. fname .. ".go")
-  --elseif vim.fn.filereadable(go_test) == 1 then
-	--vim.cmd(":!go test " .. fname .. "_test.go")
-  --else
-	--vim.cmd(":GoBuild")
-  --end
---end
-
---vim.api.nvim_create_autocmd("FileType", {
-  --pattern = "go",
-  --callback = function(args)
-	--vim.keymap.set('n', '<leader>b', function() go_build() end, { noremap = true })
-  --end
---})
---vim.api.nvim_create_autocmd("FileType", {
-  --pattern = "go",
-  --callback = function(args)
-	--vim.keymap.set('n', '<leader>r', '<Plug>(go-run)', { noremap = true })
-  --end
---})
---vim.api.nvim_create_autocmd("FileType", {
-  --pattern = "go",
-  --callback = function(args)
-	--vim.keymap.set('n', '<leader>t', '<Plug>(go-test)', { noremap = true })
-  --end
---})
---vim.api.nvim_create_autocmd("FileType", {
-  --pattern = "go",
-  --callback = function(args)
-	--vim.keymap.set('n', '<leader>c', '<Plug>(go-coverage-toggle)', { noremap = true })
-  --end
---})
-
-
---vim.g.go_list_type = "quickfix"
---vim.g.go_fmt_command = "goimports"
-
---vim.g.go_gopls_enabled = 1
---vim.g.go_gopls_options = {'-remote=auto'}
-
---vim.g.go_code_completion_enabled = 0
---vim.g.go_doc_keywordprg_enabled = 0
---vim.g.go_def_mapping_enabled = 0
-
 -- colorizer
 require'colorizer'.setup()
 
@@ -237,8 +185,8 @@ cmp.setup({
   sources = {
     { name = 'nvim_lsp' },
     { name = 'ultisnips' }, -- For ultisnips users.
-    { name = 'path' },
     { name = 'buffer', keyword_length = 3 },
+    { name = 'path' },
     --{ name = 'treesitter' },
     { name = 'emoji' }
   },
