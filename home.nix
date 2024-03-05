@@ -84,6 +84,7 @@ in
     ranger
     restic
     ripgrep
+    saml2aws
     silver-searcher
     sshpass
     unzip

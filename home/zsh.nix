@@ -43,6 +43,7 @@ in
       st4nson-switch = "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#sszydo\" --impure; popd";
       kube-complete = "source <(kubectl completion zsh)";
       k9s = "k9s --crumbsless";
+      envchg = "$(eval envchg.sh)";
     };
 
     sessionVariables = {
