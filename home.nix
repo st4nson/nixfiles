@@ -96,11 +96,15 @@ in
     #ansible-lint
     #ansible
     awscli2
+    colima
     dive
+    docker-client
     docker-compose
+    docker-credential-helpers
     docker-ls
     docker-machine
     k2tf
+    kubectl
     k9s
     kind
     krew

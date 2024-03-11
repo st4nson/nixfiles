@@ -61,12 +61,13 @@ in
 
       # programming
       Jenkinsfile-vim-syntax
+      copilot-lua
       go-nvim
+      ultisnips
       vim-nix
+      vim-snippets
       vim-terraform
       vim-test
-      ultisnips
-      vim-snippets
 
       # misc.
       direnv-vim
