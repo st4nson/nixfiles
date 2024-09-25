@@ -29,7 +29,7 @@ font:
     style: Italic
 
   # Point size of the font
-  size: 14
+  size: 16
 
 # Colors (Nord)
 #colors:

@@ -60,9 +60,14 @@ in
       vim-surround
 
       # programming
+      CopilotChat-nvim
       Jenkinsfile-vim-syntax
       copilot-lua
       go-nvim
+      nvim-dap
+      nvim-dap-go
+      nvim-dap-ui
+      nvim-nio
       ultisnips
       vim-nix
       vim-snippets

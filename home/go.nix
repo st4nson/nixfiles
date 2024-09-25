@@ -2,7 +2,7 @@
 
 {
   home.packages = with pkgs; [
-    #delve
+    delve
     golangci-lint
     gopls
     gotags
@@ -11,7 +11,7 @@
 
   programs.go = {
     enable = true;
-    package = pkgs.go;
+    package = pkgs.go_1_21;
 
     goBin = "golang/bin";
     goPath = "golang";

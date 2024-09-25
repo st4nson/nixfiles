@@ -1,3 +1,4 @@
+-- vim:set noet sts=0 sw=2 ts=2:
 vim.opt.mouse = "a"
 
 vim.opt.termguicolors = true
@@ -148,11 +149,31 @@ require("bufferline").setup{
   }
 }
 
+local select_one_or_multi = function(prompt_bufnr)
+  local picker = require('telescope.actions.state').get_current_picker(prompt_bufnr)
+  local multi = picker:get_multi_selection()
+  if not vim.tbl_isempty(multi) then
+    require('telescope.actions').close(prompt_bufnr)
+    for _, j in pairs(multi) do
+      if j.path ~= nil then
+        vim.cmd(string.format('%s %s', 'edit', j.path))
+      end
+    end
+  else
+    require('telescope.actions').select_default(prompt_bufnr)
+  end
+end
+
 -- Telescope
 require('telescope').setup{
   -- ...
   defaults = {
     prompt_prefix = "🔍",
+    mappings = {
+      i = {
+        ['<CR>'] = select_one_or_multi,
+      }
+    }
   }
 }
 
@@ -509,3 +530,22 @@ require('copilot').setup({
   copilot_node_command = 'node', -- Node.js version must be > 18.x
   server_opts_overrides = {},
 })
+
+require("CopilotChat").setup {
+	--debug = true, -- Enable debugging
+	-- See Configuration section for rest
+	--
+	prompts = {
+		BetterNamings = "Please provide better names for the following variables and functions.",
+	},
+	window = {
+		layout = 'float',
+		relative = 'editor',
+		border = 'rounded',
+		width = 0.9,
+		height = 0.8,
+	}
+}
+
+local chat = require("CopilotChat")
+vim.keymap.set('n', "<leader>co", chat.toggle, { noremap = true, silent = true })
