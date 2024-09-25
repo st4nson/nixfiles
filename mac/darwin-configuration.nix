@@ -14,8 +14,7 @@
     vim
   ];
 
-  fonts.fontDir.enable = true;
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     nerdfonts
   ];
 
@@ -58,11 +57,11 @@
       mouse_drop_action          =   "swap";
 
       layout                     =   "bsp";
-      top_padding                =   0;
-      bottom_padding             =   0;
-      left_padding               =   0;
-      right_padding              =   0;
-      window_gap                 =   1;
+      top_padding                =   10;
+      bottom_padding             =   10;
+      left_padding               =   10;
+      right_padding              =   10;
+      window_gap                 =   5;
     };
 
     extraConfig = ''
