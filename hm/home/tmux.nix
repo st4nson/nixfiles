@@ -40,6 +40,10 @@
       # Set inactive/active window style
       set -g window-style 'bg=#1e1e2e'
       set -g window-active-style 'fg=#cad3f5,bg=#24273a'
+
+      # FIX: https://github.com/tmux/tmux/issues/4162#issuecomment-2412933177
+      set -gu default-command
+      set -g default-shell "$SHELL"
     '';
 
     plugins = with pkgs; [

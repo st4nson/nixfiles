@@ -1,10 +1,8 @@
 { config, pkgs, ... }:
-
 let
   inherit (pkgs.lib) optionals optionalAttrs optionalString;
   inherit (pkgs.stdenv) isLinux;
 in
-
 {
   imports =
     [
@@ -18,15 +16,18 @@ in
       ./home/zsh.nix
     ];
 
-  nixpkgs.overlays = [
-    (self: super: {
-      golangci-lint = super.golangci-lint.override {
-        # Override https://github.com/NixOS/nixpkgs/pull/166801 which changed this
-        # to buildGo118Module because it does not build on Darwin.
-        buildGoModule = super.buildGoModule;
-      };
-    })
-  ];
+  home.username = "sszydo";
+  home.stateVersion = "24.11";
+
+#  nixpkgs.overlays = [
+#    (self: super: {
+#      golangci-lint = super.golangci-lint.override {
+#        # Override https://github.com/NixOS/nixpkgs/pull/166801 which changed this
+#        # to buildGo118Module because it does not build on Darwin.
+#        buildGoModule = super.buildGoModule;
+#      };
+#    })
+#  ];
 
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
     "terraform"
@@ -67,6 +68,7 @@ in
     gnupg
     gopass
     graphviz
+    innoextract
     htop
     http-prompt
     iftop
@@ -89,6 +91,7 @@ in
     sshpass
     unzip
     wget
+    vale
     yq-go
     zip
 
@@ -102,7 +105,7 @@ in
     docker-compose
     docker-credential-helpers
     docker-ls
-    docker-machine
+    #docker-machine
     k2tf
     kubectl
     k9s
@@ -112,7 +115,7 @@ in
     kubernetes-helm
     kustomize_3
     skaffold
-    terraform
+    #terraform
     terraform-docs
     tflint
     #qemu
@@ -123,8 +126,10 @@ in
     nixpkgs-fmt
     nodejs
     pre-commit
-    rnix-lsp
+    #rnix-lsp
     lua-language-server
+    typescript
+    #typescript-language-server
     shellcheck
     shfmt
     terraform-ls
@@ -132,6 +137,8 @@ in
     yarn
     nodePackages.vscode-langservers-extracted
     nodePackages.yaml-language-server
+    #playwright-test
+    #playwright-driver
 
     # Python TODO
     #pipenv
