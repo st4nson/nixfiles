@@ -34,7 +34,7 @@ vim.opt.smartcase = true
 
 -- Show line numbers and ruler
 vim.opt.number = true
-vim.opt.colorcolumn = "81"
+vim.opt.colorcolumn = "121"
 
 vim.opt.autoindent = true -- autosave files on :make
 vim.opt.updatetime = 250  -- update each 250ms
@@ -204,6 +204,7 @@ cmp.setup({
   mapping = cmp.mapping.preset.insert(),
 
   sources = {
+		{ name = "copilot", group_index = 2 },
     { name = 'nvim_lsp' },
     { name = 'ultisnips' }, -- For ultisnips users.
     { name = 'buffer', keyword_length = 3 },
@@ -290,7 +291,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     local opts = { buffer = ev.buf }
     vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
-    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    --vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'gd', require('goto-preview').goto_preview_definition, opts)
     vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
     vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
     vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
@@ -302,7 +304,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
     vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
-    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    --vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+    vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, opts)
     vim.keymap.set('n', '<space>f', function()
       vim.lsp.buf.format { async = true }
     end, opts)
@@ -447,6 +450,10 @@ require('gitsigns').setup{
     map({'o', 'x'}, 'ih', ':<C-U>Gitsigns select_hunk<CR>')
   end
 }
+
+require('goto-preview').setup {}
+
+
 -- go.nvim
 require('go').setup()
 
@@ -489,7 +496,7 @@ require("noice").setup({
 
 require('copilot').setup({
   panel = {
-    enabled = true,
+    enabled = false,
     auto_refresh = false,
     keymap = {
       jump_prev = "[[",
@@ -504,7 +511,7 @@ require('copilot').setup({
     },
   },
   suggestion = {
-    enabled = true,
+    enabled = false,
     auto_trigger = false,
     debounce = 75,
     keymap = {

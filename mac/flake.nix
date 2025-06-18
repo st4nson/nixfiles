@@ -12,7 +12,7 @@
   };
 
   outputs = inputs@{ nixpkgs, home-manager, darwin, ... }: {
-    darwinConfigurations."APLQH75K080966" = darwin.lib.darwinSystem {
+    darwinConfigurations."AP7TXJWN60C1AE" = darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [
         ./darwin-configuration.nix

@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
   system.defaults.dock.autohide = true;
   system.defaults.dock.orientation = "bottom";
   system.defaults.dock.show-recents = false;
@@ -67,6 +67,7 @@
     extraConfig = ''
       # rules
       yabai -m rule --add app='System Preferences' manage=off
+      yabai -m rule --add app="^Ustawienia systemowe$" manage=off
       yabai -m rule --add app="^Cisco AnyConnect Secure Mobility Client$" manage=off
       yabai -m rule --add app='^eqMac$' manage=off
       yabai -m rule --add app='^SketchUp$' manage=off
@@ -106,7 +107,7 @@
     package = pkgs.skhd;
     skhdConfig = ''
       # open terminal
-      cmd - return : /Applications/Nix\ Apps/Alacritty.app/Contents/MacOS/alacritty
+      cmd - return : "open -n /Applications/Ghostty.app"
       cmd - q : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --single-instance -d
 
       # focus window
@@ -140,6 +141,9 @@
 
   # Manage build users
   nix.configureBuildUsers = true;
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   programs.zsh.enable = true;
 

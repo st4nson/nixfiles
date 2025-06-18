@@ -6,6 +6,7 @@
     git-lfs
     git-review
     gh
+    gh-copilot
   ];
 
   programs.git = {

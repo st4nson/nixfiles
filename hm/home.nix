@@ -67,6 +67,7 @@ in
     fd
     gnupg
     gopass
+    goreleaser
     graphviz
     innoextract
     htop

@@ -20,8 +20,6 @@ in
         "aws"
         "git"
         "kube-ps1"
-        "taskwarrior"
-        "terraform"
         "vi-mode"
         "wd"
       ];

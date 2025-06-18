@@ -17,7 +17,8 @@
     customPaneNavigationAndResize = true;
 
     extraConfig = ''
-      set-option -ga terminal-overrides ",xterm-256color:Tc"
+      set -g default-terminal "$TERM"
+      set-option -ga terminal-overrides ",$TERM:Tc"
       set -g mouse on           # mouse support
 
       # stop confusion while spliting windows
