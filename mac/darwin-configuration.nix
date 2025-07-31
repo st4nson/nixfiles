@@ -10,12 +10,11 @@
 
   # List packages installed in system profile. To search by name, run:
   environment.systemPackages = with pkgs; [
-    alacritty
     vim
   ];
 
   fonts.packages = with pkgs; [
-    nerdfonts
+    nerd-fonts.hack
   ];
 
   environment.variables = {
@@ -27,7 +26,7 @@
     package = pkgs.yabai;
     enableScriptingAddition = false;
     config = {
-      external_bar               = "all:28:0";
+      external_bar               = "all:0:0";
 
       mouse_follows_focus        =  "on";
       focus_follows_mouse        =  "off";
@@ -75,7 +74,7 @@
   };
 
   services.spacebar = {
-    enable = true;
+    enable = false;
     package = pkgs.spacebar;
     config = {
       position            = "top";
@@ -133,14 +132,12 @@
   # environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  nix.enable = true;
+
   nix.settings.trusted-users = [ "root" "sszydo"];
   nix.extraOptions = ''
       experimental-features = nix-command flakes
   '';
-
-  # Manage build users
-  nix.configureBuildUsers = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;

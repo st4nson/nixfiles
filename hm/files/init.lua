@@ -1,18 +1,9 @@
+require("config.lazy")
+
 -- vim:set noet sts=0 sw=2 ts=2:
 vim.opt.mouse = "a"
 
 vim.opt.termguicolors = true
-
--- Theme setup
--- configure nvcode-color-schemes
-vim.g.nvcode_termcolors = 256
-
-vim.g.nord_bold = 1
-vim.g.nord_italic = 1
-vim.g.nord_italic_comments = 1
-vim.g.nord_uniform_diff_background = 1
-vim.g.nord_uniform_status_lines = 1
-
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
@@ -53,6 +44,22 @@ vim.opt.undodir = HOME .. "/.vim/undodir"
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.writebackup = false
+
+-- Setup lazy.nvim
+require("lazy").setup({
+	spec = {
+		-- import your plugins
+		{ import = "plugins" },
+	},
+	-- Configure any other settings here. See the documentation for more details.
+	-- colorscheme that will be used when installing plugins.
+	install = { colorscheme = { "catppuccin-macchiato" } },
+	-- automatically check for plugin updates
+	checker = { enabled = false },
+	ui = {
+	--	border = [ "╭", "─" ,"╮", "│", "╯", "─", "╰", "│" ],
+  },
+})
 
 -- buffers navigation
 vim.api.nvim_set_keymap("n", "<leader>[", ":bprevious<CR>", { noremap = true, silent = true })
@@ -167,6 +174,12 @@ end
 -- Telescope
 require('telescope').setup{
   -- ...
+--	extensions = {
+--		["ui-select"] = {
+--			require("telescope.themes").get_dropdown {
+--			}
+--		}
+--	}
   defaults = {
     prompt_prefix = "🔍",
     mappings = {
@@ -185,8 +198,10 @@ vim.keymap.set('n', "<leader>=", telescope_builtin.oldfiles, { noremap = true, s
 vim.keymap.set('n', "<leader>se", telescope_builtin.live_grep, { noremap = true, silent = true })
 vim.keymap.set('n', "<leader>gs", telescope_builtin.git_status, { noremap = true, silent = true })
 
-local trouble = require('trouble')
-vim.keymap.set("n", "<leader>t", trouble.toggle, { noremap = true, silent = true })
+require("telescope").load_extension("ui-select")
+
+-- local trouble = require('trouble')
+-- vim.keymap.set("n", "<leader>t", trouble.toggle, { noremap = true, silent = true })
 
 -- nvim-cmp
 local lspkind = require "lspkind"
@@ -213,7 +228,7 @@ cmp.setup({
     { name = 'emoji' }
   },
 
-  completion = { completeopt = 'menu,menuone,noinsert,noselect' },
+  completion = { completeopt = 'menu,menuone,noinsert,noselect,popup' },
   preselect = cmp.PreselectMode.None,
   formatting = {
     -- Youtube: How to set up nice formatting for your sources.
@@ -328,6 +343,7 @@ local servers = {
     }
   },
   terraformls = {},
+  ts_ls = {},
   gopls = {
     filetypes = { 'go', 'gomod', 'gohtmltmpl', 'gotexttmpl' },
     cmd = {'gopls','--remote=auto'},
@@ -352,7 +368,8 @@ local servers = {
         -- hoverKind = "FullDocumentation",
       },
     },
-  }
+  },
+	golangci_lint_ls = {},
 }
 
 for server, config in pairs(servers) do
@@ -492,66 +509,76 @@ require("noice").setup({
       },
     },
   },
+  routes = {
+    {
+      view = "mini",
+      filter = {
+        event = "msg_show",
+        kind = "",
+        find = "zapisano", -- no comments
+      },
+    },
+  },
 })
 
 require('copilot').setup({
   panel = {
-    enabled = false,
-    auto_refresh = false,
-    keymap = {
-      jump_prev = "[[",
-      jump_next = "]]",
-      accept = "<CR>",
-      refresh = "gr",
-      open = "<M-CR>"
-    },
-    layout = {
-      position = "bottom", -- | top | left | right
-      ratio = 0.4
-    },
+ 	 enabled = false,
+ 	 auto_refresh = false,
+ 	 keymap = {
+ 		 jump_prev = "[[",
+ 		 jump_next = "]]",
+ 		 accept = "<CR>",
+ 		 refresh = "gr",
+ 		 open = "<M-CR>"
+ 	 },
+ 	 layout = {
+ 		 position = "bottom", -- | top | left | right
+ 		 ratio = 0.4
+ 	 },
   },
   suggestion = {
-    enabled = false,
-    auto_trigger = false,
-    debounce = 75,
-    keymap = {
-      accept = "<M-a>",
-      accept_word = false,
-      accept_line = false,
-      next = "<M-]>",
-      prev = "<M-[>",
-      dismiss = "<M-c>",
-    },
+ 	 enabled = false,
+ 	 auto_trigger = false,
+ 	 debounce = 75,
+ 	 keymap = {
+ 		 accept = "<M-a>",
+ 		 accept_word = false,
+ 		 accept_line = false,
+ 		 next = "<M-]>",
+ 		 prev = "<M-[>",
+ 		 dismiss = "<M-c>",
+ 	 },
   },
   filetypes = {
-    yaml = false,
-    markdown = false,
-    help = false,
-    gitcommit = false,
-    gitrebase = false,
-    hgcommit = false,
-    svn = false,
-    cvs = false,
-    ["."] = false,
+ 	 yaml = false,
+ 	 markdown = false,
+ 	 help = false,
+ 	 gitcommit = false,
+ 	 gitrebase = false,
+ 	 hgcommit = false,
+ 	 svn = false,
+ 	 cvs = false,
+ 	 ["."] = false,
   },
   copilot_node_command = 'node', -- Node.js version must be > 18.x
   server_opts_overrides = {},
 })
 
 require("CopilotChat").setup {
-	--debug = true, -- Enable debugging
-	-- See Configuration section for rest
-	--
-	prompts = {
-		BetterNamings = "Please provide better names for the following variables and functions.",
-	},
-	window = {
-		layout = 'float',
-		relative = 'editor',
-		border = 'rounded',
-		width = 0.9,
-		height = 0.8,
-	}
+  --debug = true, -- Enable debugging
+  -- See Configuration section for rest
+  --
+  prompts = {
+ 	 BetterNamings = "Please provide better names for the following variables and functions.",
+  },
+  window = {
+ 	 layout = 'float',
+ 	 relative = 'editor',
+ 	 border = 'rounded',
+ 	 width = 0.9,
+ 	 height = 0.8,
+  }
 }
 
 local chat = require("CopilotChat")

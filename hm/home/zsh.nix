@@ -33,10 +33,8 @@ in
       lt = "eza -lasnew";
       mux = "tmuxinator";
       k = "kubectl";
-      #ip = "ip --color=auto";
-      #tmux="tmux -2";
       st4nson-mac-build = "pushd ~/git/nixfiles/mac; darwin-rebuild build --flake \".#\"; popd";
-      st4nson-mac-switch= "pushd ~/git/nixfiles/mac; darwin-rebuild switch --flake \".#\"; popd";
+      st4nson-mac-switch= "pushd ~/git/nixfiles/mac; sudo darwin-rebuild switch --flake \".#\"; popd";
       st4nson-build= "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager build --flake \".#sszydo\" --impure; popd";
       st4nson-switch = "pushd ~/git/nixfiles; NIXPKGS_ALLOW_BROKEN=1 home-manager switch --flake \".#sszydo\" --impure; popd";
       kube-complete = "source <(kubectl completion zsh)";
@@ -44,7 +42,6 @@ in
     };
 
     sessionVariables = {
-      LANG="en_GB.UTF8";
       EDITOR="vim";
       ZSH_DISABLE_COMPFIX="true";
       COMPLETION_WAITING_DOTS = "true";
@@ -60,42 +57,25 @@ in
       KUBE_PS1_SEPARATOR= "";
       KUBE_PS1_NS_ENABLE="false";
       KUSTOMIZE_PLUGIN_HOME="$HOME/.config/kustomize/plugin";
+      KUBECACHEDIR="$HOME/nikedev/kubectl-cache";
 
       AWS_REGION="us-west-2";
       AWS_PROFILE="nmk-test";
       AWS_PAGER="";
     };
 
-    initExtraFirst = ''
-      #zmodload zsh/zprof
-    '';
-
-    initExtra = ''
+    initContent = ''
       ## Custom zsh functions
       source ~/.zsh_functions
 
       ## Autocompletion for k8s stuff - FIXME startup time
-      #source <(kubectl completion zsh)
-      #source <(helm completion zsh)
-
-      ${optionalString isLinux ''
-      # Nord 'dircolors'
-      eval $(dircolors ~/.dir_colors)
-      ''}
+      source <(kubectl completion zsh)
+      source <(helm completion zsh)
 
       MODE_INDICATOR=" %{$fg[blue]%}%{$reset_color%}";
       RPS1='$(kube_ps1)|$(aws_custom_prompt)$(vi_mode_prompt_info)'
-
-      ## Needed for single user Nix installation
-      #${optionalString isDarwin ''
-      #. /Users/${userNameDarwin}/.nix-profile/etc/profile.d/nix.sh
-      #''}
-
-      #task list
-      #zprof
       '';
     };
 
   home.file.".zsh_functions".source = ../files/zsh_functions;
-  home.file.".dir_colors".source = ../files/dir_colors;
 }

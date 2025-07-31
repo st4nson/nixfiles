@@ -6,32 +6,15 @@ in
 {
   imports =
     [
-      ./home/alacritty.nix
-      #./home/awesome.nix
       ./home/git.nix
       ./home/go.nix
       ./home/nvim.nix
-      ./home/taskwarrior.nix
       ./home/tmux.nix
       ./home/zsh.nix
     ];
 
   home.username = "sszydo";
-  home.stateVersion = "24.11";
-
-#  nixpkgs.overlays = [
-#    (self: super: {
-#      golangci-lint = super.golangci-lint.override {
-#        # Override https://github.com/NixOS/nixpkgs/pull/166801 which changed this
-#        # to buildGo118Module because it does not build on Darwin.
-#        buildGoModule = super.buildGoModule;
-#      };
-#    })
-#  ];
-
-  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [
-    "terraform"
-  ];
+  home.stateVersion = "25.05";
 
   programs = {
     home-manager.enable = true;
@@ -93,6 +76,7 @@ in
     unzip
     wget
     vale
+    wget
     yq-go
     zip
 
@@ -130,7 +114,7 @@ in
     #rnix-lsp
     lua-language-server
     typescript
-    #typescript-language-server
+    typescript-language-server
     shellcheck
     shfmt
     terraform-ls
