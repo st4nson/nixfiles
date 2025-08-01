@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  system.defaults.NSGlobalDomain._HIHideMenuBar = false;
+  system.defaults.NSGlobalDomain._HIHideMenuBar = true;
   system.defaults.dock.autohide = true;
   system.defaults.dock.orientation = "bottom";
   system.defaults.dock.show-recents = false;
@@ -26,7 +26,7 @@
     package = pkgs.yabai;
     enableScriptingAddition = false;
     config = {
-      external_bar               = "all:0:0";
+      external_bar               = "all:40:0";
 
       mouse_follows_focus        =  "on";
       focus_follows_mouse        =  "off";
@@ -71,6 +71,11 @@
       yabai -m rule --add app='^eqMac$' manage=off
       yabai -m rule --add app='^SketchUp$' manage=off
     '';
+  };
+
+  services.sketchybar = {
+    enable = true;
+    package = pkgs.sketchybar;
   };
 
   services.spacebar = {

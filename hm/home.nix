@@ -169,4 +169,7 @@ in
     shutter
     slack
   ];
+
+  home.file."Library/Application Support/com.mitchellh.ghostty/config".source = ./files/ghostty.config;
+  home.file.".config/sketchybar".source = ./files/sketchybar;
 }

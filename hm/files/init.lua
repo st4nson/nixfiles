@@ -57,7 +57,7 @@ require("lazy").setup({
 	-- automatically check for plugin updates
 	checker = { enabled = false },
 	ui = {
-	--	border = [ "╭", "─" ,"╮", "│", "╯", "─", "╰", "│" ],
+		border = { "╭", "─" ,"╮", "│", "╯", "─", "╰", "│" },
   },
 })
 
@@ -81,30 +81,6 @@ vim.api.nvim_set_keymap("n", "<leader>e", ":FloatermToggle<CR>", { noremap = tru
 vim.api.nvim_set_keymap("t", "<leader>e", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("n", "<leader>ftn", ":FloatermNext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("t", "<leader>ftn", "<C-\\><C-n>:FloatermNext<CR>", { noremap = true, silent = true })
-
--- Vimwiki
-vim.g.vimwiki_table_mappings = 0
-vim.g.vimwiki_list = {
-	{
-		path = '~/.vimwiki/',
-		syntax = 'markdown',
-		ext = '.md',
-	}
-}
-
-vim.api.nvim_create_autocmd("FileType", {
-  pattern = "vimwiki",
-  callback = function(args)
-    vim.keymap.set('n', '<leader>t', ':VimwikiToggleListItem<CR>', { noremap = true })
-  end
-})
-
-vim.api.nvim_set_hl(0, 'VimwikiHeader1',{ bg = '#2e3440',  fg = '#8fbcbb' })
-vim.api.nvim_set_hl(0, 'VimwikiHeader2',{ bg = '#2e3440',  fg = '#a3be8c' })
-vim.api.nvim_set_hl(0, 'VimwikiHeader3',{ bg = '#2e3440',  fg = '#5e81ac' })
-vim.api.nvim_set_hl(0, 'VimwikiHeader4',{ bg = '#2e3440',  fg = '#ebcb8b' })
-vim.api.nvim_set_hl(0, 'VimwikiHeader5',{ bg = '#2e3440',  fg = '#d08770' })
-vim.api.nvim_set_hl(0, 'VimwikiHeader6',{ bg = '#2e3440',  fg = '#bf616a' })
 
 -- terraform-vim
 vim.g.terraform_fmt_on_save = 1
@@ -418,7 +394,7 @@ require("catppuccin").setup({
         gitsigns = true,
         nvimtree = true,
         telescope = true,
-		vimwiki = true,
+        vimwiki = true,
         -- For more plugins integrations please scroll down (https://github.com/catppuccin/nvim#integrations)
     },
 })

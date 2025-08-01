@@ -86,5 +86,22 @@ return {
   "tpope/vim-dispatch",
   "radenling/vim-dispatch-neovim",
   "jpalardy/vim-slime",
-  "vimwiki/vimwiki",
+  {
+    "vimwiki/vimwiki",
+    init = function ()
+      vim.g.vimwiki_table_mappings = 0
+      vim.g.vimwiki_list = {
+      	{
+      		path = '~/.vimwiki/work',
+      		syntax = 'markdown',
+      		ext = '.md',
+      	},
+      	{
+      		path = '~/.vimwiki/personal',
+      		syntax = 'markdown',
+      		ext = '.md',
+      	}
+      }
+    end
+  }
 }
