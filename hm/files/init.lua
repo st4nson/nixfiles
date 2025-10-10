@@ -7,7 +7,10 @@ vim.opt.termguicolors = true
 
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
-vim.opt.backspace = indent,eol,start
+vim.opt.expandtab = true
+vim.opt.backspace = { "indent", "eol", "start" }
+vim.opt.scrolloff = 4
+vim.opt.clipboard = "unnamedplus"
 
 -- Custom list chars
 vim.opt.encoding = "utf-8"
@@ -27,7 +30,7 @@ vim.opt.smartcase = true
 vim.opt.number = true
 vim.opt.colorcolumn = "121"
 
-vim.opt.autoindent = true -- autosave files on :make
+vim.opt.autoindent = true
 vim.opt.updatetime = 250  -- update each 250ms
 vim.opt.synmaxcol = 250   -- syntax hi. only for first 250 chars. Speed improvement
                           -- for files with long lines
@@ -36,9 +39,10 @@ vim.opt.synmaxcol = 250   -- syntax hi. only for first 250 chars. Speed improvem
 vim.api.nvim_set_keymap("c", "w!!", "w !sudo tee % >/dev/null", { noremap = true, silent = true })
 
 -- Set persistent undo
-HOME = os.getenv("HOME")
+local undo_dir = vim.fn.stdpath("state") .. "/undo"
+vim.fn.mkdir(undo_dir, "p")
 vim.opt.undofile = true
-vim.opt.undodir = HOME .. "/.vim/undodir"
+vim.opt.undodir = undo_dir
 
 -- Disable swap and backup files
 vim.opt.swapfile = false
@@ -82,12 +86,11 @@ vim.api.nvim_set_keymap("t", "<leader>e", "<C-\\><C-n>:FloatermToggle<CR>", { no
 vim.api.nvim_set_keymap("n", "<leader>ftn", ":FloatermNext<CR>", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("t", "<leader>ftn", "<C-\\><C-n>:FloatermNext<CR>", { noremap = true, silent = true })
 
--- terraform-vim
-vim.g.terraform_fmt_on_save = 1
-
 -- vim-slime
+local slime_paste = vim.fn.stdpath("state") .. "/slime_paste"
+vim.fn.mkdir(slime_paste, "p")
 vim.g.slime_target = "tmux"
-vim.g.slime_paste_file = HOME .. "/.slime_paste"
+vim.g.slime_paste_file = slime_paste
 vim.g.slime_dont_ask_default = 1
 vim.g.slime_default_config = {
 	socket_name = "default",
@@ -305,7 +308,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Use a loop to conveniently call 'setup' on multiple servers and
 -- map buffer local keybindings when the language server attaches
-local lsp_default_config = {capabilties = capabilties}
+local lsp_default_config = { capabilities = capabilities }
 local servers = {
   jsonls = {},
   yamlls = {
@@ -459,6 +462,16 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_sync_grp,
 })
 
+-- Terraform format on save
+local terraform_format_grp = vim.api.nvim_create_augroup("TerraformFormat", {})
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = {"*.tf", "*.tfvars"},
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+  group = terraform_format_grp,
+})
+
 -- noice.nvim
 require("noice").setup({
   lsp = {
@@ -545,6 +558,8 @@ require("CopilotChat").setup {
   --debug = true, -- Enable debugging
   -- See Configuration section for rest
   --
+  model = 'gpt-5',
+	temperature = 0.2,
   prompts = {
  	 BetterNamings = "Please provide better names for the following variables and functions.",
   },
@@ -554,6 +569,35 @@ require("CopilotChat").setup {
  	 border = 'rounded',
  	 width = 0.9,
  	 height = 0.8,
+  },
+  headers = {
+    user = '👤 You',
+    assistant = '🤖 Copilot',
+    tool = '🔧 Tool',
+  },
+  separator = '━━',
+  auto_fold = true, -- Automatically folds non-assistant messages
+
+  prompts = {
+    CustomCommit = {
+      --prompt = 'Write commit message for the change.',
+      prompt = [[
+You are a commit message generator. Output only the commit message.
+Format:
+<type>(scope?): <imperative, concise subject <= 72 chars>
+<blank line>
+Optional body as bullet list (each line starts with "- ") wrapped at 72 chars.
+Bullets describe changes and reasons (what/why, not how). Order most important first.
+If single trivial change, omit body.
+Reference issues with "closes #ID" as a final bullet.
+Types: feat, fix, refactor, perf, docs, test, chore, build, ci, style.
+Infer scope from changed paths (e.g. cli, api, config).
+No trailing period in subject. No emojis. Be specific and minimal.
+      ]],
+      resources = {
+        'gitdiff:staged',
+      },
+    },
   }
 }
 

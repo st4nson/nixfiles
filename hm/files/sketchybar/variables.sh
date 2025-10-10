@@ -49,4 +49,4 @@ BORDER_WIDTH=2
 
 SHADOW=on
 
-SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+SPACE_ICONS=("I" "II" "III" "IV" "V" "VI" "VII" "VIII" "IX" "X")
