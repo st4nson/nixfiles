@@ -13,8 +13,7 @@
     enable = true;
     lfs.enable = false;
     userName = "Stanisław Szydło";
-    userEmail = "stanislaw.szydlo@nike.com";
-    #userEmail = "st4nson@gmail.com";
+    userEmail = "st4nson@gmail.com";
     extraConfig = {
       url = {
         "ssh://git@github.com" = {

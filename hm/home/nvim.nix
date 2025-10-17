@@ -8,7 +8,6 @@
     extraLuaConfig = (builtins.readFile ../files/init.lua);
   };
 
-  home.file.".config/nvim/init.lua_test".source = ../files/init.lua;
-  home.file.".config/nvim/lua/config/lazy.lua".source = ../files/lazy.lua;
-  home.file.".config/nvim/lua/plugins/plugins.lua".source = ../files/plugins.lua;
+  home.file.".config/nvim/lua/config".source = ../files/lua/config;
+  home.file.".config/nvim/lua/plugins".source = ../files/lua/plugins;
 }
