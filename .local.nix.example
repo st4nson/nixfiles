@@ -1,0 +1,23 @@
+# Local machine configuration (gitignored)
+# Copy this file to .local.nix and fill in your values.
+#
+# This file contains sensitive/machine-specific data that should not be committed.
+
+{
+  # Which machine profile to use (must match a file in machines/)
+  machine = "work";  # or "personal"
+
+  # Machine identity
+  hostname = "YOUR-HOSTNAME";
+  computerName = "Your Computer Name";
+
+  # User identity
+  username = "yourusername";
+  fullName = "Your Full Name";
+  email = "you@example.com";
+  homeDirectory = "/Users/yourusername";
+
+  # Git/GitHub identities (optional, defaults to username)
+  gitUser = "yourusername";
+  githubUser = "yourusername";
+}

@@ -1,0 +1,27 @@
+# Nix build results
+result
+result-*
+
+# Direnv
+.direnv/
+.envrc
+.envrc.local
+
+# Local machine configuration (contains sensitive data)
+.local.nix
+
+# Editor files
+*.swp
+*.backup
+*~
+.DS_Store
+
+# IDE
+.idea/
+.vscode/
+
+# Temporary files
+*.tmp
+
+# Local git configuration
+.gitconfig.local
