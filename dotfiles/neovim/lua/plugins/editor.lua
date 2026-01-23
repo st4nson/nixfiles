@@ -27,7 +27,6 @@ return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
       "nvim-lua/plenary.nvim",
-      "nvim-lua/popup.nvim",
     },
     config = function()
       -- Helper function to select one or multiple files
@@ -52,7 +51,13 @@ return {
           mappings = {
             i = {
               ['<CR>'] = select_one_or_multi,
+              ['<c-d>'] = require('telescope.actions').delete_buffer
             }
+          }
+        },
+        pickers = {
+            find_files = {
+              follow = true
           }
         }
       })
@@ -81,7 +86,7 @@ return {
       vim.g.floaterm_width = 0.9
       vim.g.floaterm_height = 0.8
       vim.g.floaterm_borderchars = "─│─│╭╮╯╰"
-      
+
       -- Set floating window border line color
       vim.api.nvim_set_hl(0, 'FloatermBorder', { bg = '#2e3440', fg = '#81a1c1' })
     end,
@@ -141,10 +146,6 @@ let g:test#strategy = 'custom_floaterm'
   },
 
   {
-    "preservim/nerdcommenter",
-  },
-
-  {
     "jeffkreeftmeijer/vim-numbertoggle",
   },
 
@@ -156,14 +157,6 @@ let g:test#strategy = 'custom_floaterm'
   },
 
   {
-    "tpope/vim-dispatch",
-  },
-
-  {
-    "radenling/vim-dispatch-neovim",
-  },
-
-  {
     "direnv/direnv.vim",
   },
 
@@ -171,9 +164,12 @@ let g:test#strategy = 'custom_floaterm'
   -- Markdown Preview
   -- ============================================================================
   {
-    "iamcco/markdown-preview.nvim",
+    'brianhuster/live-preview.nvim',
+    dependencies = {
+      -- You can choose one of the following pickers
+      'nvim-telescope/telescope.nvim',
+    },
   },
-
   -- ============================================================================
   -- VimWiki
   -- ============================================================================

@@ -1,300 +1,146 @@
-# AGENTS.md - AI Agent Guidelines for nixfiles
+# AGENTS.md — AI Agent Guidelines for nixfiles
 
-This document provides guidelines for AI coding agents working in this repository.
+## Project overview
 
-## Project Overview
+Personal Nix config for macOS (nix-darwin + Home Manager) and Linux (standalone
+Home Manager). Single user, named-host outputs, no profile system.
 
-This is a personal Nix configuration repository for managing macOS (nix-darwin) and
-Linux (NixOS + Home Manager) systems. The entire configuration is written in the
-Nix expression language.
+**Stack:** Nix (primary), Lua (Neovim), Shell/zsh, YAML/TOML (app configs)
 
-**Primary Technologies:**
-- Nix (primary language)
-- Lua (Neovim configuration)
-- Shell/Bash (zsh functions, sketchybar plugins)
-- YAML/TOML (application configs)
-
-## Build Commands
-
-### macOS (nix-darwin)
+## Build / test
 
 ```bash
-# Build without activating (dry-run/test)
-darwin-rebuild build --flake ".#default"
+# Validate (before committing)
+nix flake check                                       # both outputs
+darwin-rebuild build --flake '.#work'                 # darwin host
+nix eval '.#homeConfigurations."st4nson@linux".config.home.username'
+# Linux host: eval-only without a Linux builder.
 
-# Build and activate
-sudo darwin-rebuild switch --flake ".#default"
+# Activate
+sudo darwin-rebuild switch --flake '.#work'           # macOS
+home-manager switch --flake '.#st4nson@linux'         # Linux
 
-# Build with verbose output for debugging
-darwin-rebuild build --flake ".#default" --show-trace
-```
-
-### Home Manager (standalone)
-
-```bash
-# Build without activating
-home-manager build --flake ".#username"
-
-# Build and activate
-home-manager switch --flake ".#username"
-```
-
-### Flake Management
-
-```bash
-# Update all flake inputs
-nix flake update
-
-# Update a specific input
-nix flake lock --update-input nixpkgs
-
-# Check flake syntax
-nix flake check
-
-# Show flake metadata
-nix flake metadata
-```
-
-### Testing and Validation
-
-There is no traditional test suite. Validation is done by building:
-
-```bash
-# Validate configuration syntax and evaluate
-darwin-rebuild build --flake ".#default"
-
-# Format Nix files
+# Debug / lint
+darwin-rebuild build --flake '.#work' --show-trace
 nixpkgs-fmt **/*.nix
+shellcheck dotfiles/sketchybar/plugins/*.sh dotfiles/zsh/zsh_functions
 
-# Check shell scripts
-shellcheck dotfiles/sketchybar/plugins/*.sh
-shellcheck dotfiles/zsh/zsh_functions
+# Flake inputs
+nix flake update
+nix flake lock --update-input nixpkgs
 ```
 
-## Repository Structure
+No test suite — validation is successful builds. Commit `flake.lock`.
+
+## Repository layout
 
 ```
 nixfiles/
-├── flake.nix              # Root flake - entry point
-├── flake.lock             # Locked dependencies
-├── .local.nix             # Machine-specific config (gitignored, force-added)
-├── .local.nix.example     # Template for .local.nix
-├── machines/              # Abstract machine profiles
-│   ├── work.nix           # Work machine settings
-│   └── personal.nix       # Personal machine settings
-├── darwin/                # macOS-specific modules
-│   ├── default.nix        # Module coordinator
-│   ├── system.nix         # System preferences
-│   ├── services.nix       # yabai, skhd, sketchybar
-│   └── fonts.nix          # Font configuration
-├── home/                  # Home Manager configuration
-│   ├── default.nix        # Entry point
-│   ├── programs/          # Program configs (git, zsh, nvim, tmux)
-│   ├── packages/          # Package collections by category
-│   └── profiles/          # User profiles (minimal, development, full)
-├── overlays/              # Nixpkgs overlays
-└── dotfiles/              # Raw config files (alacritty, neovim, sketchybar)
+├── flake.nix              # named-host outputs only
+├── hosts/
+│   ├── work.nix           # darwin: (Work MacBook)
+│   └── linux.nix          # standalone HM: st4nson@linux
+├── darwin/                # macOS modules (system, services, fonts)
+├── home/
+│   ├── default.nix        # HM entry; imports programs + packages
+│   ├── programs/          # one file per program
+│   ├── packages/          # bundles: development, operations, utilities
+│   └── features/          # host-specific opt-ins
+│       ├── nike-work.nix  # AWS env, KUBECACHEDIR, work-host aliases
+│       └── linux-extras.nix # Linux CLI extras
+├── overlays/              # nixpkgs overlays (empty)
+└── dotfiles/              # raw configs, live-symlinked where applicable
 ```
 
-## Code Style Guidelines
+## Code style
 
-### Nix File Structure
-
-Every Nix module should follow this structure:
+### Module signature
 
 ```nix
-{ config, pkgs, lib, userConfig, hostConfig, ... }:
+{ config, pkgs, lib, userConfig, ... }:
 
 {
-  # Module implementation
+  # ...
 }
 ```
 
-### Imports Pattern
+`userConfig` is threaded by the host via `_module.args` (darwin modules) and
+`home-manager.extraSpecialArgs` (HM modules). The Linux host uses
+`_module.args` only (single module system).
 
-Use relative paths for imports within the same tree:
+### Conventions
 
-```nix
-imports = [
-  ./system.nix
-  ./services.nix
-  ../programs/git.nix
-];
-```
+- Indent 2 spaces, no trailing whitespace
+- Multi-line attribute sets for >1 item; single-line OK for 1
+- `inherit` for pass-through: `inherit (lib) optionalString;`
+- Imports: relative paths within the same subtree
+- Conditional config: `lib.mkIf pkgs.stdenv.is{Darwin,Linux}`
 
-### Package Lists
-
-Use `with pkgs;` for package lists, with comments for categories:
+### Package lists
 
 ```nix
 home.packages = with pkgs; [
-  # Build tools
-  gcc
-  gnumake
-
-  # JavaScript/TypeScript
-  nodejs
-  typescript
+  # Category
+  pkg-a
+  pkg-b
+] ++ lib.optionals pkgs.stdenv.isDarwin [
+  darwin-only-pkg
+] ++ lib.optionals pkgs.stdenv.isLinux [
+  linux-only-pkg
 ];
 ```
 
-### Naming Conventions
+### Naming
 
-- **Files:** lowercase with hyphens or underscores (`system.nix`, `development.nix`)
-- **Attributes:** camelCase for custom options (`userConfig`, `hostConfig`)
-- **Host names:** Use machine identifier (e.g., `AP7TXJWN60C1AE`)
+| Element    | Convention                                |
+|------------|-------------------------------------------|
+| Files      | lowercase, hyphens or underscores         |
+| Attributes | camelCase (`userConfig`, `homeDirectory`) |
+| Hostnames  | Machine identifier                        |
 
-### Formatting Rules
+## Adding components
 
-- 2-space indentation
-- No trailing whitespace
-- Attribute sets with multiple items use multi-line format
-- Single-item attribute sets can be inline
-- Use `inherit` for passing through attributes
+**New program** — create `home/programs/<name>.nix`, add to `imports` in
+`home/default.nix`.
 
-```nix
-# Good - inherit for pass-through
-let
-  inherit (lib) optionalString;
-  inherit (pkgs.stdenv) isDarwin isLinux;
-in
+**New package** — add to the right bundle in `home/packages/`
+(`development.nix` for languages/build tools/LSPs, `operations.nix` for
+DevOps/cloud/k8s, `utilities.nix` for general CLI). Gate per-platform with
+`lib.optionals pkgs.stdenv.is{Darwin,Linux}`.
 
-# Good - multi-line for clarity
-system.defaults.dock = {
-  autohide = true;
-  orientation = "bottom";
-  tilesize = 64;
-};
+**New host:**
 
-# Good - inline for simple values
-services.yabai.enable = true;
-```
+1. Copy `hosts/work.nix` (darwin) or `hosts/linux.nix` (HM)
+2. Fill in `userConfig` (and `hostConfig`/system for darwin)
+3. Wire in `flake.nix`:
+   - darwin: `darwinConfigurations.<name> = darwin.lib.darwinSystem { ... }`
+   - HM: `homeConfigurations."<user>@<host>" = home-manager.lib.homeManagerConfiguration { ... }`
 
-### Comments
+**New feature** — add `home/features/<name>.nix`, opt-in only from
+`hosts/<host>.nix` imports.
 
-- Use `#` for single-line comments
-- Place comments above the code they describe
-- Document non-obvious configuration choices
+## Live-symlinked dotfiles
 
-```nix
-# Lazy-load kubectl completions to improve startup time
-kubectl() {
-  unfunction kubectl 2>/dev/null
-  source <(command kubectl completion zsh)
-  kubectl "$@"
-}
-```
+Neovim (`home/programs/nvim.nix`) and Ghostty (`home/programs/ghostty.nix`)
+use `config.lib.file.mkOutOfStoreSymlink` to point at
+`dotfiles/{neovim,ghostty}/` directly. Edits take effect immediately, no
+rebuild.
 
-### Let Bindings
+`lazy.nvim` writes `lazy-lock.json` through the symlink into
+`dotfiles/neovim/lazy-lock.json` — commit it for cross-host plugin
+reproducibility.
 
-Use `let...in` for local variables and complex computations:
+## External files
 
 ```nix
-let
-  sysUsername = userConfig.username;
-  hostname = hostConfig.hostname;
-  nixfilesPath = "${config.home.homeDirectory}/git/nixfiles";
-in
-{
-  # Use variables here
-}
-```
-
-### Conditional Imports
-
-Use `builtins.pathExists` for optional imports:
-
-```nix
-let
-  privateUsers = if builtins.pathExists ./private.nix
-                 then import ./private.nix
-                 else { users = {}; };
-in
-```
-
-### Error Handling
-
-- Nix is purely functional; errors are handled at evaluation time
-- Use `assert` for preconditions
-- Use `throw` or `abort` for unrecoverable errors
-- Prefer `lib.mkIf` for conditional configuration
-
-## Adding New Components
-
-### New Program
-
-1. Create `home/programs/myprogram.nix`
-2. Import in the appropriate profile (`home/profiles/*.nix`)
-3. Add packages to `home/packages/*.nix` if needed
-
-### New Package Category
-
-Add to appropriate file in `home/packages/`:
-- `development.nix` - Programming languages, build tools
-- `operations.nix` - DevOps, cloud, container tools
-- `utilities.nix` - CLI utilities
-- `gui.nix` - GUI applications (Linux)
-
-### New Host
-
-1. Create a new machine profile in `machines/` if needed (e.g., `machines/server.nix`)
-2. On the new machine, copy `.local.nix.example` to `.local.nix`
-3. Edit `.local.nix` with machine-specific values (hostname, username, email, etc.)
-4. Run `git add -f .local.nix` to track the file (it's gitignored by default)
-5. Build with `darwin-rebuild switch --flake '.#default'`
-
-### New User
-
-User configuration is now part of `.local.nix`. To set up a new user:
-1. Edit `.local.nix` and update username, email, fullName, etc.
-2. The flake reads these values directly from `.local.nix`
-
-## Private Configuration
-
-Sensitive data goes in `.local.nix` which is gitignored but force-added per machine:
-- `.local.nix` - Machine-specific config (hostname, username, email, etc.)
-- `.local.nix.example` - Template showing required fields (committed)
-
-The flake merges `.local.nix` with abstract machine profiles from `machines/*.nix`.
-
-## Common Patterns
-
-### Platform-specific code
-
-```nix
-let
-  inherit (pkgs.stdenv) isDarwin isLinux;
-in
-{
-  home.packages = with pkgs; [
-    # Common packages
-  ] ++ lib.optionals isLinux [
-    # Linux-only packages
-  ] ++ lib.optionals isDarwin [
-    # macOS-only packages
-  ];
-}
-```
-
-### Reading external files
-
-```nix
+# Embed file content
 extraLuaConfig = builtins.readFile ../../dotfiles/neovim/init.lua;
-home.file.".config/nvim/lua".source = ../../dotfiles/neovim/lua;
+
+# Live symlink (writable, edits apply without rebuild)
+xdg.configFile."nvim".source =
+  config.lib.file.mkOutOfStoreSymlink
+    "${config.home.homeDirectory}/git/nixfiles/dotfiles/neovim";
+
+# Static symlink (read-only via Nix store, requires rebuild)
+home.file.".config/foo".source = ../../dotfiles/foo;
 ```
-
-### Shell aliases with dynamic paths
-
-```nix
-shellAliases = {
-  nix-darwin-switch = "pushd ${nixfilesPath}; sudo darwin-rebuild switch --flake \".#${hostname}\"; popd";
-};
-```
-
-## Important Notes
-
-- Always test builds before committing: `darwin-rebuild build --flake ".#default"`
-- Keep `flake.lock` in version control
-- Never commit secrets; use `private.nix` files
-- Run `nix flake update` periodically to update dependencies
-- Use `--show-trace` flag for debugging build failures

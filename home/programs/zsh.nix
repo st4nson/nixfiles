@@ -1,12 +1,5 @@
-{ pkgs, lib, config, userConfig, hostConfig, ... }:
+{ pkgs, config, ... }:
 
-let
-  inherit (lib) optionalString;
-  inherit (pkgs.stdenv) isDarwin isLinux;
-
-  # Path to nixfiles repository
-  nixfilesPath = "${config.home.homeDirectory}/git/nixfiles";
-in
 {
   programs.zsh = {
     enable = true;
@@ -34,11 +27,9 @@ in
       lt = "eza -lasnew";
       mux = "tmuxinator";
       k = "kubectl";
-      # Nix rebuild aliases (pure - config comes from .local.nix)
-      nix-darwin-build = "pushd ${nixfilesPath}; darwin-rebuild build --flake '.#default'; popd";
-      nix-darwin-switch = "pushd ${nixfilesPath}; sudo darwin-rebuild switch --flake '.#default'; popd";
       kube-complete = "source <(kubectl completion zsh)";
-      envchg = "$(eval envchg.sh)";
+      ek = "eval $(envchg k8s)";
+      ea = "eval $(envchg aws)";
     };
 
     sessionVariables = {
@@ -57,10 +48,7 @@ in
       KUBE_PS1_SEPARATOR= "";
       KUBE_PS1_NS_ENABLE="false";
       KUSTOMIZE_PLUGIN_HOME="${config.home.homeDirectory}/.config/kustomize/plugin";
-      KUBECACHEDIR="${config.home.homeDirectory}/nikedev/kubectl-cache";
 
-      AWS_REGION="us-west-2";
-      AWS_PROFILE="nmk-test";
       AWS_PAGER="";
     };
 

@@ -1,4 +1,7 @@
-{ pkgs, lib, userConfig, ... }:
+{ pkgs, ... }:
+
+# Git: structural config only. Per-host identity (userName, userEmail)
+# is set by hosts/<name>.nix so the shared module stays portable.
 
 {
   home.packages = with pkgs; [
@@ -12,17 +15,11 @@
   programs.git = {
     enable = true;
     lfs.enable = false;
-    userName = userConfig.fullName;
-    userEmail = userConfig.email;
     extraConfig = {
-      url = {
-        "ssh://git@github.com" = {
-          insteadOf = "https://github.com"; };
-        };
-      url = {
-        "git@github.com:" = {
-          insteadOf = "github.com/"; };
-        };
+      # Force SSH for github.com clones regardless of how the URL was
+      # specified (https:// or bare github.com/...).
+      url."ssh://git@github.com".insteadOf = "https://github.com";
+      url."git@github.com:".insteadOf      = "github.com/";
     };
   };
 }

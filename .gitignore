@@ -7,9 +7,6 @@ result-*
 .envrc
 .envrc.local
 
-# Local machine configuration (contains sensitive data)
-.local.nix
-
 # Editor files
 *.swp
 *.backup

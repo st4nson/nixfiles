@@ -11,70 +11,35 @@
     };
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, darwin, ... }:
-    let
-      # Read local config (must exist - copy from .local.nix.example)
-      localConfig = import ./.local.nix;
-
-      # Read machine profile and merge with local config
-      machineConfig = import ./machines/${localConfig.machine}.nix;
-
-      # Final merged config: machine defaults, overridden by local values
-      config = machineConfig // localConfig;
-
-      # Build hostConfig and userConfig from merged config
-      hostConfig = {
-        hostname = config.hostname;
-        computerName = config.computerName or config.hostname;
-        system = config.system;
-        platform = config.platform;
-      };
-
-      userConfig = {
-        username = config.username;
-        fullName = config.fullName;
-        email = config.email;
-        homeDirectory = config.homeDirectory;
-        shell = config.shell;
-        profile = config.profile;
-        aliases = {
-          git = config.gitUser or config.username;
-          github = config.githubUser or config.username;
-        };
-      };
-
-      # Configuration for `nixpkgs`
-      nixpkgsConfig = {
-        config = { allowUnfree = true; };
-        overlays = import ./overlays/default.nix;
-      };
-
-      mkDarwinConfiguration =
-        darwin.lib.darwinSystem {
-          system = hostConfig.system;
-          specialArgs = {
-            inherit userConfig hostConfig;
-          };
-          modules = [
-            # Darwin configuration modules
-            ./darwin
-
-            # Home Manager integration
-            home-manager.darwinModules.home-manager
-            {
-              nixpkgs = nixpkgsConfig;
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.${userConfig.username} = import ./home;
-              home-manager.extraSpecialArgs = {
-                inherit userConfig hostConfig;
-              };
-              users.users.${userConfig.username}.home = userConfig.homeDirectory;
-            }
-          ];
-        };
-    in
+  outputs = { nixpkgs, home-manager, darwin, ... }:
     {
-      darwinConfigurations.default = mkDarwinConfiguration;
+      # Each host is described by a self-contained file under ./hosts/.
+      # The flake just wires inputs to host descriptions.
+
+      darwinConfigurations.work = darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        modules = [
+          ./hosts/work.nix
+          home-manager.darwinModules.home-manager
+        ];
+      };
+
+      # Standalone Home Manager target (no NixOS host yet).
+      # Activate with: `home-manager switch --flake '.#st4nson@linux'`
+      homeConfigurations."st4nson@linux" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+          system = "x86_64-linux";
+          config.allowUnfree = true;
+          overlays = import ./overlays;
+        };
+        modules = [ ./hosts/linux.nix ];
+      };
+
+      # Future NixOS host slot (option A — when a Linux laptop materialises):
+      #
+      # nixosConfigurations.linux-laptop = nixpkgs.lib.nixosSystem {
+      #   system = "x86_64-linux";
+      #   modules = [ ./hosts/linux-laptop.nix ];
+      # };
     };
 }

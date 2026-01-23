@@ -10,11 +10,10 @@ return {
     "neovim/nvim-lspconfig",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
-      "ray-x/lsp_signature.nvim",
       "rmagatti/goto-preview",
+      "b0o/schemastore.nvim",
     },
     config = function()
-      local nvim_lspconfig = require('lspconfig')
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
       -- ======================================================================
@@ -29,20 +28,22 @@ return {
           -- Buffer local mappings
           vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
           vim.keymap.set('n', 'gd', require('goto-preview').goto_preview_definition, opts)
-          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
           vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
-          vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
-          vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
-          vim.keymap.set('n', '<space>wl', function()
-            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-          end, opts)
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+          -- Manual signature trigger; auto-popup is handled by noice.nvim on `(` and `,`.
+          -- Bound in normal + insert mode so you can re-summon without leaving insert.
+          vim.keymap.set({ 'n', 'i' }, '<C-k>', vim.lsp.buf.signature_help, opts)
           vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
           vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
           vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
           vim.keymap.set('n', 'gr', telescope_builtin.lsp_references, opts)
           vim.keymap.set('n', '<space>f', function()
             vim.lsp.buf.format({ async = true })
+          end, opts)
+          vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+          vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+          vim.keymap.set('n', '<space>wl', function()
+            print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
           end, opts)
         end,
       })
@@ -54,22 +55,68 @@ return {
 
       local servers = {
         -- JSON
-        jsonls = {},
+        jsonls = {
+          settings = {
+            json = {
+              schemas = require("schemastore").json.schemas(),
+              validate = { enable = true },
+            },
+          },
+        },
 
         -- YAML
         yamlls = {
           settings = {
             yaml = {
-              schemas = {
-                ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*",
-                ["https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.21.14-standalone-strict/all.json"] = "/*.k8s.yaml",
+              -- Disable built-in schema store fetch; use bundled catalog from schemastore.nvim
+              schemaStore = {
+                enable = false,
+                url = "",
               },
+              schemas = vim.tbl_extend("force",
+                require("schemastore").yaml.schemas(),
+                {
+                  -- Bundled k8s schema from yaml-language-server itself.
+                  -- Updates when the Nix yaml-language-server package updates.
+                  kubernetes = {
+                    "*.k8s.yaml",
+                    "*.k8s.yml",
+                    "**/kubectl-edit-*.yaml",
+                  },
+                }
+              ),
+              keyOrdering = false,
             },
-          }
+          },
+        },
+
+        -- Lua (for editing Neovim config itself)
+        lua_ls = {
+          settings = {
+            Lua = {
+              runtime = { version = "LuaJIT" },
+              diagnostics = { globals = { "vim" } },
+              workspace = {
+                library = vim.api.nvim_get_runtime_file("", true),
+                checkThirdParty = false,
+              },
+              telemetry = { enable = false },
+            },
+          },
         },
 
         -- Terraform
-        terraformls = {},
+        terraformls = {
+          settings = {
+            terraformls = {
+              indexing = {
+                -- Ignore .terraform directories to prevent recursive module walking
+                ignorePaths = { ".terraform" },
+                ignoreDirectoryNames = { ".terraform", "examples", "tests" },
+              },
+            },
+          },
+        },
 
         -- TypeScript/JavaScript
         ts_ls = {},
@@ -80,17 +127,25 @@ return {
           cmd = { 'gopls', '--remote=auto' },
           flags = {
             allow_incremental_sync = true,
-            debounce_text_changes = 1000
+            debounce_text_changes = 500,
           },
           settings = {
             gopls = {
+              -- Directory filters to exclude from workspace scanning
+              directoryFilters = {
+                "-**/.git",
+                "-**/.testenv",
+                "-**/bin",
+                "-**/node_modules",
+                "-**/.direnv",
+              },
               analyses = {
                 unusedparams = true,
-                unreachable = false
+                unreachable = false,
               },
               codelenses = {
                 generate = true,
-                gc_details = true,
+                gc_details = false,  -- Disable for performance
                 test = true,
                 tidy = true,
               },
@@ -102,34 +157,18 @@ return {
               symbolMatcher = 'fuzzy',
               gofumpt = false,
               buildFlags = { '-tags', 'lint' },
+              -- Memory optimization
+              memoryMode = 'DegradeClosed',
             },
           },
         },
-
-        -- Golangci-lint
-        --golangci_lint_ls = {},
       }
 
       -- Setup all LSP servers
       for server, config in pairs(servers) do
-        nvim_lspconfig[server].setup(vim.tbl_deep_extend('force', lsp_default_config, config))
+        vim.lsp.config(server, vim.tbl_deep_extend('force', lsp_default_config, config))
+        vim.lsp.enable(server)
       end
-    end,
-  },
-
-  -- ============================================================================
-  -- LSP Signature
-  -- ============================================================================
-  {
-    "ray-x/lsp_signature.nvim",
-    config = function()
-      local lsp_signature_cfg = {
-        handler_opts = {
-          border = "none"
-        },
-        extra_trigger_chars = { "(", "," }
-      }
-      require("lsp_signature").setup(lsp_signature_cfg)
     end,
   },
 
@@ -151,6 +190,37 @@ return {
     build = ":TSUpdate",
     config = function()
       require('nvim-treesitter.configs').setup({
+        ensure_installed = {
+          "bash",
+          "css",
+          "diff",
+          "dockerfile",
+          "gitcommit",
+          "gitignore",
+          "go",
+          "gomod",
+          "gosum",
+          "gowork",
+          "hcl",
+          "html",
+          "javascript",
+          "json",
+          "jsonc",
+          "lua",
+          "markdown",
+          "markdown_inline",
+          "nix",
+          "query",
+          "regex",
+          "terraform",
+          "tsx",
+          "typescript",
+          "vim",
+          "vimdoc",
+          "yaml",
+        },
+        sync_install = false,
+        auto_install = true,
         highlight = {
           enable = true
         },

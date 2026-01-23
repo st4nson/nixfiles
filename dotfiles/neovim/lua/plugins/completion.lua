@@ -1,16 +1,20 @@
 -- ============================================================================
--- Completion Configuration (nvim-cmp)
+-- Completion Configuration (nvim-cmp + LuaSnip)
 -- ============================================================================
 
 return {
   -- ============================================================================
-  -- LSP Kind: Icons for completion menu
+  -- LuaSnip: Snippet engine (Lua-native, replaces UltiSnips)
   -- ============================================================================
   {
-    "onsails/lspkind.nvim",
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    build = "make install_jsregexp",
+    dependencies = { "rafamadriz/friendly-snippets" },
+    event = "InsertEnter",
     config = function()
-      local lspkind = require("lspkind")
-      lspkind.init()
+      -- Load VSCode-format snippets from friendly-snippets
+      require("luasnip.loaders.from_vscode").lazy_load()
     end,
   },
 
@@ -19,6 +23,7 @@ return {
   -- ============================================================================
   {
     "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
     dependencies = {
       "hrsh7th/cmp-nvim-lsp",
       "hrsh7th/cmp-buffer",
@@ -26,14 +31,14 @@ return {
       "hrsh7th/cmp-cmdline",
       "hrsh7th/cmp-emoji",
       "hrsh7th/cmp-nvim-lsp-document-symbol",
-      "quangnguyen30192/cmp-nvim-ultisnips",
+      "saadparwaiz1/cmp_luasnip",
+      "L3MON4D3/LuaSnip",
       "onsails/lspkind.nvim",
-      "SirVer/ultisnips",
-      "honza/vim-snippets",
     },
     config = function()
-      local cmp = require('cmp')
+      local cmp = require("cmp")
       local lspkind = require("lspkind")
+      local luasnip = require("luasnip")
 
       -- ========================================================================
       -- Main completion setup
@@ -41,22 +46,22 @@ return {
       cmp.setup({
         snippet = {
           expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
+            luasnip.lsp_expand(args.body)
           end,
         },
 
         mapping = cmp.mapping.preset.insert(),
 
         sources = {
-          { name = 'nvim_lsp' },
-          { name = 'ultisnips' },
-          { name = 'buffer', keyword_length = 3 },
-          { name = 'path' },
-          { name = 'emoji' }
+          { name = "nvim_lsp" },
+          { name = "luasnip" },
+          { name = "buffer", keyword_length = 3 },
+          { name = "path" },
+          { name = "emoji" },
         },
 
         completion = {
-          completeopt = 'menu,menuone,noinsert,noselect,popup'
+          completeopt = "menu,menuone,noinsert,noselect,popup",
         },
 
         preselect = cmp.PreselectMode.None,
@@ -68,67 +73,58 @@ return {
               buffer = "[Buf]",
               nvim_lsp = "[LSP]",
               path = "[Path]",
-              treesitter = "[Tree]",
-              ultisnips = "[Ulti]"
+              luasnip = "[Snip]",
+              emoji = "[Emoji]",
             },
           }),
         },
 
         experimental = {
-          native_menu = false,
           ghost_text = true,
-        }
+        },
       })
 
       -- ========================================================================
       -- Cmdline completion for '/' (search)
       -- ========================================================================
-      cmp.setup.cmdline('/', {
+      cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
           {
-            { name = 'nvim_lsp_document_symbol' }
+            { name = "nvim_lsp_document_symbol" },
           },
           {
-            { name = 'buffer' }
+            { name = "buffer" },
           }
-        )
+        ),
       })
 
       -- ========================================================================
       -- Cmdline completion for ':' (commands)
       -- ========================================================================
-      cmp.setup.cmdline(':', {
+      cmp.setup.cmdline(":", {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources(
           {
-            { name = 'path' }
+            { name = "path" },
           },
           {
-            { name = 'cmdline' }
+            { name = "cmdline" },
           }
-        )
+        ),
       })
     end,
   },
 
   -- ============================================================================
-  -- Additional completion sources
+  -- Additional completion sources (lazy-loaded with nvim-cmp)
   -- ============================================================================
-  "hrsh7th/cmp-nvim-lsp",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/cmp-emoji",
-  "hrsh7th/cmp-nvim-lsp-document-symbol",
-  "hrsh7th/cmp-nvim-lsp-signature-help",
-  "hrsh7th/cmp-nvim-lua",
-  "quangnguyen30192/cmp-nvim-ultisnips",
-  "ray-x/cmp-treesitter",
-
-  -- ============================================================================
-  -- Snippets
-  -- ============================================================================
-  "SirVer/ultisnips",
-  "honza/vim-snippets",
+  { "hrsh7th/cmp-nvim-lsp", lazy = true },
+  { "hrsh7th/cmp-buffer", lazy = true },
+  { "hrsh7th/cmp-path", lazy = true },
+  { "hrsh7th/cmp-cmdline", lazy = true },
+  { "hrsh7th/cmp-emoji", lazy = true },
+  { "hrsh7th/cmp-nvim-lsp-document-symbol", lazy = true },
+  { "saadparwaiz1/cmp_luasnip", lazy = true },
+  { "onsails/lspkind.nvim", lazy = true },
 }

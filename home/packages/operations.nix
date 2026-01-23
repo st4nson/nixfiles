@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # DevOps, Cloud, Containers & VM tools
@@ -7,7 +7,6 @@
     awscli2
 
     # Container tools
-    colima
     dive
     docker-client
     docker-compose
@@ -39,5 +38,9 @@
 
     # Virtualization
     # qemu           # Hardware emulator (disabled - large dependency)
+  ] ++ lib.optionals pkgs.stdenv.isDarwin [
+    # macOS-only: Docker daemon via Lima VM. Pointless on Linux which
+    # has native Docker.
+    colima
   ];
 }

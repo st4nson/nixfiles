@@ -63,10 +63,3 @@ keymap('n', '<space>e', vim.diagnostic.open_float, opts)    -- Open diagnostic f
 keymap('n', '[d', vim.diagnostic.goto_prev, opts)           -- Previous diagnostic
 keymap('n', ']d', vim.diagnostic.goto_next, opts)           -- Next diagnostic
 keymap('n', '<space>q', vim.diagnostic.setloclist, opts)    -- Set location list
-
--- ============================================================================
--- CopilotChat
--- ============================================================================
-
-local chat = require("CopilotChat")
-keymap('n', "<leader>co", chat.toggle, opts)                -- Toggle Copilot chat

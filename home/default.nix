@@ -1,20 +1,38 @@
-{ config, pkgs, userConfig, hostConfig, ... }:
+{ config, pkgs, lib, userConfig, ... }:
+
+# Home Manager entry point.
+#
+# Platform-agnostic baseline: anything universally wanted regardless of
+# whether this evaluates on a Darwin host (via nix-darwin) or a Linux
+# host (via standalone Home Manager / future NixOS module).
+#
+# Host-specific tweaks (Nike work env, Linux CLI extras, etc.) live
+# under ./features/ and are imported only by the relevant
+# hosts/<name>.nix.
 
 {
-  # Main home-manager configuration
-  # This is the entry point that imports the selected profile
-
   imports = [
-    # Use the profile specified in user configuration
-    ./profiles/${userConfig.profile}.nix
+    # Programs
+    ./programs/common.nix
+    ./programs/ghostty.nix
+    ./programs/git.nix
+    ./programs/go.nix
+    ./programs/nvim.nix
+    ./programs/tmux.nix
+    ./programs/zsh.nix
+
+    # Package bundles
+    ./packages/development.nix
+    ./packages/operations.nix
+    ./packages/utilities.nix
   ];
 
-  # User information (parameterized)
-  home.username = userConfig.username;
+  home.username      = userConfig.username;
   home.homeDirectory = userConfig.homeDirectory;
-  home.stateVersion = "25.05";
+  home.stateVersion  = "25.05";
 
-  # Configuration files that should be sourced directly
-  home.file."Library/Application Support/com.mitchellh.ghostty/config".source = ../dotfiles/ghostty.config;
-  home.file.".config/sketchybar".source = ../dotfiles/sketchybar;
+  # Directly-symlinked dotfiles — darwin-only.
+  home.file.".config/sketchybar" = lib.mkIf pkgs.stdenv.isDarwin {
+    source = ../dotfiles/sketchybar;
+  };
 }
