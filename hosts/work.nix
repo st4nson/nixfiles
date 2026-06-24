@@ -32,8 +32,8 @@ in
       ../home/features/nike-work.nix
     ];
 
-    programs.git.userName  = userConfig.fullName;
-    programs.git.userEmail = userConfig.email;
+    programs.git.settings.user.name  = userConfig.fullName;
+    programs.git.settings.user.email = userConfig.email;
   };
 
   users.users.${userConfig.username}.home = userConfig.homeDirectory;

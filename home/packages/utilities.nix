@@ -4,7 +4,7 @@
   # CLI utilities and general-purpose tools
   home.packages = with pkgs; [
     asciidoctor
-    asciinema_3
+    asciinema
     bind
     eza
     fd
@@ -12,7 +12,7 @@
     gopass
     graphviz
     htop
-    http-prompt
+    httpie
     iftop
     ipcalc
     jiq
@@ -21,7 +21,7 @@
     lsof
     luajit
     ncurses
-    neofetch
+    fastfetch
     nix-index
     openssl
     ranger

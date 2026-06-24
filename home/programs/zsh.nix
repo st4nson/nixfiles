@@ -4,7 +4,7 @@
   programs.zsh = {
     enable = true;
     autocd = true;
-    dotDir = ".config/zsh";
+    dotDir = "${config.home.homeDirectory}/.config/zsh";
     enableCompletion = true;
 
     oh-my-zsh = {

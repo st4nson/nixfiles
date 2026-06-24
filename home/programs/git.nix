@@ -9,13 +9,13 @@
     git-lfs
     git-review
     gh
-    gh-copilot
+    github-copilot-cli
   ];
 
   programs.git = {
     enable = true;
     lfs.enable = false;
-    extraConfig = {
+    settings = {
       # Force SSH for github.com clones regardless of how the URL was
       # specified (https:// or bare github.com/...).
       url."ssh://git@github.com".insteadOf = "https://github.com";

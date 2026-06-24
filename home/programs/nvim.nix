@@ -14,6 +14,12 @@
     enable    = true;
     viAlias   = true;
     vimAlias  = true;
+
+    withRuby    = false;
+    withPython3 = false;
+
+    # Fix for symlinked ./dotfiles/neovim
+    sideloadInitLua = true;
   };
 
   xdg.configFile."nvim".source =

@@ -10,7 +10,7 @@
     universal-ctags
 
     # Nix development
-    nixpkgs-fmt
+    nixfmt
     # rnix-lsp       # Nix LSP
 
     # JavaScript/TypeScript
@@ -18,8 +18,8 @@
     typescript
     typescript-language-server
     yarn
-    nodePackages.vscode-langservers-extracted
-    nodePackages.yaml-language-server
+    vscode-langservers-extracted
+    yaml-language-server
     # playwright-test    # E2E testing (disabled - enable if needed)
     # playwright-driver  # Browser automation
 

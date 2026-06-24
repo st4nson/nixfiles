@@ -22,7 +22,7 @@ home-manager switch --flake '.#st4nson@linux'         # Linux
 
 # Debug / lint
 darwin-rebuild build --flake '.#work' --show-trace
-nixpkgs-fmt **/*.nix
+nixfmt **/*.nix
 shellcheck dotfiles/sketchybar/plugins/*.sh dotfiles/zsh/zsh_functions
 
 # Flake inputs
@@ -134,7 +134,7 @@ reproducibility.
 
 ```nix
 # Embed file content
-extraLuaConfig = builtins.readFile ../../dotfiles/neovim/init.lua;
+initLua = builtins.readFile ../../dotfiles/neovim/init.lua;
 
 # Live symlink (writable, edits apply without rebuild)
 xdg.configFile."nvim".source =
