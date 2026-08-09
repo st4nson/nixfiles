@@ -39,7 +39,7 @@
       FZF_TMUX = 1;
       GOROOT = "$(go env GOROOT)";
       KEYTIMEOUT = 1;
-      PATH = "$PATH:/usr/local/go/bin:$GOPATH/bin:${config.home.homeDirectory}/bin:${config.home.homeDirectory}/.krew/bin";
+      PATH = "$PATH:${config.home.homeDirectory}/golang/bin:${config.home.homeDirectory}/bin:${config.home.homeDirectory}/.krew/bin";
       NIX_PATH = "darwin-config=${config.home.homeDirectory}/.nixpkgs/darwin-configuration.nix:${config.home.homeDirectory}/.nix-defexpr/channels:$NIX_PATH";
       KUBE_PS1_CLUSTER_FUNCTION = "cluster_short_name";
       KUBE_PS1_SYMBOL_USE_IMG = "true";

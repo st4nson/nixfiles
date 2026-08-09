@@ -17,7 +17,7 @@
       # The flake just wires inputs to host descriptions.
 
       darwinConfigurations.work = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
+        system = "x86_64-darwin";
         modules = [
           ./hosts/work.nix
           home-manager.darwinModules.home-manager

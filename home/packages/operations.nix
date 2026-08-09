@@ -5,6 +5,7 @@
   home.packages = with pkgs; [
     # Cloud providers
     awscli2
+    (azure-cli.withExtensions [ azure-cli.extensions.azure-devops ])
 
     # Container tools
     dive

@@ -25,6 +25,7 @@
 
     # Lua
     lua-language-server
+    luaPackages.tree-sitter-cli
 
     # Shell scripting
     shellcheck

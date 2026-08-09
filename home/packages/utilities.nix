@@ -7,7 +7,9 @@
     asciinema
     bind
     eza
+    fastfetch
     fd
+    gimme-aws-creds
     gnupg
     gopass
     graphviz
@@ -21,16 +23,15 @@
     lsof
     luajit
     ncurses
-    fastfetch
     nix-index
     openssl
     ranger
     restic
     ripgrep
     saml2aws
-    gimme-aws-creds
     silver-searcher
     sshpass
+    superfile
     unzip
     vale
     wget

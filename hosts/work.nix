@@ -4,10 +4,10 @@
 
 let
   userConfig = {
-    username      = "sszydo";
+    username      = "st4nson";
     fullName      = "Stanisław Szydło";
-    email         = "stanislaw.szydlo@nike.com";
-    homeDirectory = "/Users/sszydo";
+    email         = "st4nson@gmail.com";
+    homeDirectory = "/Users/st4nson";
   };
 in
 {
@@ -29,7 +29,7 @@ in
   home-manager.users.${userConfig.username} = {
     imports = [
       ../home
-      ../home/features/nike-work.nix
+      #../home/features/nike-work.nix
     ];
 
     programs.git.settings.user.name  = userConfig.fullName;

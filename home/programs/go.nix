@@ -11,10 +11,12 @@
   ];
 
   programs.go = {
-    enable = false;
+    enable = true;
     package = pkgs.go;  # Use latest stable Go version
 
-    env.goBin = config.home.homeDirectory . "golang/bin";
-    env.goPath = config.home.homeDirectory . "golang";
+    env = {
+      GOPATH = [ "${config.home.homeDirectory}/golang" ];
+      GOBIN = "${config.home.homeDirectory}/golang/bin";
+    };
   };
 }
