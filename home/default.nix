@@ -14,7 +14,7 @@
   imports = [
     # Programs
     ./programs/common.nix
-    ./programs/ghostty.nix
+    #./programs/ghostty.nix
     ./programs/git.nix
     ./programs/go.nix
     ./programs/nvim.nix

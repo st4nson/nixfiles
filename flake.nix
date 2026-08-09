@@ -9,9 +9,18 @@
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    # Pin opencode to a specific version via upstream overlay.
+    opencode = {
+      url = "github:anomalyco/opencode/v1.18.15";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, ... }:
+  outputs = { nixpkgs, home-manager, darwin, opencode, ... }:
+    let
+      # Reusable overlay list shared by all hosts.
+      overlays = (import ./overlays) ++ [ opencode.overlays.default ];
+    in
     {
       # Each host is described by a self-contained file under ./hosts/.
       # The flake just wires inputs to host descriptions.
@@ -30,7 +39,7 @@
         pkgs = import nixpkgs {
           system = "x86_64-linux";
           config.allowUnfree = true;
-          overlays = import ./overlays;
+          inherit overlays;
         };
         modules = [ ./hosts/linux.nix ];
       };

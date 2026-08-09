@@ -11,5 +11,9 @@
     lshw
     mkpasswd
     xsel
+    teams-for-linux
+    google-chrome
+    keepassxc
+    opencode
   ];
 }

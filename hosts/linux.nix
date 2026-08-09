@@ -26,6 +26,6 @@ in
   # (mirrors the extraSpecialArgs pattern used on darwin hosts).
   _module.args = { inherit userConfig; };
 
-  programs.git.userName  = userConfig.fullName;
-  programs.git.userEmail = userConfig.email;
+  programs.git.settings.user.name  = userConfig.fullName;
+  programs.git.settings.user.email = userConfig.email;
 }
