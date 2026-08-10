@@ -15,5 +15,6 @@
     google-chrome
     keepassxc
     opencode
+    slack
   ];
 }

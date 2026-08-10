@@ -43,10 +43,11 @@
 # resize-overlay-duration = 4s 200ms
 
 font-family = "Hack Nerd Font"
-font-size = 16
+font-size = 14
 
 theme = Catppuccin Macchiato
 
 macos-titlebar-style = hidden
+gtk-titlebar = false
 
 cursor-style = block_hollow
