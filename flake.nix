@@ -1,14 +1,25 @@
 {
   description = "st4nson's nix configuration";
 
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.soopy.moe"
+    ];
+    extra-trusted-public-keys = [ "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo=" ];
+  };
+
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/release-26.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
+
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-26.05";
     darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     home-manager = {
       url = "github:nix-community/home-manager/release-26.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     # Pin opencode to a specific version via upstream overlay.
     opencode = {
       url = "github:anomalyco/opencode/v1.18.15";
@@ -16,12 +27,14 @@
     };
   };
 
-  outputs = { nixpkgs, home-manager, darwin, opencode, ... }:
+  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, opencode, ... }:
     let
       # Reusable overlay list shared by all hosts.
       overlays = (import ./overlays) ++ [ opencode.overlays.default ];
     in
     {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
       # Each host is described by a self-contained file under ./hosts/.
       # The flake just wires inputs to host descriptions.
 
@@ -44,11 +57,13 @@
         modules = [ ./hosts/linux.nix ];
       };
 
-      # Future NixOS host slot (option A — when a Linux laptop materialises):
-      #
-      # nixosConfigurations.linux-laptop = nixpkgs.lib.nixosSystem {
-      #   system = "x86_64-linux";
-      #   modules = [ ./hosts/linux-laptop.nix ];
-      # };
+      nixosConfigurations.shodan = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [
+          ./hosts/shodan.nix
+          ./nix/substituter.nix
+          nixos-hardware.nixosModules.apple-t2
+        ];
+      };
     };
 }
