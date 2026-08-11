@@ -63,7 +63,7 @@
   users.users.st4nson = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "docker" ];
   };
 
   programs.zsh.enable = true;
@@ -95,6 +95,21 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  virtualisation.docker = {
+    enable = true;
+    daemon.settings = {
+      dns = [ "1.1.1.1" "8.8.8.8" ];
+      log-driver = "journald";
+      storage-driver = "overlay2";
+    };
+    # Use the rootless mode - run Docker daemon as non-root user
+    rootless = {
+      enable = true;
+      setSocketVariable = true;
+    };
+  };
+
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
