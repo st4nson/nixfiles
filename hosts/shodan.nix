@@ -102,6 +102,7 @@
     vim
     wget
     wl-clipboard
+    wtype
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

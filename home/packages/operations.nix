@@ -22,6 +22,7 @@
     krew
     kubectl
     kubectx
+    kubelogin
     kubernetes-helm
     kustomize_3
     skaffold
