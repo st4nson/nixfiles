@@ -31,6 +31,7 @@
     ripgrep
     saml2aws
     silver-searcher
+    sqlite
     sshpass
     superfile
     unzip

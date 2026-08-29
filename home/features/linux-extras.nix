@@ -8,14 +8,15 @@
 
 {
   home.packages = with pkgs; [
+    citrix_workspace
+    google-chrome
+    handy.packages.x86_64-linux.handy
+    keepassxc
     lshw
     mkpasswd
-    xsel
-    teams-for-linux
-    google-chrome
-    keepassxc
     opencode
     slack
-    handy.packages.x86_64-linux.handy
+    teams-for-linux
+    xsel
   ];
 }

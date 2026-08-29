@@ -36,7 +36,6 @@
       EDITOR="vim";
       ZSH_DISABLE_COMPFIX="true";
       COMPLETION_WAITING_DOTS = "true";
-      FZF_TMUX = 1;
       GOROOT = "$(go env GOROOT)";
       KEYTIMEOUT = 1;
       PATH = "$PATH:${config.home.homeDirectory}/golang/bin:${config.home.homeDirectory}/bin:${config.home.homeDirectory}/.krew/bin";

@@ -55,7 +55,10 @@
       homeConfigurations."st4nson@linux" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
           system = "x86_64-linux";
-          config.allowUnfree = true;
+          config = {
+            allowUnfree = true;
+            permittedInsecurePackages = [ "libsoup-2.74.3" ];
+          };
           inherit overlays;
         };
         modules = [ ./hosts/linux.nix ];

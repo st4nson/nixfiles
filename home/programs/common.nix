@@ -16,7 +16,7 @@
     bat = {
       enable = true;
       config = {
-        theme = "Catppuccin-macchiato";
+        theme = "Catppuccin Macchiato";
       };
     };
 
@@ -30,7 +30,7 @@
     fzf = {
       enable = true;
       enableZshIntegration = true;  # Add key bindings and completion to zsh
-      package = pkgs.fzf;
+      tmux.enableShellIntegration = true;
 
       defaultOptions = [
         "--border"  # Show border around fzf window for clarity
@@ -41,6 +41,37 @@
         "--color=selected-bg:#494D64"
         "--color=border:#6E738D,label:#CAD3F5"
       ];
+    };
+
+    atuin = {
+      enable= true;
+      daemon.enable = pkgs.stdenv.hostPlatform.isLinux;
+      enableZshIntegration = true;
+      settings = {
+        tmux = {
+          enabled = true;
+          width = "80%";
+          height = "60%";
+        };
+        theme = {
+          name = "catppuccin-macchiato-mauve";
+        };
+      };
+      themes = {
+        "catppuccin-macchiato-mauve" = {
+          theme.name = "catppuccin-macchiato-mauve";
+          colors = {
+            AlertInfo = "#a6da95";
+            AlertWarn = "#f5a97f";
+            AlertError = "#ed8796";
+            Annotation = "#c6a0f6";
+            Base = "#cad3f5";
+            Guidance = "#939ab7";
+            Important = "#ed8796";
+            Title = "#c6a0f6";
+          };
+        };
+      };
     };
   };
 }
