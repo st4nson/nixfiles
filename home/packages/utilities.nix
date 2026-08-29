@@ -6,6 +6,7 @@
     asciidoctor
     asciinema
     bind
+    drawio
     eza
     fastfetch
     fd

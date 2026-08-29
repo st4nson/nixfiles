@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, handy, ... }:
 
 # Linux CLI extras.
 #
@@ -16,5 +16,6 @@
     keepassxc
     opencode
     slack
+    handy.packages.x86_64-linux.handy
   ];
 }

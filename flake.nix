@@ -25,9 +25,13 @@
       url = "github:anomalyco/opencode/v1.18.15";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Offline speech-to-text (Linux only).
+    handy.url = "github:cjpais/Handy/v0.9.5";
+    handy.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, opencode, ... }:
+  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, opencode, handy, ... }:
     let
       # Reusable overlay list shared by all hosts.
       overlays = (import ./overlays) ++ [ opencode.overlays.default ];
@@ -55,6 +59,7 @@
           inherit overlays;
         };
         modules = [ ./hosts/linux.nix ];
+        extraSpecialArgs = { inherit handy; };
       };
 
       nixosConfigurations.shodan = nixpkgs.lib.nixosSystem {

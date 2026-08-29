@@ -16,6 +16,32 @@
   # Configure network connections interactively with nmcli or nmtui.
   networking.networkmanager.enable = true;
 
+  networking.nameservers = [ "127.0.0.1" ];
+
+  services.dnsmasq = {
+    enable = true;
+    settings = {
+      listen-address = [ "127.0.0.1" ];
+      bind-interfaces = true;
+
+      # Upstream order matters: first match wins.
+      server = [
+        "1.1.1.1"
+        "1.0.0.1"
+      ];
+
+      # Don't forward .local upstream -- avahi/mDNS owns it (RFC 6762).
+      local = [ "/local/" ];
+
+      # Don't read /etc/resolv.conf; the server= list above is authoritative.
+      no-resolv = true;
+
+      cache-size = 1000;
+      domain-needed = true;
+      bogus-priv = true;
+    };
+  };
+
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
 
@@ -63,7 +89,7 @@
   users.users.st4nson = {
     shell = pkgs.zsh;
     isNormalUser = true;
-    extraGroups = [ "wheel" "docker" ];
+    extraGroups = [ "wheel" "docker" "libvirtd" ];
   };
 
   programs.zsh.enable = true;
@@ -71,6 +97,7 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
+    dnsmasq
     git
     vim
     wget
@@ -110,6 +137,9 @@
     };
   };
 
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
+  networking.firewall.trustedInterfaces = [ "docker0" "virbr0" ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.

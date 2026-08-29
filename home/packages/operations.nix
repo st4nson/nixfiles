@@ -9,6 +9,7 @@
 
     # Container tools
     dive
+    docker-buildx
     docker-client
     docker-compose
     docker-credential-helpers
