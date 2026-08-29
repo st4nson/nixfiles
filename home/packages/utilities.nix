@@ -11,6 +11,7 @@
     fastfetch
     fd
     gimme-aws-creds
+    git-cliff
     gnupg
     gopass
     graphviz
@@ -26,14 +27,17 @@
     ncurses
     nix-index
     openssl
+    prek
     ranger
     restic
     ripgrep
+    rumdl
     saml2aws
     silver-searcher
     sqlite
     sshpass
     superfile
+    typos
     unzip
     vale
     wget
