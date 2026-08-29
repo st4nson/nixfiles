@@ -20,6 +20,7 @@
     ./programs/nvim.nix
     ./programs/tmux.nix
     ./programs/zsh.nix
+    ./programs/ollama.nix
 
     # Package bundles
     ./packages/development.nix
