@@ -11,6 +11,19 @@
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.efi.canTouchEfiVariables = false;
 
+  hardware.graphics = {
+    enable = true;              # already true implicitly (COSMIC pulls it), but be explicit
+    enable32Bit = true;         # you have this — keep it, the game is 32-bit
+    extraPackages = with pkgs; [
+      intel-media-driver        # Intel VA-API (iHD)
+      vpl-gpu-rt                # Intel oneVPL GPU runtime
+      libvdpau-va-gl            # VDPAU over VA-API
+    ];
+  };
+
+  programs.steam.enable = true;
+  nixpkgs.config.allowUnfree = true;
+
   networking.hostName = "shodan";
 
   # Configure network connections interactively with nmcli or nmtui.
@@ -26,6 +39,7 @@
 
       # Upstream order matters: first match wins.
       server = [
+        "/ts.net/100.100.100.100"
         "1.1.1.1"
         "1.0.0.1"
       ];
@@ -99,7 +113,10 @@
   environment.systemPackages = with pkgs; [
     dnsmasq
     git
+    mesa-demos
+    tailscale
     vim
+    vulkan-tools
     wget
     wl-clipboard
     wtype
@@ -123,6 +140,9 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+
+  # enable the tailscale service
+  services.tailscale.enable = true;
 
   virtualisation.docker = {
     enable = true;
