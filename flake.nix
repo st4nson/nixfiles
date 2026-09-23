@@ -4,12 +4,10 @@
   nixConfig = {
     extra-substituters = [
       "https://cache.soopy.moe"
-      "https://claude-code.cachix.org"
       "https://cache.numtide.com"
     ];
     extra-trusted-public-keys = [
       "cache.soopy.moe-1:0RZVsQeR+GOh0VQI9rvnHz55nVXkFardDqfm4+afjPo="
-      "claude-code.cachix.org-1:YeXf2aNu7UTX8Vwrze0za1WEDS+4DuI2kVeWEE4fsRk="
       "niks3.numtide.com-1:DTx8wZduET09hRmMtKdQDxNNthLQETkc/yaX7M4qK0g="
     ];
   };
@@ -26,25 +24,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # Pin opencode to a specific version via upstream overlay.
-    opencode = {
-      url = "github:anomalyco/opencode/v1.18.15";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    # Offline speech-to-text (Linux only).
-    handy.url = "github:cjpais/Handy/v0.9.5";
-    handy.inputs.nixpkgs.follows = "nixpkgs";
-
-    claude-code.url = "github:sadjow/claude-code-nix/?ref=v2.1.234";
-
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, opencode, handy, claude-code, llm-agents, ... }:
+  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, llm-agents, ... }:
     let
       # Reusable overlay list shared by all hosts.
-      overlays = (import ./overlays) ++ [ opencode.overlays.default ];
+      overlays = (import ./overlays);
     in
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
@@ -72,7 +58,7 @@
           inherit overlays;
         };
         modules = [ ./hosts/linux.nix ];
-        extraSpecialArgs = { inherit handy; inherit llm-agents; };
+        extraSpecialArgs = { inherit llm-agents; };
       };
 
       nixosConfigurations.shodan = nixpkgs.lib.nixosSystem {

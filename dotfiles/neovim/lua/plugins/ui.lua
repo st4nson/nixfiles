@@ -33,7 +33,7 @@ return {
           operators = {},
         },
         integrations = {
-          cmp = true,
+          blink_cmp = true,
           gitsigns = true,
           nvimtree = true,
           telescope = true,
@@ -113,7 +113,6 @@ return {
           override = {
             ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
             ["vim.lsp.util.stylize_markdown"] = true,
-            ["cmp.entry.get_documentation"] = true,
           },
         },
         presets = {
