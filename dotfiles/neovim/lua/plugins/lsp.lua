@@ -9,12 +9,17 @@ return {
   {
     "neovim/nvim-lspconfig",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
+      "saghen/blink.cmp",
       "rmagatti/goto-preview",
       "b0o/schemastore.nvim",
     },
     config = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      -- blink.cmp advertises the client-side completion features (snippet
+      -- support, resolve/additionalTextEdits, label details) that servers gate
+      -- their richer responses on. Set explicitly rather than relying on
+      -- blink's `vim.lsp.config('*')` hook, since these configs are merged
+      -- into `lsp_default_config` below.
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       -- ======================================================================
       -- LSP Keymaps (set on attach)

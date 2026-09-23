@@ -24,12 +24,14 @@ let
     else ".config/ghostty/config";
 
   # ncurses >= 6.6 ships the `g/ghostty` terminfo entry, which collides with
-  # ghostty's own terminfo symlink in buildEnv. Drop ghostty's copy; ncurses
-  # already provides the same definition.
+  # ghostty's own terminfo symlink in buildEnv. Drop only that entry; ncurses
+  # provides an equivalent definition. `x/xterm-ghostty` must stay — ghostty
+  # uses it as a sentinel to locate its resources dir (and hence bundled
+  # themes), so nuking the whole terminfo dir breaks theme resolution.
   ghostty =
     pkgs.ghostty.overrideAttrs (old: {
       postFixup = (old.postFixup or "") + ''
-        rm $out/share/terminfo
+        rm $out/share/terminfo/g/ghostty
       '';
     });
 in

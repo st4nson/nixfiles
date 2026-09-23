@@ -57,6 +57,7 @@
       }
       tmuxPlugins.prefix-highlight
       tmuxPlugins.resurrect
+      tmuxPlugins.continuum
       tmuxPlugins.yank
     ];
 

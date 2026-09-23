@@ -20,6 +20,7 @@
     k9s
     kind
     krew
+    kube-linter
     kubectl
     kubectx
     kubelogin

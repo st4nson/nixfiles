@@ -48,6 +48,8 @@
       daemon.enable = pkgs.stdenv.hostPlatform.isLinux;
       enableZshIntegration = true;
       settings = {
+        keymap_mode = "vim-insert";
+        filter_mode_shell_up_key_binding = "session";
         tmux = {
           enabled = true;
           width = "80%";

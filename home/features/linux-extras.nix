@@ -11,12 +11,15 @@
     citrix_workspace
     claude-code
     google-chrome
+    gparted
     handy.packages.x86_64-linux.handy
     keepassxc
+    libreoffice
     llm-agents.packages.x86_64-linux.pi
     localsend
     lshw
-    libreoffice
+    ntfs3g
+    heroic
     mkpasswd
     opencode
     slack
