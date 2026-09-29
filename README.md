@@ -6,6 +6,7 @@
 |----------------------------------------|---------------|
 | `.#darwinConfigurations.work`          | nix-darwin    |
 | `.#homeConfigurations."st4nson@linux"` | standalone HM |
+| `.#nixosConfigurations.shodan`         | NixOS         |
 
 ## Quick start
 
@@ -27,6 +28,16 @@ nix-switch-work
 
 ```bash
 home-manager switch --flake '.#st4nson@linux'
+```
+
+### NixOS (shodan)
+
+```bash
+# Build only
+sudo nixos-rebuild build --flake '.#shodan'
+
+# Build + activate
+sudo nixos-rebuild switch --flake '.#shodan'
 ```
 
 ### Sanity checks
