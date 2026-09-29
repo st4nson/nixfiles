@@ -14,7 +14,10 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    # Pinned to PR #1934 (apple/t2: kernel 7.2; new t2bce stack), which fixes
+    # the stale 6.18.29 patch set that broke the stable channel. Switch back to
+    # github:NixOS/nixos-hardware once merged.
+    nixos-hardware.url = "github:NixOS/nixos-hardware/3aaffff9e00ddd0dcfff5aef76586a2004e2efe5";
 
     darwin.url = "github:lnl7/nix-darwin/nix-darwin-26.05";
     darwin.inputs.nixpkgs.follows = "nixpkgs";

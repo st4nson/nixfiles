@@ -56,6 +56,10 @@
       requests       # HTTP library
       tox            # Testing automation
       xmltodict      # XML to dict parser
+      pypdf
+      pdfplumber
+      pandas
+      reportlab
     ]))
     # python3Packages.black                # Code formatter
     # python3Packages.nose                 # Testing framework

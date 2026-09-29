@@ -27,6 +27,7 @@
     ncurses
     nix-index
     openssl
+    poppler
     prek
     ranger
     restic

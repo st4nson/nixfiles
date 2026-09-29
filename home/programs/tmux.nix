@@ -20,6 +20,7 @@
       set -g default-terminal "$TERM"
       set-option -ga terminal-overrides ",$TERM:Tc"
       set -g mouse on           # mouse support
+      set -g automatic-rename off
 
       # stop confusion while spliting windows
       bind | split-window -h

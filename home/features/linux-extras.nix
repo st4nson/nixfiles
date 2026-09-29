@@ -15,8 +15,8 @@
     keepassxc
     libreoffice
     llm-agents.packages.x86_64-linux.claude-code
-    llm-agents.packages.x86_64-linux.opencode
     llm-agents.packages.x86_64-linux.handy
+    llm-agents.packages.x86_64-linux.opencode
     llm-agents.packages.x86_64-linux.pi
     localsend
     lshw
