@@ -20,5 +20,8 @@ result-*
 # Temporary files
 *.tmp
 
+# Local issue tracker scratch (specs + tickets)
+.scratch/
+
 # Local git configuration
 .gitconfig.local

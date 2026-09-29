@@ -2,8 +2,9 @@
 
 ## Project overview
 
-Personal Nix config for macOS (nix-darwin + Home Manager) and Linux (standalone
-Home Manager). Single user, named-host outputs, no profile system.
+Personal Nix config for macOS (nix-darwin + Home Manager), Linux (standalone
+Home Manager), and one NixOS host. Single user, named-host outputs, no profile
+system.
 
 **Stack:** Nix (primary), Lua (Neovim), Shell/zsh, YAML/TOML (app configs)
 
@@ -11,7 +12,7 @@ Home Manager). Single user, named-host outputs, no profile system.
 
 ```bash
 # Validate (before committing)
-nix flake check                                       # both outputs
+nix flake check                                       # all outputs
 darwin-rebuild build --flake '.#work'                 # darwin host
 nix eval '.#homeConfigurations."st4nson@linux".config.home.username'
 # Linux host: eval-only without a Linux builder.
@@ -30,7 +31,7 @@ nix flake update
 nix flake lock --update-input nixpkgs
 ```
 
-No test suite — validation is successful builds. Commit `flake.lock`.
+No test suite — validation is a successful build. Commit `flake.lock`.
 
 ## Repository layout
 
@@ -38,8 +39,10 @@ No test suite — validation is successful builds. Commit `flake.lock`.
 nixfiles/
 ├── flake.nix              # named-host outputs only
 ├── hosts/
-│   ├── work.nix           # darwin: (Work MacBook)
-│   └── linux.nix          # standalone HM: st4nson@linux
+│   ├── work.nix           # darwin: Work MacBook
+│   ├── linux.nix          # standalone HM: st4nson@linux
+│   ├── shodan.nix         # NixOS: Shodan (apple-t2)
+│   └── shodan-hw-cfg.nix  # Shodan hardware profile
 ├── darwin/                # macOS modules (system, services, fonts)
 ├── home/
 │   ├── default.nix        # HM entry; imports programs + packages
@@ -48,9 +51,13 @@ nixfiles/
 │   └── features/          # host-specific opt-ins
 │       ├── nike-work.nix  # AWS env, KUBECACHEDIR, work-host aliases
 │       └── linux-extras.nix # Linux CLI extras
-├── overlays/              # nixpkgs overlays (empty)
+├── nix/                   # NixOS fragments (substituter.nix)
+├── overlays/              # nixpkgs overlays (default.nix exports; pkgs/ pins)
 └── dotfiles/              # raw configs, live-symlinked where applicable
 ```
+
+The overlay in `overlays/pkgs/python-okta-2.nix` pins `okta` to 2.9.13 so
+`gimme-aws-creds` builds. Don't remove it without checking that package.
 
 ## Code style
 
@@ -64,8 +71,8 @@ nixfiles/
 }
 ```
 
-`userConfig` is threaded by the host via `_module.args` (darwin modules) and
-`home-manager.extraSpecialArgs` (HM modules). The Linux host uses
+`userConfig` is threaded by the host via `_module.args` (darwin + NixOS modules)
+and `home-manager.extraSpecialArgs` (HM modules). The Linux host uses
 `_module.args` only (single module system).
 
 ### Conventions
@@ -110,11 +117,13 @@ DevOps/cloud/k8s, `utilities.nix` for general CLI). Gate per-platform with
 
 **New host:**
 
-1. Copy `hosts/work.nix` (darwin) or `hosts/linux.nix` (HM)
+1. Copy `hosts/work.nix` (darwin), `hosts/linux.nix` (HM), or
+   `hosts/shodan.nix` (NixOS)
 2. Fill in `userConfig` (and `hostConfig`/system for darwin)
 3. Wire in `flake.nix`:
    - darwin: `darwinConfigurations.<name> = darwin.lib.darwinSystem { ... }`
    - HM: `homeConfigurations."<user>@<host>" = home-manager.lib.homeManagerConfiguration { ... }`
+   - NixOS: `nixosConfigurations.<name> = nixpkgs.lib.nixosSystem { ... }`
 
 **New feature** — add `home/features/<name>.nix`, opt-in only from
 `hosts/<host>.nix` imports.
@@ -144,3 +153,20 @@ xdg.configFile."nvim".source =
 # Static symlink (read-only via Nix store, requires rebuild)
 home.file.".config/foo".source = ../../dotfiles/foo;
 ```
+
+## Agent skills
+
+### Issue tracker
+
+Issues and specs live as local markdown under `.scratch/<feature>/`. See
+`docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Five canonical triage roles map 1:1 to their label strings. See
+`docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: `CONTEXT.md` + `docs/adr/` at the repo root. See
+`docs/agents/domain.md`.
