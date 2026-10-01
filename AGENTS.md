@@ -51,6 +51,7 @@ nixfiles/
 │   └── features/          # host-specific opt-ins
 │       ├── nike-work.nix  # AWS env, KUBECACHEDIR, work-host aliases
 │       └── linux-extras.nix # Linux CLI extras
+├── modules/               # cross-system option modules (identity.nix)
 ├── nix/                   # NixOS fragments (substituter.nix)
 ├── overlays/              # nixpkgs overlays (default.nix exports; pkgs/ pins)
 └── dotfiles/              # raw configs, live-symlinked where applicable
@@ -64,16 +65,15 @@ The overlay in `overlays/pkgs/python-okta-2.nix` pins `okta` to 2.9.13 so
 ### Module signature
 
 ```nix
-{ config, pkgs, lib, userConfig, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   # ...
 }
 ```
 
-`userConfig` is threaded by the host via `_module.args` (darwin + NixOS modules)
-and `home-manager.extraSpecialArgs` (HM modules). The Linux host uses
-`_module.args` only (single module system).
+Host identity is read as `config.userConfig`, declared in
+`modules/identity.nix`.
 
 ### Conventions
 
