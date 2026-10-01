@@ -20,7 +20,4 @@
     email = "st4nson@gmail.com";
     homeDirectory = "/home/st4nson";
   };
-
-  programs.git.settings.user.name = config.userConfig.fullName;
-  programs.git.settings.user.email = config.userConfig.email;
 }

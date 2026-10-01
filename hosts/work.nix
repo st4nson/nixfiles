@@ -33,9 +33,6 @@
     ];
 
     userConfig = config.userConfig;
-
-    programs.git.settings.user.name = config.userConfig.fullName;
-    programs.git.settings.user.email = config.userConfig.email;
   };
 
   users.users.${config.userConfig.username}.home = config.userConfig.homeDirectory;
