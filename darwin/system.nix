@@ -1,10 +1,10 @@
-{ config, pkgs, userConfig, ... }:
+{ config, pkgs, ... }:
 
 {
   # macOS system defaults and preferences
 
   # Primary user for system activation (parameterized)
-  system.primaryUser = userConfig.username;
+  system.primaryUser = config.userConfig.username;
 
   # Global domain settings
   system.defaults.NSGlobalDomain._HIHideMenuBar = true;
@@ -30,7 +30,10 @@
 
   # Nix configuration
   nix.enable = true;
-  nix.settings.trusted-users = [ "root" userConfig.username ];
+  nix.settings.trusted-users = [
+    "root"
+    config.userConfig.username
+  ];
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';

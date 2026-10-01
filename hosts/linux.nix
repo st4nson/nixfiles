@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 # Personal Linux host (build-only today — no physical machine yet).
 #
@@ -8,24 +8,19 @@
 # Self-contained host description. Hosts/<name>.nix is the single
 # source of truth for per-host identity + feature opt-ins.
 
-let
-  userConfig = {
-    username      = "st4nson";
-    fullName      = "st4nson";
-    email         = "st4nson@gmail.com";
-    homeDirectory = "/home/st4nson";
-  };
-in
 {
   imports = [
     ../home
     ../home/features/linux-extras.nix
   ];
 
-  # Make userConfig available to all imported HM modules
-  # (mirrors the extraSpecialArgs pattern used on darwin hosts).
-  _module.args = { inherit userConfig; };
+  userConfig = {
+    username = "st4nson";
+    fullName = "st4nson";
+    email = "st4nson@gmail.com";
+    homeDirectory = "/home/st4nson";
+  };
 
-  programs.git.settings.user.name  = userConfig.fullName;
-  programs.git.settings.user.email = userConfig.email;
+  programs.git.settings.user.name = config.userConfig.fullName;
+  programs.git.settings.user.email = config.userConfig.email;
 }

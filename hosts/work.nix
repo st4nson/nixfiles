@@ -1,40 +1,42 @@
-{ pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 # Work machine
 
-let
-  userConfig = {
-    username      = "st4nson";
-    fullName      = "Stanisław Szydło";
-    email         = "st4nson@gmail.com";
-    homeDirectory = "/Users/st4nson";
-  };
-in
 {
   imports = [
     ../darwin
+    ../modules/identity.nix
   ];
 
-  # Make userConfig available to all darwin modules
-  # (replaces the flake-level `specialArgs` plumbing).
-  _module.args = { inherit userConfig; };
+  userConfig = {
+    username = "st4nson";
+    fullName = "Stanisław Szydło";
+    email = "st4nson@gmail.com";
+    homeDirectory = "/Users/st4nson";
+  };
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays           = import ../overlays;
+  nixpkgs.overlays = import ../overlays;
 
-  home-manager.useGlobalPkgs    = true;
-  home-manager.useUserPackages  = true;
-  home-manager.extraSpecialArgs = { inherit userConfig; };
+  home-manager.useGlobalPkgs = true;
+  home-manager.useUserPackages = true;
 
-  home-manager.users.${userConfig.username} = {
+  home-manager.users.${config.userConfig.username} = {
     imports = [
       ../home
       #../home/features/nike-work.nix
     ];
 
-    programs.git.settings.user.name  = userConfig.fullName;
-    programs.git.settings.user.email = userConfig.email;
+    userConfig = config.userConfig;
+
+    programs.git.settings.user.name = config.userConfig.fullName;
+    programs.git.settings.user.email = config.userConfig.email;
   };
 
-  users.users.${userConfig.username}.home = userConfig.homeDirectory;
+  users.users.${config.userConfig.username}.home = config.userConfig.homeDirectory;
 }

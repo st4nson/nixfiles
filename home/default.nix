@@ -1,4 +1,9 @@
-{ config, pkgs, lib, userConfig, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 # Home Manager entry point.
 #
@@ -12,6 +17,8 @@
 
 {
   imports = [
+    ../modules/identity.nix
+
     # Programs
     ./programs/common.nix
     ./programs/ghostty.nix
@@ -28,9 +35,9 @@
     ./packages/utilities.nix
   ];
 
-  home.username      = userConfig.username;
-  home.homeDirectory = userConfig.homeDirectory;
-  home.stateVersion  = "25.05";
+  home.username = config.userConfig.username;
+  home.homeDirectory = config.userConfig.homeDirectory;
+  home.stateVersion = "25.05";
 
   # Directly-symlinked dotfiles — darwin-only.
   home.file.".config/sketchybar" = lib.mkIf pkgs.stdenv.isDarwin {
