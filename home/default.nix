@@ -36,4 +36,6 @@
   home.username = config.userConfig.username;
   home.homeDirectory = config.userConfig.homeDirectory;
   home.stateVersion = "25.05";
+
+  home.sessionVariables.EDITOR = "vim";
 }

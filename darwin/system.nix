@@ -18,11 +18,6 @@
   # Spaces/Mission Control settings
   system.defaults.spaces.spans-displays = false;
 
-  # Environment variables
-  environment.variables = {
-    EDITOR = "vim";
-  };
-
   # System packages
   environment.systemPackages = with pkgs; [
     vim
