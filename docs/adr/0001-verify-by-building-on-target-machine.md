@@ -1,18 +1,27 @@
-# Verify by building on the target machine; no `checks` output, no CI
+# Verify by building on the target machine; eval-only darwin check, no CI
 
 We verify Nix changes by building them on the machine they target —
 `home-manager build` / `nixos-rebuild build` on shodan, `darwin-rebuild build`
-on the Mac — instead of adding a flake `checks` output or CI. A `checks` output
-would duplicate those builds for the Linux hosts, and its only unique value
-(evaluating the darwin config while on Linux) does not justify a second
-verification path. Rejected: `checks.x86_64-linux.*` for the HM and shodan
-builds, and a `nixfmt` check (the commit hook already gates staged files).
+on the Mac — instead of adding CI. For the Linux hosts a `checks` output would
+duplicate those builds, so we add none for them.
+
+The one exception is `checks.x86_64-linux.darwin-eval`: it forces every darwin
+toplevel `drvPath` with `builtins.deepSeq` and builds nothing. It does not
+duplicate the target-machine build; its unique value is evaluating the darwin
+config while on Linux, which is what previously let a broken darwin package
+reach `nix flake check` unnoticed. Rejected: `checks.x86_64-linux.*` for the HM
+and shodan builds, and a `nixfmt` check (the commit hook already gates staged
+files).
 
 ## Consequences
 
-A cross-system config error is discovered at switch time, not at commit time.
-Concretely: `home/packages/development.nix` installs a Python env whose
-`pandas` pulls `arrow-cpp`, which nixpkgs marks broken on x86_64-darwin; Home
-Manager's darwin fonts module forces all `home.packages`, so the darwin build
-fails while `nix flake check` reports success. This is accepted: the darwin
-config is fixed when the Mac is next used.
+An eval-time cross-system config error is now caught by `nix flake check` on
+Linux, not only at switch time on the Mac. Concretely:
+`home/packages/development.nix` installed a Python env whose `pdfplumber`
+pulled `arrow-cpp`, which nixpkgs marks broken on x86_64-darwin; `darwin-eval`
+now fails on Linux when such a broken package enters the darwin
+`home.packages`.
+
+Residual risk: a darwin failure that only appears at build time — not eval
+time — is still discovered at switch time, so this ADR still requires building
+on the target machine before switching.

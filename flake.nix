@@ -39,12 +39,7 @@
       llm-agents,
       ...
     }:
-    {
-      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
-
-      # Each host is described by a self-contained file under ./hosts/.
-      # The flake just wires inputs to host descriptions.
-
+    let
       darwinConfigurations.work = darwin.lib.darwinSystem {
         system = "x86_64-darwin";
         modules = [
@@ -52,6 +47,14 @@
           home-manager.darwinModules.home-manager
         ];
       };
+    in
+    {
+      formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
+
+      # Each host is described by a self-contained file under ./hosts/.
+      # The flake just wires inputs to host descriptions.
+
+      inherit darwinConfigurations;
 
       # Standalone Home Manager target (no NixOS host yet).
       # Activate with: `home-manager switch --flake '.#st4nson@linux'`
@@ -75,5 +78,17 @@
           nixos-hardware.nixosModules.apple-t2
         ];
       };
+
+      # Eval-only darwin check: forces every darwin toplevel drvPath, builds
+      # nothing. Catches broken darwin packages on Linux without duplicating
+      # the target-machine build (ADR-0001).
+      checks.x86_64-linux.darwin-eval =
+        let
+          pkgs = nixpkgs.legacyPackages.x86_64-linux;
+          drvPaths = builtins.map (cfg: cfg.config.system.build.toplevel.drvPath) (
+            builtins.attrValues darwinConfigurations
+          );
+        in
+        builtins.deepSeq drvPaths (pkgs.runCommand "darwin-eval" { } "touch $out");
     };
 }

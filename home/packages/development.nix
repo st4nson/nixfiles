@@ -1,4 +1,9 @@
-{ config, pkgs, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 
 {
   # Programming languages, compilers, and development tools
@@ -42,25 +47,31 @@
     # Using pipenv for virtual environment management.
     #
     # pipenv
-    (python314.withPackages(ps: with ps; [
-      isort          # Import sorting
-      jedi           # Autocompletion
-      jinja2         # Template engine
-      pylint         # Linter
-      pep8           # Style checker
-      flake8         # Code quality
-      pyopenssl      # OpenSSL wrapper
-      pytest         # Testing framework
-      pycodestyle    # PEP 8 style guide checker
-      pyyaml         # YAML parser
-      requests       # HTTP library
-      tox            # Testing automation
-      xmltodict      # XML to dict parser
-      pypdf
-      pdfplumber
-      pandas
-      reportlab
-    ]))
+    (python314.withPackages (
+      ps:
+      with ps;
+      [
+        isort # Import sorting
+        jedi # Autocompletion
+        jinja2 # Template engine
+        pylint # Linter
+        pep8 # Style checker
+        flake8 # Code quality
+        pyopenssl # OpenSSL wrapper
+        pytest # Testing framework
+        pycodestyle # PEP 8 style guide checker
+        pyyaml # YAML parser
+        requests # HTTP library
+        tox # Testing automation
+        xmltodict # XML to dict parser
+        pypdf
+        pandas
+        reportlab
+      ]
+      ++ lib.optionals pkgs.stdenv.isLinux [
+        pdfplumber
+      ]
+    ))
     # python3Packages.black                # Code formatter
     # python3Packages.nose                 # Testing framework
     # python3Packages.pyflakes             # Checker
