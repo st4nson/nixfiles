@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ ... }:
 
 # Personal Linux host (build-only today — no physical machine yet).
 #
