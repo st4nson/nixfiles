@@ -17,10 +17,6 @@ darwin-rebuild build --flake '.#work'                 # darwin host
 nix eval '.#homeConfigurations."st4nson@linux".config.home.username'
 # Linux host: eval-only without a Linux builder.
 
-# Activate
-sudo darwin-rebuild switch --flake '.#work'           # macOS
-home-manager switch --flake '.#st4nson@linux'         # Linux
-
 # Debug / lint
 darwin-rebuild build --flake '.#work' --show-trace
 nixfmt **/*.nix
@@ -33,32 +29,9 @@ nix flake lock --update-input nixpkgs
 
 No test suite — validation is a successful build. Commit `flake.lock`.
 
-## Repository layout
-
-```
-nixfiles/
-├── flake.nix              # named-host outputs only
-├── hosts/
-│   ├── work.nix           # darwin: Work MacBook
-│   ├── linux.nix          # standalone HM: st4nson@linux
-│   ├── shodan.nix         # NixOS: Shodan (apple-t2)
-│   └── shodan-hw-cfg.nix  # Shodan hardware profile
-├── darwin/                # macOS modules (system, services, fonts)
-├── home/
-│   ├── default.nix        # HM entry; imports programs + packages
-│   ├── programs/          # one file per program
-│   ├── packages/          # bundles: development, operations, utilities
-│   └── features/          # host-specific opt-ins
-│       ├── nike-work.nix  # AWS env, KUBECACHEDIR, work-host aliases
-│       └── linux-extras.nix # Linux CLI extras
-├── modules/               # cross-system option modules (identity.nix)
-├── nix/                   # NixOS fragments (substituter.nix)
-├── overlays/              # nixpkgs overlays (default.nix exports; pkgs/ pins)
-└── dotfiles/              # raw configs, live-symlinked where applicable
-```
-
-The overlay in `overlays/pkgs/python-okta-2.nix` pins `okta` to 2.9.13 so
-`gimme-aws-creds` builds. Don't remove it without checking that package.
+Commits are hook-gated: a repo-local opencode hook runs `nixfmt --check` and
+`shellcheck` on changed files, and `nix flake check` when `.nix` files are
+staged.
 
 ## Coding standards
 
