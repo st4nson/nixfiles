@@ -23,6 +23,7 @@
   home-manager.users.${config.userConfig.username} = {
     imports = [
       ../home
+      ../home/features/darwin.nix
       #../home/features/nike-work.nix
     ];
 

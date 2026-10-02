@@ -1,7 +1,5 @@
 {
   config,
-  pkgs,
-  lib,
   ...
 }:
 
@@ -11,8 +9,8 @@
 # whether this evaluates on a Darwin host (via nix-darwin) or a Linux
 # host (via standalone Home Manager / future NixOS module).
 #
-# Host-specific tweaks (Nike work env, Linux CLI extras, etc.) live
-# under ./features/ and are imported only by the relevant
+# Host- or platform-specific opt-ins (Linux CLI extras, Darwin extras,
+# etc.) live under ./features/ and are imported only by the relevant
 # hosts/<name>.nix.
 
 {
@@ -38,9 +36,4 @@
   home.username = config.userConfig.username;
   home.homeDirectory = config.userConfig.homeDirectory;
   home.stateVersion = "25.05";
-
-  # Directly-symlinked dotfiles — darwin-only.
-  home.file.".config/sketchybar" = lib.mkIf pkgs.stdenv.isDarwin {
-    source = ../dotfiles/sketchybar;
-  };
 }
