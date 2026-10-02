@@ -30,9 +30,9 @@ A platform-gated package list under `home/packages/`: `development.nix`
 
 ## Feature
 
-A host-specific opt-in module under `home/features/`, imported only by the
-hosts that want it. Anything host-specific belongs here so the shared `home/`
-tree stays portable.
+A host- or platform-specific opt-in module under `home/features/`, imported
+only by the hosts that want it. Anything host- or platform-specific belongs
+here so the shared `home/` tree stays portable.
 
 ## Overlay
 

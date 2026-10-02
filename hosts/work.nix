@@ -24,7 +24,6 @@
     imports = [
       ../home
       ../home/features/darwin.nix
-      #../home/features/nike-work.nix
     ];
 
     userConfig = config.userConfig;
