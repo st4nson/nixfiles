@@ -30,11 +30,15 @@
     llm-agents.url = "github:numtide/llm-agents.nix";
   };
 
-  outputs = { nixpkgs, nixos-hardware, home-manager, darwin, llm-agents, ... }:
-    let
-      # Reusable overlay list shared by all hosts.
-      overlays = (import ./overlays);
-    in
+  outputs =
+    {
+      nixpkgs,
+      nixos-hardware,
+      home-manager,
+      darwin,
+      llm-agents,
+      ...
+    }:
     {
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
@@ -58,7 +62,6 @@
             allowUnfree = true;
             permittedInsecurePackages = [ "libsoup-2.74.3" ];
           };
-          inherit overlays;
         };
         modules = [ ./hosts/linux.nix ];
         extraSpecialArgs = { inherit llm-agents; };

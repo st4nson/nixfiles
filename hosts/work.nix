@@ -21,7 +21,6 @@
   };
 
   nixpkgs.config.allowUnfree = true;
-  nixpkgs.overlays = import ../overlays;
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
